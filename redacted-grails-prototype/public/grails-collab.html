@@ -1,0 +1,1868 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GRAILS — Collaborative Beat Sheet</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0a0a0f;--bg-p:#0d0d14;--bg-l:#100d0e;--bg-s:#111118;--bg-h:#16161f;
+  --b:#1e1e2e;--bm:#252535;
+  --c:#00d9ff;--cd:#00b8d9;--cg:rgba(0,217,255,0.12);--cgs:rgba(0,217,255,0.25);
+  --am:#ffb347;
+  --tp:#e8e8f0;--ts:#7878a0;--tm:#4a4a6a;--td:#2a2a42;
+  --gr:#00ff88;--r:#ff4466;
+  --cs:#8b5cf6;
+}
+html,body{height:100%;background:var(--bg);color:var(--tp);font-family:'IBM Plex Mono',monospace;overflow:hidden;margin:0}
+body{display:flex;flex-direction:column}
+.hdr{display:flex;align-items:center;justify-content:flex-end;padding:0 16px;height:40px;border-bottom:1px solid var(--b);background:var(--bg-p);flex-shrink:0}
+.hdr-l{display:flex;align-items:center;gap:16px}
+.hdr-ttl{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:15px;letter-spacing:.1em;text-transform:uppercase}
+.hdr-ttl span{color:var(--c)}
+.dvdr{width:1px;height:20px;background:var(--bm)}
+.stat{display:flex;align-items:center;gap:7px;font-size:11px;color:var(--tm)}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--gr);box-shadow:0 0 8px var(--gr);animation:pulse 2.2s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 8px var(--gr)}50%{opacity:.4;box-shadow:0 0 3px var(--gr)}}
+.hdr-r{display:flex;gap:8px}
+.btn{font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:7px 14px;border-radius:3px;border:1px solid var(--bm);background:transparent;color:var(--ts);cursor:pointer;transition:all .15s}
+.btn:hover{border-color:var(--cd);color:var(--c);background:var(--cg)}
+.btn-p{border-color:var(--cd);color:var(--c);background:var(--cg)}
+.btn-p:hover{background:var(--cgs)}
+.btn-clr{border-color:var(--td);color:var(--tm);font-size:9px;opacity:.6}
+.btn-clr:hover{border-color:var(--r);color:var(--r);background:rgba(255,68,102,.06);opacity:1}
+.bnav{display:flex;align-items:center;gap:10px;padding:10px 24px;border-bottom:1px solid var(--b);background:var(--bg-p);flex-shrink:0}
+.narr{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ts);background:transparent;border:1px solid var(--bm);border-radius:3px;padding:5px 12px;cursor:pointer;transition:all .15s}
+.narr:hover{border-color:var(--cd);color:var(--c);background:var(--cg)}
+.narr:disabled{opacity:.2;cursor:not-allowed}
+.sw{flex:1;position:relative}
+.bsel{width:100%;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--tp);background:var(--bg-s);border:1px solid var(--bm);border-radius:3px;padding:7px 30px 7px 12px;cursor:pointer;appearance:none}
+.bsel:focus{outline:none;border-color:var(--cd)}
+.sw::after{content:'▾';position:absolute;right:11px;top:50%;transform:translateY(-50%);color:var(--tm);pointer-events:none}
+.bctr{font-size:10px;color:var(--tm);white-space:nowrap;min-width:46px;text-align:right}
+.prog{height:2px;background:var(--b);flex-shrink:0}
+.pf{height:100%;background:linear-gradient(90deg,var(--c),var(--cd));transition:width .3s}
+.ws{display:flex;flex:1;overflow:hidden;min-height:0}
+.pl{width:38%;flex:none;display:flex;flex-direction:column;background:var(--bg-l);position:relative;overflow:hidden}
+/* Resize handles */
+.rh-v{width:5px;background:transparent;cursor:col-resize;flex-shrink:0;position:relative;z-index:10;transition:background .15s}
+.rh-v::after{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:1px;height:40px;background:var(--bm);border-radius:2px;transition:background .15s}
+.rh-v:hover,.rh-v.dragging{background:rgba(0,217,255,0.06)}
+.rh-v:hover::after,.rh-v.dragging::after{background:var(--c)}
+.rh-h{height:5px;background:transparent;cursor:row-resize;flex-shrink:0;position:relative;z-index:10;transition:background .15s}
+.rh-h::after{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:40px;height:1px;background:var(--bm);border-radius:2px;transition:background .15s}
+.rh-h:hover,.rh-h.dragging{background:rgba(0,217,255,0.06)}
+.rh-h:hover::after,.rh-h.dragging::after{background:var(--c)}
+.ph{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;border-bottom:1px solid var(--b);flex-shrink:0}
+.plbl{font-size:9px;font-weight:500;letter-spacing:.15em;text-transform:uppercase}
+.lb{color:var(--am);opacity:.75}
+.cct{font-size:9px;color:var(--td)}
+.iw{flex:1;padding:14px 16px 10px;display:flex;flex-direction:column;overflow:hidden}
+textarea.note{width:100%;flex:1;font-family:'IBM Plex Mono',monospace;font-size:12px;line-height:1.75;color:var(--tp);background:var(--bg-s);border:1px solid var(--bm);border-radius:4px;padding:13px;resize:none}
+textarea.note::placeholder{color:var(--td);font-style:italic}
+textarea.note:focus{outline:none;border-color:rgba(255,179,71,.35);box-shadow:0 0 0 2px rgba(255,179,71,.06)}
+.sa{padding:10px 16px 14px;border-top:1px solid var(--b);flex-shrink:0}
+.sbtn{width:100%;font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:11px;border-radius:3px;border:1px solid var(--cd);background:var(--cg);color:var(--c);cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center;gap:8px}
+.sbtn:hover{background:var(--cgs);box-shadow:0 0 16px var(--cg)}
+.shint{font-size:9px;color:var(--td);text-align:center;margin-top:6px}
+.asb{flex-shrink:0;overflow-y:auto;border-top:1px solid var(--b);padding:8px 16px 12px;display:none;flex-direction:column;gap:5px;min-height:0}
+.ashdr{font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:var(--td);margin-bottom:4px}
+.achip{background:rgba(0,217,255,.03);border:1px solid rgba(0,217,255,.1);border-radius:3px;padding:7px 28px 7px 10px;font-size:10px;line-height:1.55;color:var(--ts);position:relative}
+.achip .cdel{position:absolute;top:6px;right:8px;font-size:11px;color:var(--td);cursor:pointer;background:none;border:none;font-family:inherit;transition:color .1s;line-height:1;padding:2px}
+.achip .cdel:hover{color:var(--r)}
+.pr{flex:1;display:flex;flex-direction:column;background:var(--bg);overflow:hidden}
+.bscr{flex:1;overflow-y:auto;padding:26px 30px 50px}
+.bc{width:100%}
+.bsq{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--tm);margin-bottom:4px}
+.bttl{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;letter-spacing:.04em;color:var(--tp);margin-bottom:4px;line-height:1.2}
+.bttl .bn{color:var(--c);font-size:14px;font-weight:400;margin-right:8px;opacity:.6}
+.ctag{display:inline-block;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#0a0a0f;border-radius:2px;padding:3px 10px;margin-bottom:22px;font-weight:700}
+.ct-t{background:var(--cd)}
+.ct-b{background:var(--am)}
+.ct-d{background:var(--tm)}
+.fld{margin-bottom:16px}
+.fl{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--c);opacity:.55;margin-bottom:4px}
+.fv{font-size:12px;line-height:1.75;color:var(--ts)}
+.fv.loc{color:var(--tp);font-size:11px;letter-spacing:.03em}
+.sec{margin-bottom:22px;padding-bottom:22px;border-bottom:1px solid var(--b)}
+.sec:last-child{border-bottom:none;margin-bottom:0}
+.slbl{font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--tm);margin-bottom:10px;font-weight:600;display:flex;align-items:center;gap:10px}
+.slbl::after{content:'';flex:1;height:1px;background:var(--b)}
+.sb{font-size:12px;line-height:1.8;color:var(--ts);white-space:pre-line}
+.zi{display:flex;gap:12px;font-size:11px;margin-bottom:7px}
+.zr{font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--td);flex-shrink:0;width:90px;padding-top:1px}
+.zv{color:var(--ts);line-height:1.6}
+.sr{display:flex;gap:12px;margin-bottom:7px;font-size:11px}
+.sk{font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--td);flex-shrink:0;width:60px;padding-top:1px}
+.sv{color:var(--ts);line-height:1.6}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tag{font-size:9px;letter-spacing:.1em;text-transform:uppercase;border:1px solid var(--bm);border-radius:2px;padding:3px 8px;color:var(--tm)}
+.ab{margin:20px 0;border-left:2px solid var(--c);padding:13px 16px;background:rgba(0,217,255,.04);border-radius:0 4px 4px 0;animation:si .2s ease;position:relative}
+@keyframes si{from{opacity:0;transform:translateX(-6px)}to{opacity:1;transform:none}}
+.ahdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.albl{font-size:9px;letter-spacing:.15em;text-transform:uppercase;color:var(--c);font-weight:600}
+.ats{font-size:9px;color:var(--td)}
+.atxt{font-size:12px;line-height:1.75;color:var(--tp);white-space:pre-line}
+.adel{position:absolute;top:10px;right:12px;font-size:11px;color:var(--td);cursor:pointer;background:none;border:none;font-family:inherit;padding:2px 5px;border-radius:2px;transition:all .1s}
+.adel:hover{color:var(--r);background:rgba(255,68,102,.08)}
+/* GOALS */
+.goals-block{margin-bottom:22px;padding:14px 16px;background:rgba(139,92,246,0.06);border:1px solid rgba(139,92,246,0.18);border-radius:4px}
+.goals-hdr{display:flex;align-items:center;justify-content:space-between;cursor:pointer;user-select:none}
+.goals-title{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--cs);font-weight:600}
+.goals-toggle{font-size:10px;color:rgba(139,92,246,0.4);transition:transform .2s;margin-left:8px}
+.goals-toggle.open{transform:rotate(180deg)}
+.goals-body{margin-top:13px;display:none}
+.goals-body.open{display:block}
+.goals-sect{margin-bottom:12px}
+.goals-sect:last-child{margin-bottom:0}
+.goals-sect-lbl{font-size:8px;letter-spacing:.2em;text-transform:uppercase;color:rgba(139,92,246,0.35);margin-bottom:6px}
+.goals-draft{font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:rgba(139,92,246,0.25);margin-left:8px}
+.goals-row{display:flex;gap:10px;margin-bottom:5px;font-size:11px}
+.goals-role{font-size:9px;letter-spacing:.06em;text-transform:uppercase;color:rgba(139,92,246,0.4);flex-shrink:0;width:88px;padding-top:1px}
+.goals-val{color:#9980c8;line-height:1.55}
+.goals-edit-field{
+  color:#9980c8;
+  line-height:1.55;
+  cursor:pointer;
+  border-radius:2px;
+  padding:2px 4px;
+  margin:-2px -4px;
+  transition:background .15s;
+  min-width:60px;
+  display:inline-block;
+}
+.goals-edit-field:hover{background:rgba(139,92,246,0.1);}
+.goals-edit-field:focus{
+  outline:none;
+  background:rgba(139,92,246,0.15);
+  color:#c4b0e8;
+}
+.goals-edit-field[data-empty="true"]{
+  color:rgba(139,92,246,0.25);
+  font-style:italic;
+}
+.goals-sub-label{
+  font-size:9px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+  color:rgba(139,92,246,0.65);
+  margin-bottom:3px;
+}
+.goals-role-block{
+  margin-bottom:14px;
+}
+.goals-role-name{
+  font-size:12px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  color:rgba(139,92,246,0.85);
+  font-weight:700;
+  margin-bottom:6px;
+}
+/* BEAT EDITABLE FIELDS */
+.beat-edit{
+  display:block;
+  border-radius:3px;
+  padding:3px 5px;
+  margin:-3px -5px;
+  cursor:text;
+  transition:background .15s, outline .15s;
+  white-space:pre-wrap;
+  outline:none;
+}
+.beat-edit:hover{background:rgba(0,217,255,0.05);}
+.beat-edit.editing{background:rgba(0,217,255,0.08);outline:1px solid rgba(0,217,255,0.25);}
+.beat-reset{font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:var(--td);background:none;border:none;cursor:pointer;padding:0;font-family:inherit;float:right;margin-top:2px;}
+.beat-reset:hover{color:var(--r);}
+.commit-bar{display:flex;align-items:center;gap:10px;padding:12px 0 0;margin-top:8px;border-top:1px solid var(--b);}
+.commit-btn{font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;padding:8px 16px;border-radius:3px;border:1px solid var(--cd);background:var(--cg);color:var(--c);cursor:pointer;transition:all .15s;}
+.commit-btn:hover{background:var(--cgs);box-shadow:0 0 12px var(--cg);}
+.commit-btn:disabled{opacity:.4;cursor:not-allowed;}
+.commit-status{font-size:10px;color:var(--ts);}
+/* COMING SOON */
+.cs-wrap{padding:40px 20px;text-align:center;opacity:.6}
+.cs-fwname{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--tm);margin-bottom:10px}
+.cs-title{font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:700;color:var(--tm);margin-bottom:14px}
+.cs-badge{display:inline-block;font-size:9px;letter-spacing:.16em;text-transform:uppercase;border:1px solid var(--bm);border-radius:2px;padding:4px 12px;color:var(--td)}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:var(--bm);border-radius:3px}
+.mov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:100;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
+.mov.open{display:flex}
+.modal{background:var(--bg-p);border:1px solid var(--bm);border-radius:6px;width:640px;max-width:92vw;max-height:80vh;display:flex;flex-direction:column;box-shadow:0 24px 60px rgba(0,0,0,.6)}
+.mhdr{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--b)}
+.mttl{font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:600;letter-spacing:.08em;text-transform:uppercase}
+.mclose{font-size:15px;color:var(--tm);cursor:pointer;background:none;border:none;font-family:inherit;padding:3px 7px;border-radius:2px;transition:all .1s}
+.mclose:hover{color:var(--tp);background:var(--bg-h)}
+.mbody{flex:1;overflow-y:auto;padding:18px 20px}
+.mta{width:100%;height:420px;font-family:'IBM Plex Mono',monospace;font-size:11px;line-height:1.6;color:var(--ts);background:var(--bg-s);border:1px solid var(--bm);border-radius:4px;padding:14px;resize:none}
+.mftr{display:flex;gap:8px;padding:14px 20px;border-top:1px solid var(--b);justify-content:flex-end}
+/* EDIT BEAT MODAL */
+.edit-modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:200;align-items:center;justify-content:center;backdrop-filter:blur(4px)}
+.edit-modal-overlay.open{display:flex}
+.edit-modal{background:var(--bg-p);border:1px solid var(--bm);border-radius:6px;width:680px;max-width:94vw;max-height:84vh;display:flex;flex-direction:column;box-shadow:0 24px 60px rgba(0,0,0,.6)}
+.edit-modal-hdr{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--b)}
+.edit-modal-ttl{font-family:'Space Grotesk',sans-serif;font-size:13px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--c)}
+.edit-modal-body{flex:1;overflow-y:auto;padding:18px 20px;display:flex;flex-direction:column;gap:14px}
+.edit-field-group{display:flex;flex-direction:column;gap:4px}
+.edit-field-lbl{font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--c);opacity:.55}
+.edit-field-input{width:100%;font-family:'IBM Plex Mono',monospace;font-size:11px;line-height:1.6;color:var(--ts);background:var(--bg-s);border:1px solid var(--bm);border-radius:3px;padding:10px 12px;resize:vertical}
+.edit-field-input:focus{outline:none;border-color:var(--cd)}
+.edit-modal-ftr{display:flex;gap:8px;padding:14px 20px;border-top:1px solid var(--b);justify-content:flex-end;align-items:center}
+.edit-save-status{font-size:10px;color:var(--ts);flex:1}
+.edit-btn-cancel{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:8px 16px;border-radius:3px;border:1px solid var(--bm);background:transparent;color:var(--ts);cursor:pointer;transition:all .15s}
+.edit-btn-cancel:hover{border-color:var(--r);color:var(--r)}
+.edit-btn-save{font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:8px 18px;border-radius:3px;border:1px solid var(--cd);background:var(--cg);color:var(--c);cursor:pointer;transition:all .15s}
+.edit-btn-save:hover{background:var(--cgs)}
+.edit-btn-save:disabled{opacity:.4;cursor:not-allowed}
+.edit-beat-link{display:inline-flex;align-items:center;gap:5px;font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:var(--tm);background:none;border:none;cursor:pointer;font-family:inherit;padding:2px 0;transition:color .15s;margin-bottom:2px}
+.edit-beat-link:hover{color:var(--c)}
+</style>
+</head>
+<body>
+
+<div class="bnav">
+  <button class="narr" id="btn-prev" onclick="go(-1)">&larr; prev</button>
+  <div class="sw">
+    <select class="bsel" id="bsel" onchange="onSelChange(this.value)"></select>
+  </div>
+  <span class="bctr" id="bctr">— / —</span>
+  <button class="narr" id="btn-next" onclick="go(1)">next &rarr;</button>
+  <div class="dvdr"></div>
+  <button class="btn btn-clr" onclick="clearAll()">Clear</button>
+  <button class="btn btn-clr" id="see-notes-btn" onclick="toggleNotesModal()" style="display:none">△ Notes</button>
+  <button class="btn btn-p" id="commit-nav-btn" onclick="commitBeatEdits()">↑ Commit</button>
+</div>
+<div class="prog"><div class="pf" id="pf" style="width:2.7%"></div></div>
+
+<div class="ws">
+  <div class="pl">
+    <div class="ph">
+      <span class="plbl lb">B: Your Notes</span>
+      <span class="cct" id="cct">0 chars</span>
+    </div>
+    <div class="iw">
+      <textarea class="note" id="ni" oninput="updateCct()"
+        placeholder="Type your notes, ideas, fragments, questions about this beat...&#10;&#10;What's working? What's missing? What needs sharpening?&#10;&#10;Coywolf will annotate inline &rarr;"></textarea>
+    </div>
+    <div class="sa">
+      <button class="sbtn" id="send-btn" onclick="sendNote()"><span>Send to Coywolf</span><span>&rarr;</span></button>
+    </div>
+    <div class="rh-h" id="rh-h" style="display:none"></div>
+    <div class="asb" id="asb" style="display:none!important">
+      <div class="ashdr" id="ashdr">Notes on this beat</div>
+      <div id="achips"></div>
+    </div>
+  </div>
+  <div class="rh-v" id="rh-v"></div>
+  <div class="pr" id="pr">
+    <div class="bscr" id="bscr">
+      <div class="bc" id="bc"></div>
+    </div>
+  </div>
+</div>
+
+<div class="mov" id="mov" onclick="closeExBg(event)">
+  <div class="modal">
+    <div class="mhdr">
+      <span class="mttl">Export Beat Sheet</span>
+      <button class="mclose" onclick="closeEx()">&times;</button>
+    </div>
+    <div class="mbody"><textarea class="mta" id="mta" readonly></textarea></div>
+    <div class="mftr">
+      <button class="btn" onclick="closeEx()">Close</button>
+      <button class="btn btn-p" onclick="copyEx()">Copy to clipboard</button>
+    </div>
+  </div>
+</div>
+
+<!-- Edit Beat Modal -->
+<div class="edit-modal-overlay" id="edit-modal-overlay" onclick="closeEditBeatBg(event)">
+  <div class="edit-modal" id="edit-modal">
+    <div class="edit-modal-hdr">
+      <span class="edit-modal-ttl" id="edit-modal-ttl">Edit Beat</span>
+      <button class="mclose" onclick="closeEditBeat()">&times;</button>
+    </div>
+    <div class="edit-modal-body" id="edit-modal-body">
+      <div class="edit-field-group">
+        <label class="edit-field-lbl">The Action (act_desc)</label>
+        <textarea class="edit-field-input" id="edit-act-desc" rows="12" placeholder="The full action description..."></textarea>
+      </div>
+      <div class="edit-field-group">
+        <label class="edit-field-lbl">Location</label>
+        <textarea class="edit-field-input" id="edit-loc" rows="2"></textarea>
+      </div>
+      <div class="edit-field-group">
+        <label class="edit-field-lbl">Characters</label>
+        <textarea class="edit-field-input" id="edit-chars" rows="2"></textarea>
+      </div>
+      <div class="edit-field-group">
+        <label class="edit-field-lbl">Opposition</label>
+        <textarea class="edit-field-input" id="edit-opp" rows="3"></textarea>
+      </div>
+      <div class="edit-field-group">
+        <label class="edit-field-lbl">Stakes</label>
+        <textarea class="edit-field-input" id="edit-stakes" rows="2"></textarea>
+      </div>
+    </div>
+    <div class="edit-modal-ftr">
+      <span class="edit-save-status" id="edit-save-status"></span>
+      <button class="edit-btn-cancel" onclick="closeEditBeat()">Cancel</button>
+      <button class="edit-btn-save" id="edit-save-btn" onclick="saveEditBeat()">Save to JSON</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* COYWOLF UI PATTERN:
+   - Notes field: user-owned, never auto-populated by Coywolf
+   - Coywolf response: shown inline after Send, dismissible via ✕
+   - History: accessible via ↺ History button after first commit
+   - This pattern must be preserved in all new doc types
+*/
+
+// Zen of Story framework beat names (1-indexed)
+const ZEN_NAMES=[null,
+"Define the Hero's World",
+"The Counterpoint Scene",
+"Hero's Weakness Confirmed",
+"Enemy Grows Threatening",
+"INCITING INCIDENT",
+"Threat Grows Larger",
+"Hero Bumbles First Lesson",
+"Enemy Becomes Aware, Pursues",
+"Hero Panics, Flight",
+"PLOT POINT ONE",
+"Modifier Expands World",
+"Enemy Applies Force",
+"Hero Plans for Fight",
+"Enemy Sends Volley",
+"THE HERO'S BIRTH",
+"Enemy Prepares New Assault",
+"Hero Takes a Break / Pushes Farther",
+"Modifier Faces New Threat",
+"Hero's Plan Works",
+"POINT OF NO RETURN (Midpoint)",
+"Hero Goes It Alone / Finally Asks for Help",
+"Enemy's Ego Peaks",
+"Hero Proves They Know Better",
+"Enemy Gloats",
+"MODIFIER'S FINAL TRANSITION",
+"Hero Proceeds Uncertainly",
+"Enemy Prepares Coup de Grace",
+"Modifier Has No Answers",
+"Hero Goes It Alone Again",
+"PLOT POINT II",
+"Enemy Gets Ego Drunk",
+"Hero Confronts Enemy Face to Face",
+"Echo of the Modifier",
+"The Stilled World Comes to His Aid",
+"THE CLIMAX",
+"The Reward",
+"The Modifier's Revenge (Optional)"
+];
+
+// DRAFT GOALS — creative estimates based on story structure
+const GOALS={
+acts:{
+"Act One":{
+  protagonist:{ plotGoal:"Restore the box. Keep his shop alive.", charGoal:"Stay honest." },
+  antagonist:{ plotGoal:"Acquire a perfect forgery to execute the Fleer heist.", charGoal:"" },
+  modifier:{ plotGoal:"Complete the long con against Togg.", charGoal:"Without becoming complicit." }
+},
+"Act Two":{
+  protagonist:{ plotGoal:"Execute the forgery. Survive.", charGoal:"Without losing himself. Reconnect with Elizabeth." },
+  antagonist:{ plotGoal:"Expose Togg. Collect the financial reward.", charGoal:"Personal revenge against Elizabeth." },
+  modifier:{ plotGoal:"Protect the crew. Short the markets.", charGoal:"Keep JH's revenge from burning everything." }
+},
+"Act Three":{
+  protagonist:{ plotGoal:"Get his life back.", charGoal:"Let the work speak for him." },
+  antagonist:{ plotGoal:"Survive the collapse.", charGoal:"Save face." },
+  modifier:{ plotGoal:"Exit clean.", charGoal:"Elizabeth discovers the truth on her own terms." }
+}
+},
+sequences:{
+"SEQUENCE 1 — First Fall":{
+  protagonist:{ plotGoal:"Survive financially. Do the job right.", charGoal:"" },
+  antagonist:{ plotGoal:"Get the box restored without revealing the real plan.", charGoal:"" },
+  modifier:{ plotGoal:"(Absent / background)", charGoal:"" }
+},
+"SEQUENCE 2 — Distrust of New Connection":{
+  protagonist:{ plotGoal:"Find a way out.", charGoal:"Without compromising his integrity." },
+  antagonist:{ plotGoal:"Secure Zach's commitment to the forgery.", charGoal:"" },
+  modifier:{ plotGoal:"Plant the seed that gets Togg hunting the Grail.", charGoal:"" }
+},
+"SEQUENCE 3 — Conflict with New Connection":{
+  protagonist:{ plotGoal:"Execute the greatest restoration of his life.", charGoal:"Without crossing the line he can still see." },
+  antagonist:{ plotGoal:"Keep the operation clean. Contain Togg's ego.", charGoal:"" },
+  modifier:{ plotGoal:"Stay invisible.", charGoal:"Don't feel anything for the mark." }
+},
+"SEQUENCE 4 — New Connection Grows":{
+  protagonist:{ plotGoal:"Finish the work. Take the money.", charGoal:"Tell himself it was just craft." },
+  antagonist:{ plotGoal:"Launch the financial play. Set the livestream as the moment of exposure.", charGoal:"" },
+  modifier:{ plotGoal:"Position the short. Make sure the operation is multidimensional.", charGoal:"" }
+},
+"SEQUENCE 5 — New Connection Fails":{
+  protagonist:{ plotGoal:"Pull the plug when he sees the real target.", charGoal:"Protect Elizabeth." },
+  antagonist:{ plotGoal:"Use Elizabeth's public moment as the knife.", charGoal:"" },
+  modifier:{ plotGoal:"Hold the crew together.", charGoal:"Keep JH's personal agenda from threatening the operation." }
+},
+"SEQUENCE 6 — Sacrifice for True Change":{
+  protagonist:{ plotGoal:"Lose everything. Choose to go all in anyway.", charGoal:"" },
+  antagonist:{ plotGoal:"Execute the coup de grace against both Togg and Elizabeth.", charGoal:"" },
+  modifier:{ plotGoal:"Be the last person standing between JH's revenge and the crew's future.", charGoal:"" }
+},
+"SEQUENCE 7 — Triumph via Connection":{
+  protagonist:{ plotGoal:"Let the work he already did tell the truth for him.", charGoal:"" },
+  antagonist:{ plotGoal:"Perform authenticity on livestream. Win publicly.", charGoal:"Lose everything." },
+  modifier:{ plotGoal:"See the undotted i.", charGoal:"Decide what to do with it." }
+},
+"SEQUENCE 8 — Denouement":{
+  protagonist:{ plotGoal:"Reclaim what was lost.", charGoal:"Find out if it means what he thought it did." },
+  antagonist:{ plotGoal:"Gone.", charGoal:"" },
+  modifier:{ plotGoal:"Go legit.", charGoal:"Let the loupe be enough." }
+}
+}
+};
+
+// Goal editing helpers — defined early so loadSavedGoals can use getGoalKey
+function getGoalKey(scope, role, field) {
+  return `grails:goal:${scope}:${role}:${field}`;
+}
+
+// Load any user-edited goals from localStorage
+(function loadSavedGoals() {
+  Object.entries(GOALS.acts).forEach(([actLabel, roles]) => {
+    const scope = `act:${actLabel}`;
+    ['protagonist','antagonist','modifier'].forEach(role => {
+      ['plotGoal','charGoal'].forEach(field => {
+        const saved = localStorage.getItem(getGoalKey(scope, role, field));
+        if (saved !== null) roles[role][field] = saved;
+      });
+    });
+  });
+  Object.entries(GOALS.sequences).forEach(([seq, roles]) => {
+    const scope = `seq:${seq}`;
+    ['protagonist','antagonist','modifier'].forEach(role => {
+      ['plotGoal','charGoal'].forEach(field => {
+        const saved = localStorage.getItem(getGoalKey(scope, role, field));
+        if (saved !== null) roles[role][field] = saved;
+      });
+    });
+  });
+})();
+
+// BEATS — loaded from grails-beats.json at startup
+// Fields mapped from JSON: n=position, seq=sequence, actLabel=act, con=connector, ct=connector_type,
+// title, loc, chars, pg=plot_goal, cg=char_goal, act_desc, opp=opposition, zen, stakes, ent=entertainment, str=story_spine
+// comingsoon:true for unwritten beats
+let BEATS = []; // populated by loadBeats() at init
+
+// ── Map JSON beat → internal beat object ──────────────────────
+function mapBeat(b) {
+  return {
+    n: b.position,
+    id: b.id,
+    seq: b.sequence,
+    actLabel: b.act,
+    con: b.connector,
+    ct: b.connector_type,
+    title: b.title,
+    loc: b.loc,
+    chars: b.chars,
+    pg: b.plot_goal,
+    cg: b.char_goal,
+    act_desc: b.act_desc,
+    opp: b.opposition,
+    stakes: b.stakes,
+    zen: b.zen,
+    ent: b.entertainment,
+    str: { b: b.story_spine.beginning, m: b.story_spine.middle, e: b.story_spine.end },
+    fountain_file: b.fountain_file || null,
+    comingsoon: b.comingsoon || false
+  };
+}
+
+// Legacy BEATS constant kept for reference (replaced by JSON load):
+const BEATS_LEGACY=[
+{n:1,seq:"SEQUENCE 1 — First Fall",actLabel:"Act One",con:"—",ct:"d",
+title:"THE FIND / COLD OPEN MONTAGE",
+loc:"EXT. SUBURBAN GARAGE SALE — INT. KEVIN'S CAR — INT./EXT. VARIOUS — INT. ZZ HERITAGE HOUSE — DAY",
+chars:"Anonymous 17-year-old, Kevin, Zach (end of montage)",
+pg:"Establish the MacGuffin's journey and mythic status before we meet anyone properly; land us inside the Sanctuary with Kevin already waiting",
+cg:"Each person who touches the box wants something from it",
+act_desc:"Fast-paced, kinetic. The 17-year-old at the garage sale — the find, the blank face, the price paid, the car door closes, TikTok posted, notifications erupting. Cut to Kevin — he sees the post, DMs immediately, drives to meet the kid, inspects the box with practiced eyes, pays cash. Cut to Kevin searching: the best restorer in LA, narrowing down, ZZ Heritage House. He walks in. Sets the box on Zach's counter. Zach picks it up. The montage lands — suddenly slow, reverent — on Zach's hands and the loupe.\n\nThen the pull back: Kevin is sitting in a chair at the back of the shop, waiting. The three-generation family is at the counter with Zach — deep in the Griffey moment, the father's eyes misting, the grandfather pulled into a hug. Kevin checks his phone. Shifts in his seat. Checks again. The most important transaction of his life is being held up by an old man crying over a baseball card.",
+opp:"The box is damaged — authenticity already a question. Kevin's impatience vs. Zach's total absorption in the Griffey moment.",
+zen:[{r:"Hero",v:"Absent until the final beat — then pure connection to the object and the family"},{r:"Antagonist",v:"Absent"},{r:"Sub-Protagonist",v:"Absent — prologue; Kevin's impatience is the first contrast with Zach's code"}],
+stakes:"The box has arrived. Kevin is in the room. The world is about to change for Zach, though he doesn't know it yet.",
+ent:["Novelty","Suspense"],
+str:{b:"The garage sale — the find",m:"The chain of hands — kid to Kevin to Zach's counter; the montage slows",e:"Kevin waiting, impatient. Zach absorbed in the Griffey moment. Title card: GRAILS"}
+},
+{n:2,seq:"SEQUENCE 1 — First Fall",actLabel:"Act One",con:"BUT",ct:"b",
+title:"THE SANCTUARY",
+loc:"INT./EXT. ZZ HERITAGE HOUSE — DAY",
+chars:"Zach, grandfather, father, ten-year-old son",
+pg:"Establish Zach's world, his code, and make the audience root for him before the stakes arrive",
+cg:"Do the job right — honest appraisal, no inflation, no false hope",
+act_desc:"1.1 THE AUDIT — The shop smells of acid-free plastic, aged cardboard, and the sweet chalky ghost of 40-year-old bubblegum dust. Zach, wearing a sun-faded 1984 Durham Bulls tee, sits across from three generations: a grandfather in a windbreaker, a father with tired eyes, a ten-year-old son. Between them: shoeboxes — the grandfather's hoard. Zach moves with surgical reverence. He points to the highlights: the Bill Ripken \"Fuck Face\" error card, the Randy Johnson Marlboro ad. The father leans in, hopeful. Zach's voice is gentle but honest: \"They're 5.5s. Maybe 6 on a good day. Total value for the lot? Four, five hundred dollars.\" The hope leaves the father's face as he looks at his son.\n\n1.2 THE RESTORED KING — \"Wait,\" Zach says. He reaches under the counter and pulls out a slabbed card: the 1989 Upper Deck Ken Griffey Jr. Rookie. Crisp, centered, glowing. \"Your dad brought this to me six months ago. He asked me to see what I could do.\" Zach explains: he cleaned the surface, pressed the fibers. \"In this slab, it's a 9. But—\" he turns the slab over to show the holographic \"Restored\" log on the back. \"I logged it in the database. I won't pass off restoration as factory-original. It won't fetch the $10,000 a Natural 10 would. But it's yours. And it's perfect.\" The father's eyes mist as he pulls the grandfather into a silent hug. The ten-year-old watches, wide-eyed — he's never seen his gruff dad cry over cardboard before. He understands for the first time that this isn't about money. It's about time captured.\n\n1.3 THE SANCTUARY IN THE GRAVEYARD — Zach walks the family to the door. \"Take care of that Griffey.\" As they exit, the camera pulls back: ZZ Heritage House — warm, amber-lit — is an island in an empty strip mall. Left: a RadioShack sign hanging by a single wire over a gutted storefront. Right: a Spirit Halloween banner peeling off a defunct department store. The parking lot is cracked asphalt and weeds. Zach stands in the doorway, a solitary monk guarding a temple of relics while the rest of the world has already moved into the digital clouds.",
+opp:"The rent notice on the counter. The graveyard outside.",
+zen:[{r:"Hero",v:"Toward Connection — his code costs him (the Griffey logged as Restored, not factory-original); he doesn't hesitate"},{r:"Antagonist",v:"Absent — but the strip mall is his exhaust"},{r:"Sub-Protagonist",v:"Absent"}],
+stakes:"We know who Zach is. We're rooting for him. The world is already moving on without him.",
+ent:["Novelty","Meaning"],
+str:{b:"Three generations, the shoeboxes, the hope",m:"The honest appraisal — hope deflated; then the Griffey reveal",e:"The family leaves moved. Zach alone in the doorway. The graveyard behind him."}
+},
+{n:3,seq:"SEQUENCE 1 — First Fall",actLabel:"Act One",con:"THEREFORE",ct:"t",
+title:"THE COMMISSION",
+loc:"INT. ZZ HERITAGE HOUSE — DAY",
+chars:"Zach, Kevin",
+pg:"Establish the legitimate transaction that sets everything in motion",
+cg:"Kevin wants a 'perfect restoration as a gift for his brother' (cover story); Zach wants to do the greatest work of his life",
+act_desc:"The family gone, Kevin steps to the counter. Sets the box down. Zach picks it up — and transforms. He describes what's definitely inside: the Jordan rookie, the Ewing, the Bird-Magic, the Patrick Ewing XRC. His voice goes reverent. He's already somewhere else. He offers to sell them for Kevin if that's what he's after — he's seen the industry message board posts, he knows what this is worth. Kevin says no. He wants restoration. Perfect. Like new. It's for his brother. Zach says he'd normally do this for free — this is like being asked to touch up the Mona Lisa — but there are materials, sourcing, time. Kevin asks if $10k covers it. Zach's eyes practically fall out of his head. He says yes, but that's too much. Kevin: \"$5k now, $5k when you finish. But it's gotta be so perfect it makes me cry like grandpa, okay?\" Zach looks at him for a moment. Extends his hand.",
+opp:"Zach's instinct to underprice himself — a lifetime habit he almost can't override",
+zen:[{r:"Hero",v:"Toward Connection — the craft, the object, the man in front of him; he shakes the hand"},{r:"Sub-Protagonist (Kevin)",v:"Toward Connection on the surface — the gift story is warm and convincing; underneath, full Ego (the counterfeit scheme)"},{r:"Antagonist",v:"Absent"}],
+stakes:"The commission is live. The box is in Zach's care. Kevin is running a counterfeit collectibles operation — the Fleer box is his next play. Zach doesn't know any of this. We might.",
+ent:["Novelty","Meaning"],
+str:{b:"Kevin steps to the counter; the box between them",m:"Zach's excitement — the descriptions, the offer to sell, Kevin's refusal",e:"The handshake. $5k changes hands. The Mona Lisa is in Zach's care."}
+},
+{n:4,seq:"SEQUENCE 1 — First Fall",actLabel:"Act One",con:"THEREFORE",ct:"t",
+title:"THE MIRACLE",
+loc:"INT. ZACH'S SHOP — DAY",
+chars:"Zach, JH's gang member (phone call to JH)",
+pg:"Give Zach an apparent solution to his problems — and raise the first red flag",
+cg:"Zach wants the money. He also wants to not be complicit in anything illegal.",
+act_desc:"Zach confronts the gang member — asks about the connection to Kevin's trial. The gang member steps outside, calls JH. Returns: leave the box, keep the money. All of it. Zach can't believe it.",
+opp:"Too good to be true. Zach knows it. Takes the money anyway.",
+zen:[{r:"Hero",v:"Toward Ego — takes the miracle without interrogating it"},{r:"Antagonist",v:"JH (offscreen) — calculating, clean"},{r:"Sub-Protagonist",v:"Absent"}],
+stakes:"Zach has the money. He has the box. He doesn't have answers.",
+ent:["Suspense","Novelty"],
+str:{b:"Zach asks the question",m:"The call, the offer",e:"He takes the money. Problems apparently solved."}
+},
+{n:5,seq:"SEQUENCE 1 — First Fall",actLabel:"Act One",con:"BUT",ct:"b",
+title:"NOT ASKING",
+loc:"EXT. ZACH'S SHOP — NIGHT",
+chars:"Zach, JH's gang member",
+pg:"Remove Zach's illusion that he has a choice",
+cg:"Zach wants to keep the money and the box and pretend nothing happened",
+act_desc:"Zach is closing up. The gang member's car is parked outside. Window down. Bring the box. He's telling, not asking.",
+opp:"Zach's entire value system — and the fact that he has no leverage",
+zen:[{r:"Hero",v:"Regression — compliance, fear"},{r:"Antagonist",v:"JH (by proxy) — the first display of real power"},{r:"Sub-Protagonist",v:"Absent"}],
+stakes:"Zach is no longer a bystander. He's being moved.",
+ent:["Suspense"],
+str:{b:"Zach locking up, relieved",m:"The car. The instruction.",e:"He brings the box."}
+},
+{n:6,seq:"SEQUENCE 2 — Distrust of New Connection",actLabel:"Act One",con:"THEREFORE",ct:"t",
+title:"THE ROOFTOP",
+loc:"EXT. DEJA'S ROOFTOP POOL — NIGHT",
+chars:"Zach, JH, Deja (background)",
+pg:"Establish JH as a fully realized character; set the terms of the relationship",
+cg:"Zach wants to protect himself from criminal liability; JH wants to read Zach",
+act_desc:"JH meets Zach at Deja's rooftop apartment complex pool. Relaxed, warm, sovereign. He asks why Zach said what he said to his guy. Zach is careful — won't enable counterfeiting, won't be implicated. JH asks if Zach can beat Elizabeth's AI. Zach: \"Maybe? I don't know. You're asking me to beat a superintelligence. What would you do with it?\" JH: \"Do you want to know?\" Zach: \"Absolutely and absolutely not.\"",
+opp:"Zach's conscience vs. the pull of the offer",
+zen:[{r:"Hero",v:"Ambivalent — drawn in but not yet committed"},{r:"Antagonist",v:"JH — generous, magnetic, reading Zach completely"},{r:"Sub-Protagonist",v:"Deja (present, watching, silent)"}],
+stakes:"JH knows everything he needs to know about Zach. Zach knows almost nothing about JH — and is intrigued against his will.",
+ent:["Novelty","Suspense","Meaning"],
+str:{b:"Zach arrives — out of his depth",m:"The negotiation; the GOAT conversation; JH asks about Togg and Elizabeth",e:"Car takes Zach home drunk on soju. Nothing committed. Everything in motion."}
+},
+{n:7,seq:"SEQUENCE 2 — Distrust of New Connection",actLabel:"Act One",con:"THEREFORE",ct:"t",
+title:"THE MORNING AFTER",
+loc:"INT. ZACH'S SHOP — MORNING",
+chars:"Zach, Elizabeth",
+pg:"Lock Zach into needing more money — remove the easy exit",
+cg:"Elizabeth wants what she's owed; Zach wants her out of his life",
+act_desc:"Elizabeth arrives. She's heard Zach paid a full year's rent in advance. She's still part owner until the paperwork clears — half that money is hers. She's not cruel. She's just surviving. Zach sees it. It doesn't make it less devastating.",
+opp:"The law, the paperwork, Elizabeth's pragmatism",
+zen:[{r:"Hero",v:"Regression — humiliation, powerlessness"},{r:"Sub-Protagonist (Elizabeth)",v:"Toward Ego — she takes what's legally hers; she's stopped being his teammate"},{r:"Antagonist",v:"Absent"}],
+stakes:"PLOT POINT 1. Zach needs more money. He knows exactly one way to get it.",
+ent:["Meaning","Suspense"],
+str:{b:"Zach's brief moment of relief — rent paid, problems solved",m:"Elizabeth arrives with a claim",e:"She takes half. Zach picks up his phone to call JH."}
+},
+{n:8,seq:"SEQUENCE 2 — Distrust of New Connection",actLabel:"Act One",con:"THEREFORE",ct:"t",
+title:"THE COMMISSION (FORMAL)",
+loc:"INT./EXT. VARIOUS — DAY",
+chars:"Zach, JH",
+pg:"Formalize the arrangement; establish what Zach is actually being asked to do",
+cg:"Zach wants the money and wants to keep his hands clean; JH wants the world's best forgery",
+act_desc:"Zach reaches JH. Lays out his number — what it will cost to attempt to beat Elizabeth's AI. He's explicit: he doesn't want to know what's happening, he's just a craftsman making the greatest restoration of his life. JH agrees. $100k. No questions.",
+opp:"Zach's conscience — the line he's drawing may already be crossed",
+zen:[{r:"Hero",v:"Toward Ego — rationalizes his way in"},{r:"Antagonist",v:"JH — holds all cards, gives Zach exactly the fig leaf he needs"},{r:"Sub-Protagonist",v:"Absent"}],
+stakes:"The commission is live. Zach is in.",
+ent:["Suspense"],
+str:{b:"Zach makes the call",m:"The negotiation — terms, price, the fig leaf of 'just a craftsman'",e:"Deal made. No going back."}
+},
+{n:9,seq:"SEQUENCE 2 — Distrust of New Connection",actLabel:"Act One",con:"THEREFORE",ct:"t",
+title:"THE LONG CON BEGINS",
+loc:"INT. TOGG STUDIOS / EXT. KOREATOWN — DAY",
+chars:"Hye-Jin, Togg's manager, Togg (background)",
+pg:"Establish the parallel operation — the doumis planting the seed",
+cg:"Hye-Jin wants to execute the job cleanly; her empathy is already engaged",
+act_desc:"Hye-Jin works the long con — nudging Togg's manager toward 'discovering' the 1986 Fleer Holy Grail. She's warm, effortless, invisible. The manager takes the bait. The hunt begins.",
+opp:"Hye-Jin's empathy — she can already see the insecurity driving Togg. She wants to fix it. Deja clocks her.",
+zen:[{r:"Hero",v:"Absent"},{r:"Sub-Protagonist (Hye-Jin)",v:"Ambivalent — executing the job, but starting to feel for the mark"},{r:"Antagonist (Togg)",v:"Calcification — takes the bait completely, his ego already expanding"}],
+stakes:"Togg is now hunting the Grail. The trap is set.",
+ent:["Novelty","Suspense"],
+str:{b:"Hye-Jin in Togg's world — invisible, watching",m:"The nudge; the manager bites",e:"Togg is now pursuing the box. The long con is live."}
+},
+{n:10,seq:"SEQUENCE 2 — Distrust of New Connection",actLabel:"Act One",con:"THEREFORE",ct:"t",
+title:"PLOT POINT ONE",
+loc:"Coming soon",chars:"Coming soon",pg:"Coming soon",cg:"Coming soon",
+act_desc:"Coming soon",opp:"Coming soon",
+zen:[{r:"Hero",v:"Coming soon"},{r:"Antagonist",v:"Coming soon"},{r:"Modifier",v:"Coming soon"}],
+stakes:"Coming soon",ent:["Suspense"],
+str:{b:"Coming soon",m:"Coming soon",e:"Coming soon"},comingsoon:true
+},
+{n:11,seq:"SEQUENCE 3 — Conflict with New Connection",actLabel:"Act Two",con:"THEREFORE",ct:"t",
+title:"THE PROCUREMENT",
+loc:"INT. ZACH'S SHOP / EXT. VARIOUS MARKETS — DAY",
+chars:"Zach",
+pg:"Show Zach beginning the transformation from restorer to forger",
+cg:"Do the job with the same obsessive precision he brings to everything",
+act_desc:"Zach begins sourcing. Period-correct cardboard. Ink formulas. Vintage wax. He moves through markets and suppliers with the focus of a surgeon. This is what he was built for — applied to something he was never meant to do.",
+opp:"The sheer difficulty of the task. Elizabeth's AI isn't just a scanner — it's a forensic intelligence.",
+zen:[{r:"Hero",v:"Toward Connection — loses himself in the craft, briefly free of his circumstances"},{r:"Antagonist",v:"Elizabeth (by proxy — her AI looms as the final judge)"},{r:"Sub-Protagonist",v:"Absent"}],
+stakes:"The scope of the task becomes real. To beat Elizabeth's AI, Zach will have to get close to Elizabeth.",
+ent:["Novelty","Meaning"],
+str:{b:"Zach with his list — materials, suppliers",m:"The sourcing process — the obsessive detail of the craft",e:"He has what he needs. Now he needs to understand what he's up against."}
+},
+{n:12,seq:"SEQUENCE 3 — Conflict with New Connection",actLabel:"Act Two",con:"THEREFORE",ct:"t",
+title:"RECONNAISSANCE",
+loc:"INT. TOGG EVENT SPACE / EXT. LOS ANGELES — DAY/NIGHT",
+chars:"Zach, Elizabeth",
+pg:"Zach gains access to Elizabeth's AI system — and falls for her again",
+cg:"Zach wants intelligence; Elizabeth wants to feel seen by someone who actually understands her work",
+act_desc:"Zach engineers proximity to Elizabeth — attends an event, makes contact, leverages their history. She's drawn to his new confidence (JH's influence showing). He admires her work honestly. They get close.",
+opp:"His conscience. Her relationship with Togg. The fact that every moment with her is both reconnaissance and something he can't name.",
+zen:[{r:"Hero",v:"Toward Connection — genuinely falls for her again"},{r:"Sub-Protagonist (Elizabeth)",v:"Toward Connection — briefly, she's with someone who sees her real work"},{r:"Antagonist (Togg)",v:"Absent — but his shadow is everywhere"}],
+stakes:"Zach now understands the AI. He also understands he still loves her.",
+ent:["Meaning","Suspense"],
+str:{b:"Zach executing the reconnaissance",m:"The chemistry — real, unexpected, dangerous",e:"He has what he needs. It costs him something to walk away."}
+},
+{n:13,seq:"SEQUENCE 3 — Conflict with New Connection",actLabel:"Act Two",con:"THEREFORE",ct:"t",
+title:"THE SAUDIS",
+loc:"INT. PRIVATE DINING ROOM — NIGHT",
+chars:"Zach, JH, the fence, Saudi representatives",
+pg:"Raise the stakes — this is now international",
+cg:"Zach wants to get through the meeting without saying anything incriminating",
+act_desc:"JH takes Zach to meet the Saudis. The fence is there. The buyer: a gift for a sheikh's 14-year-old son. Zach is completely out of his depth. He holds it together through sheer focus — talks about the card the way he talks about everything he loves. They're impressed.",
+opp:"Everything about this room — the money, the power, the implications",
+zen:[{r:"Hero",v:"Toward Connection — his genuine expertise carries him; his authenticity is his passport"},{r:"Antagonist",v:"JH — pleased, watching Zach exceed expectations"},{r:"Sub-Protagonist",v:"Absent"}],
+stakes:"The deal is real. The buyer is real. There is now no version of this that stays small.",
+ent:["Novelty","Suspense"],
+str:{b:"Zach walks into the room",m:"The meeting — Zach's knowledge does the work",e:"The deal is confirmed. Zach steps outside and takes a breath."}
+},
+{n:14,seq:"SEQUENCE 3 — Conflict with New Connection",actLabel:"Act Two",con:"THEREFORE",ct:"t",
+title:"ENEMY SENDS VOLLEY",
+loc:"Coming soon",chars:"Coming soon",pg:"Coming soon",cg:"Coming soon",
+act_desc:"Coming soon",opp:"Coming soon",
+zen:[{r:"Hero",v:"Coming soon"},{r:"Antagonist",v:"Coming soon"},{r:"Modifier",v:"Coming soon"}],
+stakes:"Coming soon",ent:["Suspense"],
+str:{b:"Coming soon",m:"Coming soon",e:"Coming soon"},comingsoon:true
+},
+{n:15,seq:"SEQUENCE 3 — Conflict with New Connection",actLabel:"Act Two",con:"THEREFORE",ct:"t",
+title:"$GOAT LAUNCHES — THE HERO'S BIRTH",
+loc:"INT. TOGG STUDIOS — DAY (LIVESTREAM)",
+chars:"Togg, Hye-Jin (background), Deja (background)",
+pg:"Establish Togg's crypto play — the financial dimension of the heist; mark the moment Zach's work becomes inevitable",
+cg:"Togg wants maximum clout and maximum money from the acquisition",
+act_desc:"Togg launches $GOAT memecoin and announces the prediction market event — a live stream where he opens the 1986 Fleer box. Prediction markets go live. The internet goes wild.",
+opp:"The collector world is skeptical. The authenticity question is already circling.",
+zen:[{r:"Antagonist (Togg)",v:"Full Calcification — weaponizing the acquisition for financial gain, the collection as content"},{r:"Sub-Protagonist (Hye-Jin/Deja)",v:"Watching, calculating"},{r:"Hero",v:"Absent — but the machine he's building is now running"}],
+stakes:"The livestream is now a financial event. The stakes have multiplied. Zach's forgery is no longer optional.",
+ent:["Novelty","Suspense"],
+str:{b:"Togg announces",m:"The internet reacts — hype, skepticism, prediction markets open",e:"$GOAT is live. The clock is running."}
+},
+{n:16,seq:"SEQUENCE 4 — New Connection Grows",actLabel:"Act Two",con:"THEREFORE",ct:"t",
+title:"ENEMY PREPARES NEW ASSAULT",
+loc:"Coming soon",chars:"Coming soon",pg:"Coming soon",cg:"Coming soon",
+act_desc:"Coming soon",opp:"Coming soon",
+zen:[{r:"Hero",v:"Coming soon"},{r:"Antagonist",v:"Coming soon"},{r:"Modifier",v:"Coming soon"}],
+stakes:"Coming soon",ent:["Suspense"],
+str:{b:"Coming soon",m:"Coming soon",e:"Coming soon"},comingsoon:true
+},
+{n:17,seq:"SEQUENCE 4 — New Connection Grows",actLabel:"Act Two",con:"THEREFORE",ct:"t",
+title:"THE SHORT",
+loc:"INT. DEJA'S APARTMENT — NIGHT",
+chars:"Hye-Jin, Deja, JH",
+pg:"The heist doubles as a financial operation — the crew positions in the markets",
+cg:"Hye-Jin wants to protect everyone; Deja sees the whole board",
+act_desc:"Hye-Jin comes up with the idea — short $GOAT and the prediction markets right before the livestream. Deja sees it immediately: one operation, two paydays. JH approves.",
+opp:"The timing has to be perfect. Short too early and the market moves. Too late and they miss the crash.",
+zen:[{r:"Sub-Protagonist (Hye-Jin)",v:"Toward Connection — her idea protects the crew"},{r:"Sub-Protagonist (Deja)",v:"Toward Connection — she and Hye-Jin at their best together"},{r:"Antagonist",v:"Absent"}],
+stakes:"MIDPOINT. The operation has a new dimension. This isn't just a heist — it's a play.",
+ent:["Novelty","Suspense"],
+str:{b:"The crew processing Togg's $GOAT launch",m:"Hye-Jin's idea",e:"The positions are set. The plan is complete."}
+},
+{n:18,seq:"SEQUENCE 4 — New Connection Grows",actLabel:"Act Two",con:"THEREFORE",ct:"t",
+title:"MODIFIER FACES NEW THREAT",
+loc:"Coming soon",chars:"Coming soon",pg:"Coming soon",cg:"Coming soon",
+act_desc:"Coming soon",opp:"Coming soon",
+zen:[{r:"Hero",v:"Coming soon"},{r:"Antagonist",v:"Coming soon"},{r:"Modifier",v:"Coming soon"}],
+stakes:"Coming soon",ent:["Suspense"],
+str:{b:"Coming soon",m:"Coming soon",e:"Coming soon"},comingsoon:true
+},
+{n:19,seq:"SEQUENCE 4 — New Connection Grows",actLabel:"Act Two",con:"THEREFORE",ct:"t",
+title:"HERO'S PLAN WORKS",
+loc:"Coming soon",chars:"Coming soon",pg:"Coming soon",cg:"Coming soon",
+act_desc:"Coming soon",opp:"Coming soon",
+zen:[{r:"Hero",v:"Coming soon"},{r:"Antagonist",v:"Coming soon"},{r:"Modifier",v:"Coming soon"}],
+stakes:"Coming soon",ent:["Novelty"],
+str:{b:"Coming soon",m:"Coming soon",e:"Coming soon"},comingsoon:true
+},
+{n:20,seq:"SEQUENCE 4 — New Connection Grows",actLabel:"Act Two",con:"THEREFORE",ct:"t",
+title:"THE WORK — POINT OF NO RETURN",
+loc:"INT. ZACH'S SHOP — NIGHT (SERIES OF SHOTS)",
+chars:"Zach",
+pg:"Show Zach completing the forgery — the transformation is real; the midpoint of no return",
+cg:"Make the greatest restoration of his life",
+act_desc:"A montage of obsessive craft. Zach at work — the cardboard, the wax, the ink, the cards. He is fully in flow. The loupe around his neck. The shop dark outside. This is who he is at his absolute best.",
+opp:"Elizabeth's AI. The undotted i on the back of the Jordan — he places it deliberately. Only she would know.",
+zen:[{r:"Hero",v:"Toward Connection — the craft as love letter; the undotted i as the thing only they share"},{r:"Antagonist",v:"Absent"},{r:"Sub-Protagonist",v:"Absent"}],
+stakes:"The forgery is complete. It is, objectively, the greatest restoration of his life. There is no going back.",
+ent:["Meaning","Novelty"],
+str:{b:"Zach begins the final work",m:"The process — total immersion",e:"The box is done. The i is undotted. He looks at it for a long time."}
+},
+{n:21,seq:"SEQUENCE 5 — New Connection Fails",actLabel:"Act Two",con:"BUT",ct:"b",
+title:"THE LINE",
+loc:"INT./EXT. KOREATOWN — NIGHT",
+chars:"Zach, JH",
+pg:"Zach pulls the plug — his conscience wins",
+cg:"Zach will not be responsible for destroying Elizabeth",
+act_desc:"Zach discovers JH's real intention — to expose Elizabeth publicly on the livestream at the moment her career peaks. He pulls the plug. He won't be part of it. He can survive losing the money. He can't survive that.",
+opp:"JH's personal vendetta; the $100k; everything already in motion",
+zen:[{r:"Hero",v:"Toward Connection — chooses Elizabeth over money"},{r:"Antagonist",v:"JH — the personal liability showing; the business and the revenge are now in conflict"},{r:"Sub-Protagonist",v:"Absent"}],
+stakes:"The heist is off. Zach is out. The box sits in his shop.",
+ent:["Meaning","Suspense"],
+str:{b:"Zach learns the full plan",m:"The confrontation with JH",e:"Zach walks. For now."}
+},
+{n:22,seq:"SEQUENCE 5 — New Connection Fails",actLabel:"Act Two",con:"BUT",ct:"b",
+title:"INTERNET OFFICIAL",
+loc:"INT. TOGG STUDIOS (LIVESTREAM) / INT. ZACH'S SHOP",
+chars:"Togg, Elizabeth, Zach (watching alone)",
+pg:"Remove Zach's reason for protecting Elizabeth",
+cg:"Zach wants to believe she's being used; he has to watch her choose it",
+act_desc:"Togg and Elizabeth go internet official — a PR move timed perfectly to deflect the growing authenticity questions around his collection. On camera. Designed. She's smiling. Zach watches from his shop. He has been replaced by the one person he hates most in the world.",
+opp:"The truth of what he's watching — she didn't fall for the lifestyle, she chose it",
+zen:[{r:"Hero",v:"Full regression — heartbreak, humiliation, rage"},{r:"Antagonist (Togg)",v:"Calcification — using Elizabeth as an authenticity shield"},{r:"Sub-Protagonist (Elizabeth)",v:"Regression — the costume has become the person"}],
+stakes:"EVERYTHING BLOWS UP. Zach picks up his phone. He calls JH. He's back in.",
+ent:["Meaning","Suspense"],
+str:{b:"Zach watching the stream",m:"The announcement",e:"He calls JH."}
+},
+{n:23,seq:"SEQUENCE 5 — New Connection Fails",actLabel:"Act Two",con:"THEREFORE",ct:"t",
+title:"THE TAIL",
+loc:"EXT. LOS ANGELES — DAY",
+chars:"Zach, police (unseen)",
+pg:"Introduce the police threat — the noose tightening",
+cg:"Zach has no idea he's being followed",
+act_desc:"Zach goes about his business — suppliers, the shop, a meeting with JH. He doesn't notice the car. The audience does.",
+opp:"The investigation closing in; Zach's obliviousness",
+zen:[{r:"Hero",v:"Regression — he's all in, blind to the danger"},{r:"Antagonist",v:"The system (police) — closing the net"},{r:"Sub-Protagonist",v:"Absent"}],
+stakes:"Zach is now being watched. He doesn't know it.",
+ent:["Suspense"],
+str:{b:"Zach's routine",m:"The tail — visible to us, invisible to him",e:"He goes home. The car idles outside."}
+},
+{n:24,seq:"SEQUENCE 5 — New Connection Fails",actLabel:"Act Two",con:"BUT",ct:"b",
+title:"ENEMY GLOATS",
+loc:"Coming soon",chars:"Coming soon",pg:"Coming soon",cg:"Coming soon",
+act_desc:"Coming soon",opp:"Coming soon",
+zen:[{r:"Hero",v:"Coming soon"},{r:"Antagonist",v:"Coming soon"},{r:"Modifier",v:"Coming soon"}],
+stakes:"Coming soon",ent:["Suspense"],
+str:{b:"Coming soon",m:"Coming soon",e:"Coming soon"},comingsoon:true
+},
+{n:25,seq:"SEQUENCE 5 — New Connection Fails",actLabel:"Act Two",con:"THEREFORE",ct:"t",
+title:"MODIFIER'S FINAL TRANSITION",
+loc:"Coming soon",chars:"Coming soon",pg:"Coming soon",cg:"Coming soon",
+act_desc:"Coming soon",opp:"Coming soon",
+zen:[{r:"Hero",v:"Coming soon"},{r:"Antagonist",v:"Coming soon"},{r:"Modifier",v:"Coming soon"}],
+stakes:"Coming soon",ent:["Meaning"],
+str:{b:"Coming soon",m:"Coming soon",e:"Coming soon"},comingsoon:true
+},
+{n:26,seq:"SEQUENCE 6 — Sacrifice for True Change",actLabel:"Act Two",con:"THEREFORE",ct:"t",
+title:"THE LIQUIDATION — HERO PROCEEDS UNCERTAINLY",
+loc:"INT. ZACH'S SHOP — DAY",
+chars:"Zach, [financial trigger TBD]",
+pg:"Take everything from Zach — strip him to nothing; he moves forward anyway",
+cg:"Zach wants to hold on; there is nothing left to hold",
+act_desc:"Financial trigger forces Zach to close his father's shop. The family heirloom collectibles — everything his father built — go to liquidation. He boxes them himself. The loupe around his neck. The shop dark for the last time.",
+opp:"The math. The world. The fact that he always knew this was coming.",
+zen:[{r:"Hero",v:"Ego death — the last attachment severed; moves forward into the dark"},{r:"Antagonist",v:"The system that produced Togg, hollowed out the strip mall, made Zach's devotion economically nonviable"},{r:"Sub-Protagonist",v:"Absent"}],
+stakes:"Zach has nothing left. He's all in — not because he chose it but because there's nowhere else to go.",
+ent:["Meaning"],
+str:{b:"The trigger arrives",m:"The liquidation — Zach packing his father's life into boxes",e:"The shop is dark. He walks out with the Fleer box under his arm."}
+},
+{n:27,seq:"SEQUENCE 6 — Sacrifice for True Change",actLabel:"Act Two",con:"THEREFORE",ct:"t",
+title:"ENEMY PREPARES COUP DE GRACE",
+loc:"Coming soon",chars:"Coming soon",pg:"Coming soon",cg:"Coming soon",
+act_desc:"Coming soon",opp:"Coming soon",
+zen:[{r:"Hero",v:"Coming soon"},{r:"Antagonist",v:"Coming soon"},{r:"Modifier",v:"Coming soon"}],
+stakes:"Coming soon",ent:["Suspense"],
+str:{b:"Coming soon",m:"Coming soon",e:"Coming soon"},comingsoon:true
+},
+{n:28,seq:"SEQUENCE 6 — Sacrifice for True Change",actLabel:"Act Two",con:"BUT",ct:"b",
+title:"MODIFIER HAS NO ANSWERS",
+loc:"Coming soon",chars:"Coming soon",pg:"Coming soon",cg:"Coming soon",
+act_desc:"Coming soon",opp:"Coming soon",
+zen:[{r:"Hero",v:"Coming soon"},{r:"Antagonist",v:"Coming soon"},{r:"Modifier",v:"Coming soon"}],
+stakes:"Coming soon",ent:["Meaning"],
+str:{b:"Coming soon",m:"Coming soon",e:"Coming soon"},comingsoon:true
+},
+{n:29,seq:"SEQUENCE 6 — Sacrifice for True Change",actLabel:"Act Two",con:"THEREFORE",ct:"t",
+title:"HERO GOES IT ALONE AGAIN",
+loc:"Coming soon",chars:"Coming soon",pg:"Coming soon",cg:"Coming soon",
+act_desc:"Coming soon",opp:"Coming soon",
+zen:[{r:"Hero",v:"Coming soon"},{r:"Antagonist",v:"Coming soon"},{r:"Modifier",v:"Coming soon"}],
+stakes:"Coming soon",ent:["Suspense"],
+str:{b:"Coming soon",m:"Coming soon",e:"Coming soon"},comingsoon:true
+},
+{n:30,seq:"SEQUENCE 6 — Sacrifice for True Change",actLabel:"Act Two",con:"THEREFORE",ct:"t",
+title:"THE POSITIONS — PLOT POINT II",
+loc:"INT. DEJA'S APARTMENT — NIGHT",
+chars:"JH, Deja, Hye-Jin, Zach",
+pg:"Final preparations — everyone in position; the true Plot Point II that locks the act",
+cg:"Each crew member wants the job done; each carries something personal into it",
+act_desc:"The crew assembles. Market positions confirmed — $GOAT shorted, prediction market plays set. Zach delivers the box. He looks at it one last time.",
+opp:"The timing. The police. JH's personal liability (the revenge vs. the discipline).",
+zen:[{r:"Hero",v:"Toward Connection — fully part of the crew now, for better or worse"},{r:"Antagonist",v:"JH — holding the tension between the business and the vendetta"},{r:"Sub-Protagonist (Deja)",v:"Watching JH; she knows the liability"}],
+stakes:"Everything is set. The livestream is tomorrow.",
+ent:["Suspense","Meaning"],
+str:{b:"The crew, the final meeting",m:"Positions confirmed; the box delivered",e:"They separate. Tomorrow is the day."}
+},
+{n:31,seq:"SEQUENCE 7 — Triumph via Connection",actLabel:"Act Three",con:"THEREFORE",ct:"t",
+title:"THE LIVESTREAM — ENEMY GETS EGO DRUNK",
+loc:"INT. TOGG EVENT SPACE — NIGHT (LIVESTREAM)",
+chars:"Togg, Elizabeth, Hye-Jin, Deja, Zach (offscreen), JH (offscreen)",
+pg:"The heist executes; the enemy, drunk on ego, gives the hero the space he needs",
+cg:"Every character wants something different from this moment",
+act_desc:"The livestream. Togg in his Panopticon. Hye-Jin and Deja in position — invisible, watching. Elizabeth at the authentication station. The box arrives.",
+opp:"Everything that can go wrong",
+zen:[{r:"Hero",v:"Offscreen — the work is already done"},{r:"Antagonist (Togg)",v:"Peak Calcification — performing authenticity he cannot feel; ego too drunk to see the trap"},{r:"Sub-Protagonist (Elizabeth)",v:"The moment her career was supposed to peak"}],
+stakes:"The authentication begins. Togg is exposed, but doesn't know it yet.",
+ent:["Suspense"],
+str:{b:"The event — Togg performing, the world watching",m:"The box arrives at Elizabeth's station",e:"Authentication begins."}
+},
+{n:32,seq:"SEQUENCE 7 — Triumph via Connection",actLabel:"Act Three",con:"THEREFORE",ct:"t",
+title:"THE AUTHENTICATION — HERO CONFRONTS ENEMY FACE TO FACE",
+loc:"INT. TOGG EVENT SPACE — NIGHT (LIVESTREAM)",
+chars:"Elizabeth, Togg, crowd",
+pg:"Elizabeth's AI passes the forgery; the hero's work confronts the enemy directly",
+cg:"Elizabeth wants to do her job perfectly; Togg wants the spectacle",
+act_desc:"Elizabeth runs the box through her AI. The system processes. The crowd watches. The verdict: authentic.",
+opp:"Elizabeth's instincts — something feels off",
+zen:[{r:"Sub-Protagonist (Elizabeth)",v:"Toward Connection — she trusts her work; the doubt is quiet"},{r:"Antagonist (Togg)",v:"Ego crests — authenticated, live, in front of millions"},{r:"Hero",v:"Absent (offscreen); the work speaks"}],
+stakes:"The box is authenticated. $GOAT surges. Prediction market locks in.",
+ent:["Suspense"],
+str:{b:"The AI running",m:"The wait",e:"Authentic. The crowd erupts."}
+},
+{n:33,seq:"SEQUENCE 7 — Triumph via Connection",actLabel:"Act Three",con:"THEREFORE",ct:"t",
+title:"THE JORDAN DROPS — ECHO OF THE MODIFIER",
+loc:"INT. TOGG EVENT SPACE — NIGHT (LIVESTREAM)",
+chars:"Togg, Elizabeth, crowd, Hye-Jin, Deja",
+pg:"Togg opens the box — the Jordan surfaces; the echo of Zach's craft resonates",
+cg:"Togg wants the moment; the crew wants the market to peak",
+act_desc:"Togg opens the pack. Live. The Jordan rookie card surfaces. The crowd loses its mind. $GOAT goes stratospheric. The prediction market resolves. The crew's positions are printing.",
+opp:"None — this is the false peak; the modifier's signal is hidden inside it",
+zen:[{r:"Antagonist (Togg)",v:"Absolute Calcification — he has everything"},{r:"Sub-Protagonist (Hye-Jin/Deja)",v:"The short is triggered"},{r:"Hero",v:"Absent — but the undotted i is about to speak for him"}],
+stakes:"The crew has won — financially. Now Elizabeth.",
+ent:["Novelty","Suspense"],
+str:{b:"The pack opens",m:"The Jordan surfaces",e:"Peak. Everything about to reverse."}
+},
+{n:34,seq:"SEQUENCE 7 — Triumph via Connection",actLabel:"Act Three",con:"BUT",ct:"b",
+title:"THE UNDOTTED I — THE STILLED WORLD COMES TO HIS AID",
+loc:"INT. TOGG EVENT SPACE — NIGHT (LIVESTREAM)",
+chars:"Elizabeth, Togg, crowd",
+pg:"Elizabeth sees the signal — the world confirms the hero has learned the only lesson",
+cg:"Elizabeth wants to be wrong; she knows she's not",
+act_desc:"Elizabeth examines the Jordan. Her AI passed it. But she sees something — the undotted i on the back of the card. The private signal. The thing only she and Zach would know. Her face doesn't change. She says nothing.",
+opp:"The livestream. The crowd. Togg's arm around her. Millions watching.",
+zen:[{r:"Sub-Protagonist (Elizabeth)",v:"Toward Connection — she remembers who Zach is; the loupe in her pocket"},{r:"Antagonist (Togg)",v:"Unaware — still performing"},{r:"Hero",v:"Absent — but present in the undotted i; the world has confirmed his connection"}],
+stakes:"Elizabeth knows. She can't prove it. The question of what she does with that knowledge is the film's final movement.",
+ent:["Meaning","Suspense"],
+str:{b:"Elizabeth examines the card",m:"She sees the i",e:"She says nothing. The crowd cheers. The crash begins."}
+},
+{n:35,seq:"SEQUENCE 7 — Triumph via Connection",actLabel:"Act Three",con:"THEREFORE",ct:"t",
+title:"THE CRASH — THE CLIMAX",
+loc:"INT. TOGG EVENT SPACE / EXT. INTERNET — NIGHT",
+chars:"Togg, Elizabeth, crowd, Hye-Jin, Deja",
+pg:"The fraud leaks — the financial collapse executes; the enemy dies at his moment of greatest ego",
+cg:"The crew wants clean exit; Togg wants to stop the bleeding",
+act_desc:"Word spreads — the collection is under question. $GOAT craters. The prediction market flips 1 to 99 in real time. Togg's empire collapses on livestream, in front of everyone who was watching him win.",
+opp:"Togg's PR machine — scrambling, too late",
+zen:[{r:"Antagonist (Togg)",v:"Ego death (unwilling) — he loses everything he valued in the way he valued it"},{r:"Sub-Protagonist (Elizabeth)",v:"At the crossroads — the loupe in her pocket"},{r:"Hero",v:"Offscreen — watching from somewhere quiet"}],
+stakes:"The crew has won. The question is what comes after.",
+ent:["Novelty","Suspense","Meaning"],
+str:{b:"The question raised",m:"The cascade — social media, markets, the crowd turning",e:"Togg's livestream ends. The screen goes dark."}
+},
+{n:36,seq:"SEQUENCE 8 — Denouement",actLabel:"Act Three",con:"THEREFORE",ct:"t",
+title:"GONE LEGIT — THE REWARD",
+loc:"INT. NEW OFFICE / EXT. LOS ANGELES — DAY",
+chars:"Zach, JH, Deja, Hye-Jin",
+pg:"Close the loop — the crew has become brokers for elite collectibles; hero gets the hard-earned reward",
+cg:"Each character has what they wanted; the world is different now",
+act_desc:"The crew — gone legit. Brokers for the world's most elite collectibles. Zach's expertise is finally valued at its real price. Deja runs the operation. Hye-Jin reads the clients. JH is the network.\n\nZach buys back his father's collection at auction — every piece, with his own money. He brings them to the new space. Same loupe around his neck. Same reverence. Everything different.",
+opp:"None — this is the reward",
+zen:[{r:"Hero",v:"Full Connection — his skills are his currency; the world finally needs exactly what he has"},{r:"Sub-Protagonist (Deja/Hye-Jin)",v:"The legitimate exit they were working toward"},{r:"Antagonist",v:"Gone"}],
+stakes:"Trading Places ending. The good criminals beat the bad establishment. The loop is closed.",
+ent:["Meaning"],
+str:{b:"The new operation; the auction",m:"A glimpse of each character in their new role; each lot, each piece recovered",e:"The world they built"}
+},
+{n:37,seq:"SEQUENCE 8 — Denouement",actLabel:"Act Three",con:"THEREFORE",ct:"t",
+title:"THE LOUPE",
+loc:"TBD — day or night",
+chars:"Zach, Elizabeth",
+pg:"The final question between them — open, not resolved; the modifier's final move",
+cg:"Both want to be known; neither knows how to say it",
+act_desc:"Elizabeth and Zach. She has the loupe in her hand — out of the pocket. She doesn't accuse him. She doesn't have to. He doesn't confirm it. He doesn't have to. The question hangs.",
+opp:"Everything they are to each other",
+zen:[{r:"Hero",v:"Full Connection — he is seen; he sees her"},{r:"Sub-Protagonist (Elizabeth)",v:"Full Connection — the loupe out of the costume, in her hand"}],
+stakes:"Open question. Not resolved. The audience carries it out of the theater.",
+ent:["Meaning"],
+str:{b:"They find each other",m:"The loupe. The silence.",e:"Cut to black. Or not."}
+}
+]; // end BEATS_LEGACY — not used at runtime; BEATS is populated from grails-beats.json
+
+// ─── STATE ────────────────────────────────────────────────────
+let cur = 0;
+let goalsOpen = true;
+let ann = JSON.parse(localStorage.getItem('grails-ann') || '{}');
+function saveAnn() { localStorage.setItem('grails-ann', JSON.stringify(ann)); }
+let beatEdits = JSON.parse(localStorage.getItem('grails-beat-edits') || '{}');
+function saveBeatEdits() { localStorage.setItem('grails-beat-edits', JSON.stringify(beatEdits)); }
+function getBeatField(beatN, field, fallback) {
+  return (beatEdits[beatN] && beatEdits[beatN][field] !== undefined) ? beatEdits[beatN][field] : fallback;
+}
+function setBeatField(beatN, field, val) {
+  if (!beatEdits[beatN]) beatEdits[beatN] = {};
+  beatEdits[beatN][field] = val;
+  saveBeatEdits();
+}
+function editableField(beatN, field, val, cls) {
+  const display = h(val);
+  return `<span class="beat-edit${cls?' '+cls:''}" contenteditable="true" data-beatn="${beatN}" data-field="${field}" onblur="onBeatFieldBlur(this)" onfocus="onBeatFieldFocus(this)" title="Click to edit">${display}</span>`;
+}
+function onBeatFieldFocus(el) {
+  el.classList.add('editing');
+}
+function onBeatFieldBlur(el) {
+  el.classList.remove('editing');
+  const beatN = +el.dataset.beatn;
+  const field = el.dataset.field;
+  const val = el.innerText;
+  setBeatField(beatN, field, val);
+}
+window.resetBeatEdits = function(beatN) {
+  delete beatEdits[beatN];
+  saveBeatEdits();
+  renderBeat(cur);
+  showToast('Beat fields reset to original');
+};
+
+// Beat number → fountain filename map
+// Derived dynamically from BEATS array at runtime (see getBeatFile below)
+// Legacy static map kept for reference:
+const BEAT_FILES_LEGACY = {
+  1:'beat-01-the-find.fountain',2:'beat-02-the-shop.fountain',3:'beat-03-the-offer.fountain',
+  4:'beat-04-the-ex.fountain',5:'beat-05-the-mark.fountain',6:'beat-06-the-crew.fountain',
+  7:'beat-07-procurement.fountain',8:'beat-08-the-private-dinner.fountain',9:'beat-09-the-launch.fountain',
+  10:'beat-10-the-crossing.fountain',11:'beat-11-the-loss.fountain',12:'beat-12-final-coordination.fountain',
+  13:'beat-13-the-swap.fountain',14:'beat-14-the-authentication.fountain',15:'beat-15-resolution.fountain',
+  16:'beat-16-enemy-prepares-new-assault.fountain',17:'beat-17-the-short.fountain',
+  18:'beat-18-modifier-faces-new-threat.fountain',19:'beat-19-heros-plan-works.fountain',
+  20:'beat-20-the-work-point-of-no-return.fountain',21:'beat-21-the-line.fountain',
+  22:'beat-22-internet-official.fountain',23:'beat-23-the-tail.fountain',
+  24:'beat-24-enemy-gloats.fountain',25:'beat-25-modifiers-final-transition.fountain',
+  26:'beat-26-the-liquidation.fountain',27:'beat-27-enemy-prepares-coup-de-grace.fountain',
+  28:'beat-28-modifier-has-no-answers.fountain',29:'beat-29-hero-goes-it-alone-again.fountain',
+  30:'beat-30-the-positions-plot-point-ii.fountain',31:'beat-31-the-livestream.fountain',
+  32:'beat-32-the-authentication-confrontation.fountain',33:'beat-33-the-jordan-drops.fountain',
+  34:'beat-34-the-undotted-i.fountain',35:'beat-35-the-crash-climax.fountain',
+  36:'beat-36-gone-legit-the-reward.fountain',37:'beat-37-the-loupe.fountain'
+};
+
+// Get fountain filename for a beat number — uses id from loaded BEATS array
+function getBeatFile(beatN) {
+  const b = BEATS.find(b => b.n === beatN);
+  if (b && b.id) return b.id + '.fountain';
+  return BEAT_FILES_LEGACY[beatN] || null;
+}
+
+window.commitBeatEdits = async function() {
+  const btn = document.getElementById('commit-nav-btn');
+  if (!Object.keys(beatEdits).length) { btn.textContent = 'Nothing to commit'; setTimeout(()=>{ btn.textContent = '↑ Commit'; }, 2000); return; }
+  btn.disabled = true;
+
+  const ts = new Date().toISOString().slice(0,16).replace('T',' ') + ' UTC';
+  const beatNums = Object.keys(beatEdits);
+  let committed = 0, errors = 0;
+
+  for (const beatN of beatNums) {
+    const filename = getBeatFile(+beatN);
+    if (!filename) continue;
+    const path = `GRAILS/beats/${filename}`;
+    const edits = beatEdits[beatN];
+    const b = BEATS.find(b => b.n === +beatN);
+
+    // Build append block
+    const fieldLabels = {loc:'Location',chars:'Characters',pg:'Plot Goal',cg:'Character Goal',act_desc:'The Action',opp:'The Opposition',stakes:'Stakes'};
+    let block = `\n---\n## Card Edit — ${ts}\n\n`;
+    Object.entries(edits).forEach(([field, val]) => {
+      if (fieldLabels[field]) block += `**${fieldLabels[field]}:** ${val}\n`;
+    });
+    block += `\n---\n`;
+
+    btn.textContent = `Committing ${committed+1}/${beatNums.length}…`;
+
+    try {
+      // Fetch current file content + sha
+      const fileRes = await fetch(`/api/github/file?owner=coywolffuturist&repo=scripts&path=${encodeURIComponent(path)}&branch=main`);
+      const fileData = await fileRes.json();
+      const current = fileData.decoded || '';
+      const sha = fileData.sha || null;
+      const newContent = current + block;
+
+      const commitRes = await fetch('/api/github/commit', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          owner: 'coywolffuturist', repo: 'scripts', path,
+          content: newContent,
+          message: `Beat ${beatN} card edit — ${ts}`,
+          sha, branch: 'main'
+        })
+      });
+      const result = await commitRes.json();
+      if (result.committed) committed++;
+      else errors++;
+    } catch(e) { errors++; }
+  }
+
+  if (errors === 0) {
+    btn.textContent = `✓ ${committed} beat${committed>1?'s':''} committed`;
+    // Clear local edits after successful commit
+    beatEdits = {};
+    saveBeatEdits();
+  } else {
+    btn.textContent = `${committed} ok, ${errors} errors`;
+  }
+  setTimeout(() => { btn.textContent = '↑ Commit'; }, 4000);
+  btn.disabled = false;
+};
+
+// ─── INIT ─────────────────────────────────────────────────────
+
+// Build NAV after BEATS are loaded — called from initUI()
+let NAV = [];
+let navIdx = 0;
+
+function buildNav() {
+  NAV = [];
+  const actKeys2 = {'Act One':'goals:one','Act Two':'goals:two','Act Three':'goals:three'};
+  ['Act One','Act Two','Act Three'].forEach(actLabel => {
+    NAV.push({ type:'goals', val: actKeys2[actLabel] });
+    const seqsSeen = [];
+    BEATS.forEach((b,i) => {
+      if (b.actLabel === actLabel && !seqsSeen.find(s=>s===b.seq)) {
+        seqsSeen.push(b.seq);
+        NAV.push({ type:'goals', val:`goals:seq:${b.seq}` });
+        BEATS.forEach((bb,ii) => { if(bb.seq===b.seq) NAV.push({ type:'beat', val:ii }); });
+      }
+    });
+  });
+}
+
+// Load beats from JSON, map to internal format, then init UI
+async function loadBeats() {
+  try {
+    const res = await fetch('/api/beats');
+    if (!res.ok) throw new Error('Failed to load beats: ' + res.status);
+    const raw = await res.json();
+    // Sort by position (should already be sorted, but be safe)
+    raw.sort((a, b) => a.position - b.position);
+    BEATS = raw.map(mapBeat);
+  } catch(e) {
+    console.error('loadBeats error:', e);
+    // Fallback: use legacy data if fetch fails
+    BEATS = BEATS_LEGACY;
+    showToast('⚠ Using local beat data — JSON load failed');
+  }
+}
+
+function buildDropdown() {
+  const sel = document.getElementById('bsel');
+  sel.innerHTML = '';
+
+  const acts = ['Act One', 'Act Two', 'Act Three'];
+  const actKeys = {'Act One':'goals:one','Act Two':'goals:two','Act Three':'goals:three'};
+
+  acts.forEach(actLabel => {
+    const actSep = document.createElement('option');
+    actSep.value = actKeys[actLabel];
+    actSep.textContent = `── ${actLabel.toUpperCase()} ─────────────────────`;
+    sel.appendChild(actSep);
+
+    const seqsSeen = [];
+    BEATS.forEach((b, i) => {
+      if (b.actLabel === actLabel && !seqsSeen.find(s => s.seq === b.seq)) {
+        seqsSeen.push({ seq: b.seq, firstIdx: i });
+      }
+    });
+
+    seqsSeen.forEach(({ seq }) => {
+      const seqKey = `goals:seq:${seq}`;
+      const seqGoalOpt = document.createElement('option');
+      seqGoalOpt.value = seqKey;
+      const seqShort = seq.replace('SEQUENCE ', 'Seq ').split(' — ')[0] + ' — ' + seq.split(' — ')[1];
+      seqGoalOpt.textContent = `  ↳ ${seqShort} Goals`;
+      sel.appendChild(seqGoalOpt);
+
+      BEATS.forEach((b, i) => {
+        if (b.seq === seq) {
+          const o = document.createElement('option');
+          o.value = i;
+          o.textContent = `  ${b.n}. ${b.title}${b.comingsoon ? ' ···' : ''}`;
+          sel.appendChild(o);
+        }
+      });
+    });
+  });
+
+  const sumSep = document.createElement('option');
+  sumSep.disabled = true;
+  sumSep.textContent = '── Summary Goals ──────────────────';
+  sel.appendChild(sumSep);
+  [['goals:one','  Act One Goals'],['goals:two','  Act Two Goals'],['goals:three','  Act Three Goals'],['goals:seqs','  All Sequence Goals']].forEach(([val, label]) => {
+    const o = document.createElement('option');
+    o.value = val;
+    o.textContent = label;
+    sel.appendChild(o);
+  });
+}
+
+async function initUI() {
+  await loadBeats();
+  buildNav();
+  buildDropdown();
+
+  // Jump to view from URL hash or query param
+  const params = new URLSearchParams(window.location.search);
+  const beatParam = params.get('beat');
+  const hash = decodeURIComponent(window.location.hash.replace('#', ''));
+  const goalKeys = ['goals:one','goals:two','goals:three','goals:seqs','goals:seq:'];
+  if (hash && (goalKeys.some(k => hash.startsWith(k)))) {
+    onSelChange(hash);
+  } else {
+    let startIdx = 0;
+    if (beatParam) {
+      // ?beat=N maps to the beat at position N in the sorted array (1-indexed)
+      const beatPos = parseInt(beatParam, 10);
+      const found = BEATS.findIndex(b => b.n === beatPos);
+      if (found >= 0) startIdx = found;
+    } else if (hash && !isNaN(+hash)) {
+      const found = BEATS.findIndex(b => b.n === parseInt(hash, 10));
+      if (found >= 0) startIdx = found;
+    }
+    selectBeat(startIdx);
+  }
+}
+
+window.onload = initUI;
+
+function navTo(ni) {
+  if (ni < 0 || ni >= NAV.length) return;
+  navIdx = ni;
+  const item = NAV[ni];
+  const sel = document.getElementById('bsel');
+  sel.value = item.val;
+  document.getElementById('btn-prev').disabled = ni === 0;
+  document.getElementById('btn-next').disabled = ni === NAV.length - 1;
+  if (item.type === 'goals') {
+    document.getElementById('bctr').textContent = '—';
+    document.getElementById('pf').style.width = `${((ni+1)/NAV.length)*100}%`;
+    window.location.hash = item.val;
+    renderGoalsView(item.val);
+  } else {
+    cur = item.val;
+    renderBeat(item.val);
+  }
+}
+
+function onSelChange(val) {
+  // Find in NAV and navigate there
+  const ni = NAV.findIndex(n => String(n.val) === String(val));
+  if (ni >= 0) { navTo(ni); return; }
+  // Fallback for summary goals not in NAV
+  if (val.startsWith('goals:')) {
+    document.getElementById('btn-prev').disabled = true;
+    document.getElementById('btn-next').disabled = true;
+    document.getElementById('bctr').textContent = '—';
+    document.getElementById('pf').style.width = '100%';
+    window.location.hash = val;
+    // Sync dropdown to the correct option
+    const sel = document.getElementById('bsel');
+    if (sel) sel.value = val;
+    renderGoalsView(val);
+  }
+}
+
+function go(dir) {
+  navTo(navIdx + dir);
+}
+
+function selectBeat(idx) {
+  const ni = NAV.findIndex(n => n.type==='beat' && n.val===idx);
+  if (ni >= 0) { navTo(ni); } else { cur = idx; renderBeat(idx); }
+}
+
+function renderGoalsView(key) {
+  const bc = document.getElementById('bc');
+  let html = '';
+
+  function goalsBlock(label, scope, g) {
+    return `<div class="sec">
+      ${label ? `<div class="slbl">${h(label)}</div>` : ''}
+      ${renderGoalRoleBlock(scope, 'protagonist', g.protagonist)}
+      ${renderGoalRoleBlock(scope, 'antagonist', g.antagonist)}
+      ${renderGoalRoleBlock(scope, 'modifier', g.modifier)}
+    </div>`;
+  }
+
+  if (key.startsWith('goals:seq:')) {
+    // Single sequence goals
+    const seq = key.replace('goals:seq:', '');
+    const g = GOALS.sequences[seq];
+    html += `<div class="bsq" style="margin-bottom:16px;font-size:13px;font-weight:700;color:var(--tp);letter-spacing:.1em">${h(seq)}</div>`;
+    if (g) html += goalsBlock('Sequence Goals', `seq:${seq}`, g);
+    else html += `<div class="fv" style="color:var(--td)">No goals defined yet for this sequence.</div>`;
+
+  } else if (key === 'goals:seqs') {
+    html += `<div class="bsq" style="margin-bottom:16px;font-size:13px;font-weight:700;color:var(--tp);letter-spacing:.1em">ALL SEQUENCE GOALS</div>`;
+    Object.entries(GOALS.sequences).forEach(([seq, g]) => { html += goalsBlock(seq, `seq:${seq}`, g); });
+
+  } else {
+    const actMap = {'goals:one':'Act One','goals:two':'Act Two','goals:three':'Act Three'};
+    const actLabel = actMap[key];
+    const g = GOALS.acts[actLabel];
+    html += `<div class="bsq" style="margin-bottom:16px;font-size:15px;font-weight:700;color:var(--tp);letter-spacing:.1em">${h(actLabel).toUpperCase()} — GOALS</div>`;
+    if (g) html += goalsBlock('', `act:${actLabel}`, g);
+  }
+
+  bc.innerHTML = html;
+  document.getElementById('ni').value = '';
+  renderSidebar(-1);
+}
+
+function h(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function loadGoal(scope, role, field, defaultVal) {
+  const k = getGoalKey(scope, role, field);
+  const saved = localStorage.getItem(k);
+  return (saved !== null) ? saved : defaultVal;
+}
+
+function saveGoal(scope, role, field, val) {
+  const k = getGoalKey(scope, role, field);
+  localStorage.setItem(k, val);
+}
+
+function goalFieldHtml(scope, role, field, defaultVal) {
+  const val = loadGoal(scope, role, field, defaultVal);
+  const placeholder = field === 'plotGoal' ? 'Plot goal...' : 'Character goal...';
+  const isEmpty = !val;
+  return `<span
+    class="goals-edit-field"
+    contenteditable="true"
+    data-scope="${h(scope)}"
+    data-role="${h(role)}"
+    data-field="${h(field)}"
+    data-empty="${isEmpty}"
+    onblur="onGoalBlur(this)"
+    oninput="onGoalInput(this)"
+    title="Click to edit"
+  >${isEmpty ? placeholder : h(val)}</span>`;
+}
+
+function onGoalInput(el) {
+  const isEmpty = !el.textContent.trim();
+  el.dataset.empty = isEmpty;
+}
+
+function onGoalBlur(el) {
+  const scope = el.dataset.scope;
+  const role = el.dataset.role;
+  const field = el.dataset.field;
+  let val = el.textContent.trim();
+  const placeholder = field === 'plotGoal' ? 'Plot goal...' : 'Character goal...';
+  if (val === placeholder) val = '';
+  saveGoal(scope, role, field, val);
+  // Update GOALS in memory too
+  const scopeParts = scope.split(':');
+  const scopeType = scopeParts[0]; // 'act' or 'seq'
+  const scopeKey = scope.slice(scopeType.length + 1);
+  if (scopeType === 'act') {
+    if (GOALS.acts[scopeKey]) GOALS.acts[scopeKey][role][field] = val;
+  } else {
+    if (GOALS.sequences[scopeKey]) GOALS.sequences[scopeKey][role][field] = val;
+  }
+  el.dataset.empty = !val;
+  if (!val) el.textContent = placeholder;
+}
+
+function toggleGoals() {
+  goalsOpen = !goalsOpen;
+  const body = document.getElementById('goals-body');
+  const toggle = document.getElementById('goals-toggle');
+  if (body) body.style.display = goalsOpen ? 'block' : 'none';
+  if (toggle) toggle.classList.toggle('open', goalsOpen);
+}
+
+function renderGoalRoleBlock(scope, role, roleData) {
+  const roleNames = { protagonist: 'Zach — Protagonist', antagonist: 'Togg — Antagonist', modifier: 'JW — Modifier' };
+  const roleName = roleNames[role] || (role.charAt(0).toUpperCase() + role.slice(1));
+  return `<div class="goals-role-block">
+    <div class="goals-role-name">${roleName}</div>
+    <div style="margin-bottom:4px">
+      <div class="goals-sub-label">Plot Goal</div>
+      ${goalFieldHtml(scope, role, 'plotGoal', roleData.plotGoal)}
+    </div>
+    <div>
+      <div class="goals-sub-label">Character Goal</div>
+      ${goalFieldHtml(scope, role, 'charGoal', roleData.charGoal)}
+    </div>
+  </div>`;
+}
+
+function renderGoals(b) {
+  const actGoals = GOALS.acts[b.actLabel] || null;
+  const seqGoals = GOALS.sequences[b.seq] || null;
+  if (!actGoals && !seqGoals) return '';
+  let html = `<div class="goals-block">
+    <div class="goals-hdr" onclick="toggleGoals()">
+      <span class="goals-hdr-label">Goals</span>
+      <span class="goals-hdr-badge">${h(b.actLabel)} · ${h(b.seq.split(' — ')[0])}</span>
+      <span class="goals-hdr-toggle ${goalsOpen ? 'open' : ''}" id="goals-toggle">▾</span>
+    </div>
+    <div class="goals-body" id="goals-body" style="display:${goalsOpen ? 'block' : 'none'}">
+      <div class="goals-draft">Draft goals — click any field to edit</div>`;
+  if (actGoals) {
+    const actScope = `act:${b.actLabel}`;
+    html += `<div class="goals-sect">
+      <div class="goals-sect-lbl">${h(b.actLabel)}</div>
+      ${renderGoalRoleBlock(actScope, 'protagonist', actGoals.protagonist)}
+      ${renderGoalRoleBlock(actScope, 'antagonist', actGoals.antagonist)}
+      ${renderGoalRoleBlock(actScope, 'modifier', actGoals.modifier)}
+    </div>`;
+  }
+  if (seqGoals) {
+    const seqScope = `seq:${b.seq}`;
+    html += `<div class="goals-sect">
+      <div class="goals-sect-lbl">${h(b.seq)}</div>
+      ${renderGoalRoleBlock(seqScope, 'protagonist', seqGoals.protagonist)}
+      ${renderGoalRoleBlock(seqScope, 'antagonist', seqGoals.antagonist)}
+      ${renderGoalRoleBlock(seqScope, 'modifier', seqGoals.modifier)}
+    </div>`;
+  }
+  html += `</div></div>`;
+  return html;
+}
+
+function renderBeat(idx) {
+  const b = BEATS[idx];
+  document.getElementById('bctr').textContent = `${b.n} / ${BEATS.length}`;
+  document.getElementById('pf').style.width = `${(b.n / BEATS.length) * 100}%`;
+  document.getElementById('btn-prev').disabled = navIdx === 0;
+  document.getElementById('btn-next').disabled = navIdx === NAV.length - 1;
+  document.getElementById('btn-prev').style.opacity = '';
+  document.getElementById('btn-next').style.opacity = '';
+  document.getElementById('ni').value = '';
+  document.getElementById('cct').textContent = '0 chars';
+  const ctCls = b.ct === 't' ? 'ct-t' : b.ct === 'b' ? 'ct-b' : 'ct-d';
+  const fwName = ZEN_NAMES[b.n] || '';
+  let html = '';
+  if (b.comingsoon) {
+    html += `
+    <div class="bsq">${h(b.seq)} &nbsp;·&nbsp; ${h(b.actLabel)}</div>
+    <div class="bttl"><span class="bn">BEAT ${b.n}</span>${h(b.title)}</div>
+    <div class="ctag ${ctCls}">${h(b.con)}</div>
+    <div class="cs-card">
+      <div class="cs-fw-name">${h(fwName)}</div>
+      <div class="cs-label">Coming soon</div>
+      <div class="cs-desc">This beat hasn't been written yet. Use the notes panel to capture ideas, fragments, or questions — Coywolf will work through it with you.</div>
+      <div class="cs-badge">Beat ${b.n} of 37</div>
+    </div>`;
+  } else {
+    const hasEdits = !!beatEdits[b.n];
+    html += `
+    <div class="bsq">${h(b.seq)} &nbsp;·&nbsp; ${h(b.actLabel)}</div>
+    <div class="bttl"><span class="bn">BEAT ${b.n}</span>${h(b.title)}${hasEdits?`<button class="beat-reset" onclick="resetBeatEdits(${b.n})">reset edits</button>`:''}</div>
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+      <div class="ctag ${ctCls}" style="margin-bottom:0">${h(b.con)}</div>
+      <button class="edit-beat-link" onclick="openEditBeat(${idx})">✎ Edit beat</button>
+    </div>
+    <div class="sec">
+      <div class="fld"><div class="fl">Location</div><div class="fv loc">${editableField(b.n,'loc',getBeatField(b.n,'loc',b.loc),'loc')}</div></div>
+      <div class="fld"><div class="fl">Characters</div><div class="fv">${editableField(b.n,'chars',getBeatField(b.n,'chars',b.chars))}</div></div>
+      <div class="fld"><div class="fl">Plot Goal</div><div class="fv">${editableField(b.n,'pg',getBeatField(b.n,'pg',b.pg))}</div></div>
+      <div class="fld"><div class="fl">Character Goal</div><div class="fv">${editableField(b.n,'cg',getBeatField(b.n,'cg',b.cg))}</div></div>
+    </div>
+    <div class="sec">
+      <div class="slbl">The Action</div>
+      <div class="sb">${editableField(b.n,'act_desc',getBeatField(b.n,'act_desc',b.act_desc))}</div>
+    </div>
+    <div class="sec">
+      <div class="slbl">The Opposition</div>
+      <div class="sb">${editableField(b.n,'opp',getBeatField(b.n,'opp',b.opp))}</div>
+    </div>
+    <div class="sec">
+      <div class="slbl">The Zen Pivot</div>
+      ${b.zen.map(z=>`<div class="zi"><span class="zr">${h(z.r)}</span><span class="zv">${h(z.v)}</span></div>`).join('')}
+    </div>
+    <div class="sec">
+      <div class="slbl">Stakes Update</div>
+      <div class="sb">${editableField(b.n,'stakes',getBeatField(b.n,'stakes',b.stakes))}</div>
+    </div>
+    <div class="sec">
+      <div class="slbl">Entertainment Factor</div>
+      <div class="tags">${b.ent.map(e=>`<span class="tag">${h(e)}</span>`).join('')}</div>
+    </div>
+    <div class="sec">
+      <div class="slbl">Structure Check</div>
+      <div class="sr"><span class="sk">Beginning</span><span class="sv">${h(b.str.b)}</span></div>
+      <div class="sr"><span class="sk">Middle</span><span class="sv">${h(b.str.m)}</span></div>
+      <div class="sr"><span class="sk">End</span><span class="sv">${h(b.str.e)}</span></div>
+    </div>`;
+  }
+  const beatAnns = ann[idx] || [];
+  beatAnns.forEach(a => {
+    html += `<div class="ab" id="ann-${a.id}">
+      <div class="ahdr"><span class="albl">B: Operator</span><span class="ats">${h(a.ts)}</span></div>
+      <button class="adel" onclick="deleteAnn(${idx},'${a.id}')" title="Delete">✕</button>
+      <div class="atxt">${h(a.text)}</div>
+    </div>`;
+  });
+  document.getElementById('bc').innerHTML = html;
+  renderSidebar(idx);
+}
+
+function renderSidebar(idx) {
+  const beatAnns = ann[idx] || [];
+  const sb = document.getElementById('asb');
+  const chips = document.getElementById('achips');
+  // Always keep asb hidden — notes surface via △ Notes modal button instead
+  sb.style.display = 'none';
+  const seeBtn = document.getElementById('see-notes-btn');
+  if (seeBtn) seeBtn.style.display = beatAnns.length > 0 ? 'inline-flex' : 'none';
+  if (beatAnns.length === 0) return;
+  document.getElementById('ashdr').textContent = `${beatAnns.length} note${beatAnns.length>1?'s':''} on this beat`;
+  chips.innerHTML = beatAnns.map(a => `
+    <div class="achip">
+      <div style="font-size:9px;color:var(--c);opacity:.6;margin-bottom:3px;text-transform:uppercase;letter-spacing:.1em">B: ${h(a.ts)}</div>
+      ${h(a.text.slice(0,80))}${a.text.length>80?'…':''}
+      <button class="cdel" onclick="deleteAnn(${idx},'${a.id}')">✕</button>
+    </div>
+  `).join('');
+}
+
+function updateCct() {
+  const v = document.getElementById('ni').value;
+  document.getElementById('cct').textContent = `${v.length} chars`;
+}
+
+async function sendNote() {
+  const text = document.getElementById('ni').value.trim();
+  if (!text) return;
+  const btn = document.getElementById('send-btn');
+  btn.disabled = true;
+  btn.textContent = 'Writing…';
+
+  const b = BEATS[cur];
+  try {
+    const res = await fetch('/api/grails-edit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        note: text,
+        beat: {
+          n: b.n, title: b.title,
+          loc: getBeatField(b.n,'loc',b.loc),
+          chars: getBeatField(b.n,'chars',b.chars),
+          pg: getBeatField(b.n,'pg',b.pg),
+          cg: getBeatField(b.n,'cg',b.cg),
+          act_desc: getBeatField(b.n,'act_desc',b.act_desc),
+          opp: getBeatField(b.n,'opp',b.opp),
+          stakes: getBeatField(b.n,'stakes',b.stakes)
+        }
+      })
+    });
+    const { edits, error } = await res.json();
+    if (error) throw new Error(error);
+
+    if (edits && Object.keys(edits).length > 0) {
+      // Apply each edit to localStorage + live DOM
+      Object.entries(edits).forEach(([field, val]) => {
+        setBeatField(b.n, field, val);
+        // Update the live contenteditable span directly
+        const el = document.querySelector(`.beat-edit[data-beatn="${b.n}"][data-field="${field}"]`);
+        if (el) { el.innerText = val; el.dataset.empty = !val; }
+      });
+      // Flash and scroll to the first changed field
+      let firstChanged = null;
+      Object.keys(edits).forEach(field => {
+        const el = document.querySelector(`.beat-edit[data-beatn="${b.n}"][data-field="${field}"]`);
+        if (el) {
+          el.style.background = 'rgba(139,92,246,0.18)';
+          setTimeout(() => { el.style.background = ''; }, 1800);
+          if (!firstChanged) firstChanged = el;
+        }
+      });
+      if (firstChanged) firstChanged.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } else {
+      // No structured edits returned — fall back to annotation
+      if (!ann[cur]) ann[cur] = [];
+      const id = Date.now().toString(36) + Math.random().toString(36).slice(2,5);
+      const now = new Date();
+      const ts = now.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'}) + ' · ' + now.toLocaleDateString('en-US',{month:'short',day:'numeric'});
+      ann[cur].push({text, ts, id});
+      saveAnn();
+      renderBeat(cur);
+    }
+  } catch(e) {
+    console.error('sendNote error:', e);
+  }
+
+  document.getElementById('ni').value = '';
+  document.getElementById('cct').textContent = '0 chars';
+  btn.disabled = false;
+  btn.textContent = 'Send to Coywolf →';
+}
+
+function deleteAnn(idx, id) {
+  if (!ann[idx]) return;
+  ann[idx] = ann[idx].filter(a => a.id !== id);
+  if (ann[idx].length === 0) delete ann[idx];
+  saveAnn();
+  renderBeat(idx);
+}
+
+function clearAll() {
+  // Clear edits scoped to the current beat/act/sequence view only
+  if (typeof cur === 'number') {
+    // Beat view — clear annotations + beat field edits for this beat
+    const b = BEATS[cur];
+    if (ann[cur] && ann[cur].length) {
+      delete ann[cur];
+      saveAnn();
+    }
+    if (b) {
+      delete beatEdits[b.n];
+      saveBeatEdits();
+      // Also clear goal edits for this beat's act + sequence
+      const actScope = `act:${b.actLabel}`;
+      const seqScope = `seq:${b.seq}`;
+      ['protagonist','antagonist','modifier'].forEach(role => {
+        ['plotGoal','charGoal'].forEach(field => {
+          localStorage.removeItem(getGoalKey(actScope, role, field));
+          localStorage.removeItem(getGoalKey(seqScope, role, field));
+        });
+      });
+      // Reset in-memory GOALS back to originals (reload page values)
+      // Simplest: reload saved goals from scratch by re-running the loader
+      loadGoalsFromStorage();
+    }
+    renderBeat(cur);
+  } else if (typeof cur === 'string' && cur.startsWith('goals:')) {
+    // Goals view — clear goal edits for this scope
+    const scope = cur.replace(/^goals:/, ''); // e.g. "act:Act One" or "seq:SEQUENCE 1..."
+    ['protagonist','antagonist','modifier'].forEach(role => {
+      ['plotGoal','charGoal'].forEach(field => {
+        localStorage.removeItem(getGoalKey(scope, role, field));
+      });
+    });
+    loadGoalsFromStorage();
+    renderGoalsView(cur.replace(/^goals:/, ''));
+  }
+  showToast('Edits cleared for this beat');
+}
+
+function loadGoalsFromStorage() {
+  // Re-apply any saved goal edits from localStorage into the GOALS object
+  Object.entries(GOALS.acts).forEach(([actLabel, roles]) => {
+    const scope = `act:${actLabel}`;
+    ['protagonist','antagonist','modifier'].forEach(role => {
+      ['plotGoal','charGoal'].forEach(field => {
+        const saved = localStorage.getItem(getGoalKey(scope, role, field));
+        if (saved !== null) roles[role][field] = saved;
+      });
+    });
+  });
+  Object.entries(GOALS.sequences).forEach(([seq, roles]) => {
+    const scope = `seq:${seq}`;
+    ['protagonist','antagonist','modifier'].forEach(role => {
+      ['plotGoal','charGoal'].forEach(field => {
+        const saved = localStorage.getItem(getGoalKey(scope, role, field));
+        if (saved !== null) roles[role][field] = saved;
+      });
+    });
+  });
+}
+
+function showToast(msg) {
+  let t = document.getElementById('toast');
+  if (!t) {
+    t = document.createElement('div');
+    t.id = 'toast';
+    t.style.cssText = 'position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1e1e2e;border:1px solid #2a2a42;color:#7878a0;font-family:"IBM Plex Mono",monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:8px 18px;border-radius:3px;z-index:999;opacity:0;transition:opacity .2s;pointer-events:none;';
+    document.body.appendChild(t);
+  }
+  t.textContent = msg;
+  t.style.opacity = '1';
+  clearTimeout(t._hide);
+  t._hide = setTimeout(() => { t.style.opacity = '0'; }, 2200);
+}
+
+function openExport() {
+  let out = `GRAILS — ANNOTATED BEAT SHEET\nExported: ${new Date().toLocaleString()}\n${'═'.repeat(60)}\n\n`;
+  BEATS.forEach((b, i) => {
+    out += `[BEAT ${b.n} — ${b.title}]\n${b.seq} · ${b.actLabel}\n`;
+    if (b.comingsoon) { out += `STATUS: Coming soon\n`; }
+    else {
+      out += `CONNECTOR: ${b.con}\nLOCATION: ${b.loc}\nCHARACTERS: ${b.chars}\nPLOT GOAL: ${b.pg}\nCHARACTER GOAL: ${b.cg}\n\nTHE ACTION:\n${b.act_desc}\n\nTHE OPPOSITION: ${b.opp}\n\nSTAKES UPDATE: ${b.stakes}\nENTERTAINMENT: ${b.ent.join(', ')}\nSTRUCTURE:\n  Beginning: ${b.str.b}\n  Middle: ${b.str.m}\n  End: ${b.str.e}\n`;
+    }
+    const beatAnns = ann[i] || [];
+    if (beatAnns.length > 0) {
+      out += `\n── OPERATOR'S NOTES ──\n`;
+      beatAnns.forEach(a => { out += `[${a.ts}] B: ${a.text}\n`; });
+    }
+    out += `\n${'─'.repeat(60)}\n\n`;
+  });
+  document.getElementById('mta').value = out;
+  document.getElementById('mov').classList.add('open');
+}
+
+function closeEx() { document.getElementById('mov').classList.remove('open'); }
+function closeExBg(e) { if (e.target === document.getElementById('mov')) closeEx(); }
+function copyEx() {
+  const ta = document.getElementById('mta');
+  ta.select();
+  document.execCommand('copy');
+  const btn = event.target;
+  btn.textContent = 'Copied!';
+  setTimeout(() => { btn.textContent = 'Copy to clipboard'; }, 2000);
+}
+
+// ── EDIT BEAT MODAL ──────────────────────────────────────────────────────────
+let _editBeatId = null; // the id slug of the beat being edited
+
+function openEditBeat(beatIdx) {
+  const b = BEATS[beatIdx];
+  if (!b || b.comingsoon) return;
+  _editBeatId = b.id;
+  document.getElementById('edit-modal-ttl').textContent = `Edit Beat ${b.n} — ${b.title}`;
+  document.getElementById('edit-act-desc').value = getBeatField(b.n, 'act_desc', b.act_desc);
+  document.getElementById('edit-loc').value = getBeatField(b.n, 'loc', b.loc);
+  document.getElementById('edit-chars').value = getBeatField(b.n, 'chars', b.chars);
+  document.getElementById('edit-opp').value = getBeatField(b.n, 'opp', b.opp);
+  document.getElementById('edit-stakes').value = getBeatField(b.n, 'stakes', b.stakes);
+  document.getElementById('edit-save-status').textContent = '';
+  document.getElementById('edit-save-btn').disabled = false;
+  document.getElementById('edit-modal-overlay').classList.add('open');
+}
+
+function closeEditBeat() {
+  document.getElementById('edit-modal-overlay').classList.remove('open');
+  _editBeatId = null;
+}
+
+function closeEditBeatBg(e) {
+  if (e.target === document.getElementById('edit-modal-overlay')) closeEditBeat();
+}
+
+async function saveEditBeat() {
+  if (!_editBeatId) return;
+  const btn = document.getElementById('edit-save-btn');
+  const status = document.getElementById('edit-save-status');
+  btn.disabled = true;
+  status.textContent = 'Saving…';
+
+  const updates = {
+    act_desc: document.getElementById('edit-act-desc').value,
+    loc: document.getElementById('edit-loc').value,
+    chars: document.getElementById('edit-chars').value,
+    opposition: document.getElementById('edit-opp').value,
+    stakes: document.getElementById('edit-stakes').value
+  };
+
+  try {
+    const res = await fetch(`/api/beats/${_editBeatId}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(updates)
+    });
+    const data = await res.json();
+    if (!res.ok || data.error) throw new Error(data.error || 'Save failed');
+
+    // Update the in-memory BEATS array
+    const b = BEATS.find(b => b.id === _editBeatId);
+    if (b) {
+      b.act_desc = updates.act_desc;
+      b.loc = updates.loc;
+      b.chars = updates.chars;
+      b.opp = updates.opposition;
+      b.stakes = updates.stakes;
+    }
+
+    status.textContent = '✓ Saved to JSON';
+    setTimeout(() => { closeEditBeat(); renderBeat(cur); }, 900);
+  } catch(e) {
+    status.textContent = '✗ Error: ' + e.message;
+    btn.disabled = false;
+  }
+}
+
+// ── RESIZE HANDLES ──────────────────────────────────────────────────────────
+(function initResize() {
+  const ws   = document.querySelector('.ws');
+  const pl   = document.querySelector('.pl');
+  const rhV  = document.getElementById('rh-v');
+  const rhH  = document.getElementById('rh-h');
+
+  // Restore saved sizes — clear any stale % values, use px only
+  const savedColW = localStorage.getItem('grails:colWidth');
+  if (savedColW && savedColW.endsWith('px')) pl.style.width = savedColW;
+
+  // ── Vertical handle (left/right column split) ──
+  let vDragging = false, vStartX = 0, vStartW = 0;
+
+  rhV.addEventListener('mousedown', e => {
+    vDragging = true;
+    vStartX = e.clientX;
+    vStartW = pl.getBoundingClientRect().width;
+    rhV.classList.add('dragging');
+    document.body.style.cursor = 'col-resize';
+    document.body.style.userSelect = 'none';
+    e.preventDefault();
+  });
+
+  document.addEventListener('mousemove', e => {
+    if (!vDragging) return;
+    const dx = e.clientX - vStartX;
+    const wsW = ws.getBoundingClientRect().width;
+    const newW = Math.max(80, Math.min(wsW - 80, vStartW + dx));
+    pl.style.width = newW + 'px';
+  });
+
+  document.addEventListener('mouseup', () => {
+    if (!vDragging) return;
+    vDragging = false;
+    rhV.classList.remove('dragging');
+    document.body.style.cursor = '';
+    document.body.style.userSelect = '';
+    localStorage.setItem('grails:colWidth', pl.style.width);
+  });
+
+  // ── Horizontal handle (notes top / archive bottom) ──
+  // The left panel stacks: [ph header] [iw notes] [sa send btn] [rh-h] [asb archive]
+  // We resize by adjusting iw flex-basis and asb height
+
+  const iw  = pl.querySelector('.iw');
+  const sa  = pl.querySelector('.sa');
+  const asb = document.getElementById('asb');
+
+  // Show horizontal handle only when archive section is visible
+  function updateHHandleVisibility() {
+    const asbVisible = asb.style.display !== 'none' && asb.style.display !== '';
+    rhH.style.display = asbVisible ? 'block' : 'none';
+  }
+
+  // Observe asb display changes
+  const obs = new MutationObserver(updateHHandleVisibility);
+  obs.observe(asb, { attributes: true, attributeFilter: ['style'] });
+
+  // Restore saved archive height
+  const savedAsbH = localStorage.getItem('grails:archiveHeight');
+  if (savedAsbH) {
+    asb.style.height = savedAsbH;
+    asb.style.maxHeight = savedAsbH;
+  }
+
+  let hDragging = false, hStartY = 0, hStartAsbH = 0;
+
+  rhH.addEventListener('mousedown', e => {
+    hDragging = true;
+    hStartY = e.clientY;
+    hStartAsbH = asb.getBoundingClientRect().height;
+    rhH.classList.add('dragging');
+    document.body.style.cursor = 'row-resize';
+    document.body.style.userSelect = 'none';
+    e.preventDefault();
+  });
+
+  document.addEventListener('mousemove', e => {
+    if (!hDragging) return;
+    const dy = hStartY - e.clientY; // dragging up = bigger archive
+    const plH = pl.getBoundingClientRect().height;
+    const saH = sa.getBoundingClientRect().height;
+    const phH = pl.querySelector('.ph').getBoundingClientRect().height;
+    const newAsbH = Math.max(40, Math.min(plH - phH - saH - 60, hStartAsbH + dy));
+    asb.style.height = newAsbH + 'px';
+    asb.style.maxHeight = newAsbH + 'px';
+    iw.style.flex = '1';
+  });
+
+  document.addEventListener('mouseup', () => {
+    if (!hDragging) return;
+    hDragging = false;
+    rhH.classList.remove('dragging');
+    document.body.style.cursor = '';
+    document.body.style.userSelect = '';
+    localStorage.setItem('grails:archiveHeight', asb.style.height);
+  });
+})();
+</script>
+
+<!-- COYWOLF NOTES MODAL -->
+<div id="notes-modal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.7);backdrop-filter:blur(4px)" onclick="if(event.target===this)toggleNotesModal()">
+  <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:min(600px,90vw);max-height:80vh;background:#111118;border:1px solid #2a2a3e;display:flex;flex-direction:column;overflow:hidden">
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid #1e1e2e;background:#16161f;flex-shrink:0">
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:#00d4ff">△ COYWOLF NOTES</span>
+      <button onclick="toggleNotesModal()" style="background:none;border:none;color:#6e6e8a;cursor:pointer;font-family:'IBM Plex Mono',monospace;font-size:11px;padding:2px 6px">✕</button>
+    </div>
+    <div id="notes-modal-body" style="overflow-y:auto;padding:16px;flex:1;font-family:'Inter',sans-serif;font-size:11px;line-height:1.7;color:#b0b0d0"></div>
+  </div>
+</div>
+
+<script>
+window.toggleNotesModal = function() {
+  const modal = document.getElementById('notes-modal');
+  const body = document.getElementById('notes-modal-body');
+  if (modal.style.display !== 'none') { modal.style.display = 'none'; return; }
+  // Pull content from the hidden asb archive
+  const chips = document.getElementById('achips');
+  if (!chips || !chips.innerHTML.trim()) {
+    body.innerHTML = '<span style="color:#6e6e8a;font-family:\'IBM Plex Mono\',monospace;font-size:10px">No Coywolf notes for this beat yet.</span>';
+  } else {
+    body.innerHTML = chips.innerHTML;
+  }
+  modal.style.display = 'block';
+};
+
+// Show/hide the "△ Notes" button based on whether there are archive items
+const _origLoadAnns = window.loadAnnotations;
+function patchSeeNotesBtn() {
+  const chips = document.getElementById('achips');
+  const btn = document.getElementById('see-notes-btn');
+  if (!btn) return;
+  btn.style.display = (chips && chips.children.length > 0) ? 'inline-flex' : 'none';
+}
+// Observe achips for changes
+const _chipsObs = new MutationObserver(patchSeeNotesBtn);
+document.addEventListener('DOMContentLoaded', () => {
+  const chips = document.getElementById('achips');
+  if (chips) _chipsObs.observe(chips, { childList: true, subtree: true });
+  patchSeeNotesBtn();
+});
+</script>
+</body>
+</html>

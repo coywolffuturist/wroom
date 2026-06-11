@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GRAILS — Series Overview</title>
+<style>
+:root{
+  --bg:#0d1117;--bg-p:#13191f;--bg-s:#1a2230;
+  --b:#1e2d3d;--b2:#2a3f55;
+  --c:#00c6cc;--c2:#00a0a5;--cd:#004f52;
+  --tx:#d0dde8;--tx2:#7a93a8;--tx3:#4a6070;
+  --red:#cc2244;--red2:#ff4466;
+  --r:6px;--r2:3px;
+  --f:'Inter',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:var(--bg);color:var(--tx);font-family:var(--f);font-size:14px;overflow:hidden}
+
+/* TOP NAV */
+.bnav{display:flex;align-items:center;gap:10px;padding:10px 20px;border-bottom:1px solid var(--b);background:var(--bg-p);flex-shrink:0}
+.ctitle{font-size:13px;font-weight:700;letter-spacing:.08em;color:var(--c);text-transform:uppercase}
+.csub{font-size:12px;color:var(--tx2);margin-left:4px}
+.dvdr{flex:1}
+.btn{padding:5px 14px;border-radius:var(--r2);font-size:12px;font-weight:600;cursor:pointer;border:none;letter-spacing:.04em;transition:background .15s}
+.btn-clr{background:transparent;border:1px solid var(--b2);color:var(--tx2)}
+.btn-clr:hover{border-color:var(--red);color:var(--red2)}
+.btn-p{background:var(--c);color:#000}
+.btn-p:hover{background:var(--c2)}
+.btn-p:disabled{opacity:.4;cursor:not-allowed}
+
+/* MAIN SPLIT */
+.ws{display:flex;height:calc(100vh - 49px);overflow:hidden}
+
+/* LEFT NOTES PANEL */
+.pl{width:320px;min-width:200px;max-width:500px;flex-shrink:0;display:flex;flex-direction:column;border-right:1px solid var(--b);background:var(--bg-p)}
+.ph{display:flex;align-items:center;justify-content:space-between;padding:12px 16px 8px;border-bottom:1px solid var(--b);flex-shrink:0}
+.plbl{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--tx2)}
+.cct{font-size:11px;color:var(--tx3)}
+.iw{flex:1;overflow:hidden;display:flex}
+.note{width:100%;flex:1;background:transparent;border:none;color:var(--tx);font-family:var(--f);font-size:13px;line-height:1.6;padding:14px 16px;resize:none;outline:none}
+.note::placeholder{color:var(--tx3);font-style:italic}
+.resp-area{padding:12px 14px;background:var(--bg-s);border-top:1px solid var(--b);font-size:13px;line-height:1.6;color:var(--tx);display:none;max-height:160px;overflow-y:auto}
+.resp-area.visible{display:block}
+.resp-hdr{font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--c);margin-bottom:6px}
+.sa{padding:10px 12px;border-top:1px solid var(--b);flex-shrink:0}
+.sbtn{width:100%;padding:9px 16px;background:var(--cd);border:1px solid var(--c);color:var(--c);border-radius:var(--r2);font-size:13px;font-weight:700;letter-spacing:.06em;cursor:pointer;display:flex;justify-content:space-between;align-items:center;transition:background .15s}
+.sbtn:hover{background:var(--c);color:#000}
+.sbtn:disabled{opacity:.4;cursor:not-allowed}
+
+/* RESIZE HANDLE */
+.rh-v{width:5px;cursor:col-resize;background:transparent;flex-shrink:0;transition:background .15s}
+.rh-v:hover,.rh-v.dragging{background:var(--c)}
+
+/* RIGHT DOC PANEL */
+.pr{flex:1;overflow-y:auto}
+.doc-wrap{padding:40px 48px;max-width:860px;margin:0 auto;width:100%}
+
+/* TITLE BLOCK */
+.ov-header{margin-bottom:36px;padding-bottom:24px;border-bottom:1px solid var(--b2)}
+.ov-show{font-size:28px;font-weight:900;letter-spacing:.08em;color:var(--c);text-transform:uppercase;line-height:1}
+.ov-logline{font-size:15px;line-height:1.7;color:var(--tx);margin-top:12px;font-style:italic}
+
+/* SECTIONS */
+.sect{margin-bottom:30px}
+.sect-label{font-size:10px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--tx3);margin-bottom:10px;display:flex;align-items:center;gap:10px}
+.sect-label::after{content:'';flex:1;height:1px;background:var(--b)}
+.sect-body{font-size:14px;line-height:1.8;color:var(--tx)}
+
+/* COMPS ROW */
+.comps-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px}
+.comp-tag{background:var(--bg-s);border:1px solid var(--b2);color:var(--tx2);padding:4px 12px;border-radius:20px;font-size:12px;font-weight:600;letter-spacing:.04em}
+
+/* EDITABLE */
+[contenteditable]{outline:none;border-radius:var(--r2);transition:background .15s,box-shadow .15s}
+[contenteditable]:hover{background:rgba(0,198,204,.04)}
+[contenteditable]:focus{background:rgba(0,198,204,.08);box-shadow:0 0 0 1px var(--cd)}
+.ep{display:block;min-height:1.5em;padding:6px 8px;margin:-6px -8px}
+.ep-placeholder{color:var(--tx3);font-style:italic}
+
+/* LOADING DOTS */
+@keyframes blink{0%,80%,100%{opacity:.2}40%{opacity:1}}
+.ldot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--c);animation:blink 1.4s infinite ease-in-out;margin:0 2px}
+.ldot:nth-child(2){animation-delay:.2s}
+.ldot:nth-child(3){animation-delay:.4s}
+
+/* TOAST */
+.toast{position:fixed;bottom:20px;right:20px;background:var(--bg-s);border:1px solid var(--c);color:var(--c);padding:10px 16px;border-radius:var(--r);font-size:12px;font-weight:600;letter-spacing:.04em;opacity:0;transform:translateY(8px);transition:all .2s;pointer-events:none;z-index:999}
+.toast.show{opacity:1;transform:translateY(0)}
+.toast.err{border-color:var(--red);color:var(--red2)}
+</style>
+</head>
+<body>
+
+<!-- TOP NAV -->
+<div class="bnav">
+  <span class="ctitle">Overview</span>
+  <span class="csub">GRAILS</span>
+  <div class="dvdr"></div>
+  <button class="btn btn-clr" onclick="clearNotes()">Clear Notes</button>
+  <button class="btn btn-p" id="commit-btn" onclick="commitDoc()" disabled>↑ Commit</button>
+</div>
+
+<!-- MAIN WORKSPACE -->
+<div class="ws">
+
+  <!-- LEFT: NOTES -->
+  <div class="pl" id="pl">
+    <div class="ph">
+      <span class="plbl">B: Your Notes</span>
+      <span class="cct" id="cct">0 chars</span>
+    </div>
+    <div class="iw">
+      <textarea class="note" id="ni" oninput="updateCct()"
+        placeholder="Notes about tone, positioning, comparables, theme...&#10;&#10;What's the show's promise to the audience? What's the world? What's the pitch?&#10;&#10;Coywolf will update the doc →"></textarea>
+    </div>
+    <div class="resp-area" id="resp-area">
+      <div class="resp-hdr">🐺 Coywolf</div>
+      <div id="resp-body"></div>
+    </div>
+    <div class="sa">
+      <button class="sbtn" id="send-btn" onclick="sendNote()">
+        <span>Send to Coywolf</span><span>→</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- RESIZE HANDLE -->
+  <div class="rh-v" id="rh-v"></div>
+
+  <!-- RIGHT: OVERVIEW DOC -->
+  <div class="pr">
+    <div class="doc-wrap" id="doc-wrap"></div>
+  </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ── Section Definitions ────────────────────────────────────────────────────
+
+const SECTIONS = [
+  {
+    key: 'logline',
+    label: 'Logline',
+    prose: `A humble sports memorabilia restorer fights for the soul of his craft when he's swept up into a Koreatown gang's heist of an influencer's multimillion-dollar collection.`
+  },
+  {
+    key: 'world',
+    label: 'The World',
+    prose: `GRAILS thrusts us into the hyper-monetized world of sports memorabilia collecting — a subculture where a single cardboard rectangle sells for millions, authenticity is a religion, and the line between reverence and grift has never been thinner.
+
+We'll tag along as Zach, a humble shop owner who has devoted his life to the sanctity of authentic objects, is pulled into the most audacious forgery in the hobby's history — a scheme to pass a $GOAT-inflating fake through the AI authentication system of the woman he used to love.
+
+Three zones in collision: The Valley (sun-bleached, analog, the old economy hanging on), Koreatown (sovereign, invisible infrastructure, its own rules), and The Hills (Togg's hyper-rendered Panopticon where everything is content and everyone is a collectible).`
+  },
+  {
+    key: 'tone',
+    label: 'Tone & Comparables',
+    prose: `GRAILS will be to sports memorabilia what BALLERS is to the NFL, SILICON VALLEY to tech, and UNCUT GEMS to New York's diamond district — wish-fulfilling insider access lovingly satirizing the subculture.
+
+Think Ocean's Eleven warmth inside an Uncut Gems palette. The crew is charming, the mark deserves it, and you're rooting for the heist before you've decided if you should be. Anxious and complicit simultaneously.
+
+We won't shy from the truth. Like MASTER OF NONE and ATLANTA we won't duck the cultural collisions facing its characters — a Valley kid who built his identity around things the world no longer values, a Koreatown crew operating by their own sovereign code, and an influencer who weaponized the hobby's most sacred word. Young audiences are too sophisticated for easy answers: we'll keep our fun relatable by keeping it real.`
+  },
+  {
+    key: 'theme',
+    label: 'Thematic Core',
+    prose: `GRAILS's thematic core is a question: what does it cost to put our hearts back into the loves technology hollowed out?
+
+The influencer economy didn't happen to us. We funded it, followed it, and let it set the price on things we said we loved. Togg isn't a villain — he's a symptom. His prestige philosophy (everything is a collectible, everyone is an asset) is what the market rewarded. Zach is the exhaust.
+
+At its heart, this is a story about a man who discovers that the skills that couldn't save his shop might just pull off the impossible — and that the most authentic thing he's ever made was a forgery.`
+  },
+  {
+    key: 'promise',
+    label: 'The Show\'s Promise',
+    prose: `GRAILS will provide access no fan has ever had. Grading rooms. Authentication labs. Saudi sit-downs. Back-channel auction houses that don't advertise. The underworld that moves nine-figure collections without a receipt.
+
+We'll feel thrillingly real because it will be. Real collectors, real auctions, real authentication battles — the hobby at its most obsessive and most corrupt. The loupe as the lens for everything.
+
+So if you've ever wanted to be the man who knows what the card is actually worth — GRAILS is for you. Just look closer.`
+  },
+  {
+    key: 'audience',
+    label: 'Audience',
+    prose: `The audience that made Uncut Gems a cultural obsession, turned Game Night into a sleeper phenomenon, and keeps Knives Out sequels in theaters every two years. They've never seen a caper built inside the world of multi-million dollar sports memorabilia — until now.
+
+Prestige cable and streaming audiences who want a show that's simultaneously fun and real. The Ballers viewer who wanted more edge. The Uncut Gems viewer who wanted more warmth. The Atlanta viewer who wanted a cleaner genre engine.`
+  },
+  {
+    key: 'format',
+    label: 'Format',
+    prose: ``
+  },
+  {
+    key: 'notes',
+    label: 'Additional Notes',
+    prose: ``
+  }
+];
+
+// ── State ──────────────────────────────────────────────────────────────────
+let edits = {};
+let dirty = false;
+let fileSha = null;
+const GITHUB = { owner: 'coywolffuturist', repo: 'scripts', path: 'GRAILS/overview.md' };
+
+window.addEventListener('DOMContentLoaded', () => {
+  loadEdits();
+  render();
+  initResize();
+  fetchSha();
+});
+
+function loadEdits() {
+  try { edits = JSON.parse(localStorage.getItem('overview-edits') || '{}'); } catch { edits = {}; }
+}
+function saveEdits() { localStorage.setItem('overview-edits', JSON.stringify(edits)); }
+
+function get(key) { return edits[key] ?? null; }
+function set(key, val) {
+  edits[key] = val;
+  saveEdits();
+  dirty = true;
+  document.getElementById('commit-btn').disabled = false;
+}
+
+// ── Render ─────────────────────────────────────────────────────────────────
+function render() {
+  const wrap = document.getElementById('doc-wrap');
+  const logline = get('logline') ?? SECTIONS.find(s=>s.key==='logline').prose;
+
+  let html = `
+    <div class="ov-header">
+      <div class="ov-show" contenteditable="true" data-field="title" onblur="onBlur(this)" spellcheck="false">${get('title') ?? 'GRAILS'}</div>
+      <div class="ov-logline ep" contenteditable="true" data-field="logline" onblur="onBlur(this)" spellcheck="true">${logline || placeholder()}</div>
+    </div>
+  `;
+
+  for (const s of SECTIONS) {
+    if (s.key === 'logline') continue; // shown in header
+    const val = get(s.key) ?? s.prose;
+
+    if (s.key === 'tone') {
+      // Render comps as tags if we can parse them, else just prose
+      html += `
+        <div class="sect">
+          <div class="sect-label">${s.label}</div>
+          <div class="sect-body ep" contenteditable="true" data-field="${s.key}" onblur="onBlur(this)" spellcheck="true">${renderProse(val)}</div>
+        </div>
+      `;
+    } else {
+      html += `
+        <div class="sect">
+          <div class="sect-label">${s.label}</div>
+          <div class="sect-body ep" contenteditable="true" data-field="${s.key}" onblur="onBlur(this)" spellcheck="true">${renderProse(val)}</div>
+        </div>
+      `;
+    }
+  }
+
+  wrap.innerHTML = html;
+}
+
+function renderProse(val) {
+  if (!val) return placeholder();
+  return val.replace(/\n\n/g,'<br><br>').replace(/\n/g,'<br>');
+}
+function placeholder() { return '<span class="ep-placeholder">Click to write...</span>'; }
+
+function onBlur(el) {
+  const key = el.dataset.field;
+  let val = el.innerHTML
+    .replace(/<span[^>]*class="ep-placeholder"[^>]*>.*?<\/span>/gi,'')
+    .replace(/<br\s*\/?>/gi,'\n')
+    .replace(/<[^>]+>/g,'')
+    .trim();
+  if (val !== (get(key) ?? '')) set(key, val);
+}
+
+// ── Send to Coywolf ────────────────────────────────────────────────────────
+async function sendNote() {
+  const note = document.getElementById('ni').value.trim();
+  if (!note) return;
+  const btn = document.getElementById('send-btn');
+  btn.disabled = true;
+
+  const ra = document.getElementById('resp-area');
+  const rb = document.getElementById('resp-body');
+  ra.classList.add('visible');
+  rb.innerHTML = '<span class="ldot"></span><span class="ldot"></span><span class="ldot"></span>';
+
+  const doc = buildSnapshot();
+
+  try {
+    const res = await fetch('/api/overview-edit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ note, doc })
+    });
+    if (!res.ok) throw new Error('API error ' + res.status);
+    const data = await res.json();
+    rb.innerHTML = '';
+
+    if (data.updates && typeof data.updates === 'object') {
+      for (const [k, v] of Object.entries(data.updates)) set(k, v);
+      render();
+      rb.innerHTML = `<em style="color:var(--tx2)">${data.reply || 'Doc updated.'}</em>`;
+    } else {
+      rb.innerHTML = data.reply || 'Done.';
+    }
+    document.getElementById('ni').value = '';
+    updateCct();
+  } catch(e) {
+    rb.innerHTML = `<span style="color:var(--red2)">Error: ${e.message}</span>`;
+  }
+  btn.disabled = false;
+}
+
+function buildSnapshot() {
+  let out = `GRAILS — Series Overview\n\n`;
+  for (const s of SECTIONS) {
+    const val = get(s.key) ?? s.prose;
+    if (val) out += `## ${s.label}\n${val}\n\n`;
+  }
+  return out;
+}
+
+// ── Commit to GitHub ───────────────────────────────────────────────────────
+async function fetchSha() {
+  try {
+    const r = await fetch(`/api/github/file?owner=${GITHUB.owner}&repo=${GITHUB.repo}&path=${GITHUB.path}&branch=main`);
+    if (r.ok) { const d = await r.json(); fileSha = d.sha || null; }
+  } catch {}
+}
+
+async function commitDoc() {
+  const btn = document.getElementById('commit-btn');
+  btn.disabled = true;
+  btn.textContent = 'Committing...';
+  try {
+    const res = await fetch('/api/github/commit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        owner: GITHUB.owner, repo: GITHUB.repo, path: GITHUB.path,
+        content: buildMarkdown(),
+        message: `overview: update GRAILS overview — ${new Date().toISOString().slice(0,10)}`,
+        sha: fileSha, branch: 'main'
+      })
+    });
+    const data = await res.json();
+    if (data.committed) { fileSha = data.sha; toast('Committed ✓'); dirty = false; }
+    else toast('Commit failed', true);
+  } catch(e) { toast('Error: ' + e.message, true); }
+  btn.disabled = false; btn.textContent = '↑ Commit';
+}
+
+function buildMarkdown() {
+  const title = get('title') ?? 'GRAILS';
+  let md = `# ${title} — Series Overview\n\n`;
+  for (const s of SECTIONS) {
+    const val = get(s.key) ?? s.prose;
+    md += `## ${s.label}\n${val || ''}\n\n`;
+  }
+  return md;
+}
+
+// ── Helpers ────────────────────────────────────────────────────────────────
+function clearNotes() {
+  document.getElementById('ni').value = '';
+  updateCct();
+  document.getElementById('resp-area').classList.remove('visible');
+}
+function updateCct() {
+  document.getElementById('cct').textContent = document.getElementById('ni').value.length + ' chars';
+}
+function toast(msg, err) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast' + (err?' err':'') + ' show';
+  setTimeout(() => t.className = 'toast' + (err?' err':''), 2800);
+}
+
+// ── Resize ─────────────────────────────────────────────────────────────────
+function initResize() {
+  const handle = document.getElementById('rh-v');
+  const pl = document.getElementById('pl');
+  let dragging = false, startX = 0, startW = 0;
+  const stored = localStorage.getItem('overview-pl-width');
+  if (stored) pl.style.width = stored + 'px';
+  handle.addEventListener('mousedown', e => {
+    dragging = true; startX = e.clientX; startW = pl.offsetWidth;
+    handle.classList.add('dragging'); document.body.style.userSelect = 'none';
+  });
+  window.addEventListener('mousemove', e => {
+    if (!dragging) return;
+    pl.style.width = Math.max(200, Math.min(560, startW + e.clientX - startX)) + 'px';
+  });
+  window.addEventListener('mouseup', () => {
+    if (!dragging) return;
+    dragging = false; handle.classList.remove('dragging');
+    document.body.style.userSelect = '';
+    localStorage.setItem('overview-pl-width', pl.offsetWidth);
+  });
+}
+</script>
+</body>
+</html>

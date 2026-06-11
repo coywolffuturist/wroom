@@ -1,0 +1,1047 @@
+[
+  {
+    "id": "the-find",
+    "sequence": "SEQUENCE 1 — First Fall",
+    "act": "Act One",
+    "connector": "—",
+    "connector_type": "d",
+    "title": "THE FIND / COLD OPEN MONTAGE",
+    "position": 1,
+    "loc": "EXT. SUBURBAN GARAGE SALE — INT. KEVIN'S CAR — INT./EXT. VARIOUS — INT. ZZ HERITAGE HOUSE — DAY",
+    "chars": "Anonymous 17-year-old, Kevin, Zach (end of montage)",
+    "plot_goal": "Establish the MacGuffin's journey and mythic status before we meet anyone properly; land us inside the Sanctuary with Kevin already waiting",
+    "char_goal": "Each person who touches the box wants something from it",
+    "act_desc": "Fast-paced, kinetic. The 17-year-old at the garage sale — the find, the blank face, the price paid, the car door closes, TikTok posted, notifications erupting. Cut to Kevin — he sees the post, DMs immediately, drives to meet the kid, inspects the box with practiced eyes, pays cash. Cut to Kevin searching: the best restorer in LA, narrowing down, ZZ Heritage House. He walks in. Sets the box on Zach's counter. Zach picks it up. The montage lands — suddenly slow, reverent — on Zach's hands and the loupe.\n\nThen the pull back: Kevin is sitting in a chair at the back of the shop, waiting. The three-generation family is at the counter with Zach — deep in the Griffey moment, the father's eyes misting, the grandfather pulled into a hug. Kevin checks his phone. Shifts in his seat. Checks again. The most important transaction of his life is being held up by an old man crying over a baseball card.",
+    "opposition": "The box is damaged — authenticity already a question. Kevin's impatience vs. Zach's total absorption in the Griffey moment.",
+    "stakes": "The box has arrived. Kevin is in the room. The world is about to change for Zach, though he doesn't know it yet.",
+    "zen": [
+      {"r": "Hero", "v": "Absent until the final beat — then pure connection to the object and the family"},
+      {"r": "Antagonist", "v": "Absent"},
+      {"r": "Sub-Protagonist", "v": "Absent — prologue; Kevin's impatience is the first contrast with Zach's code"}
+    ],
+    "entertainment": ["Novelty", "Suspense"],
+    "story_spine": {
+      "beginning": "The garage sale — the find",
+      "middle": "The chain of hands — kid to Kevin to Zach's counter; the montage slows",
+      "end": "Kevin waiting, impatient. Zach absorbed in the Griffey moment. Title card: GRAILS"
+    },
+    "fountain_file": null
+  },
+  {
+    "id": "the-sanctuary",
+    "sequence": "SEQUENCE 1 — First Fall",
+    "act": "Act One",
+    "connector": "BUT",
+    "connector_type": "b",
+    "title": "THE SANCTUARY",
+    "position": 2,
+    "loc": "INT./EXT. ZZ HERITAGE HOUSE — DAY",
+    "chars": "Zach, grandfather, father, ten-year-old son",
+    "plot_goal": "Establish Zach's world, his code, and make the audience root for him before the stakes arrive",
+    "char_goal": "Do the job right — honest appraisal, no inflation, no false hope",
+    "act_desc": "1.1 THE AUDIT — The shop smells of acid-free plastic, aged cardboard, and the sweet chalky ghost of 40-year-old bubblegum dust. Zach, wearing a sun-faded 1984 Durham Bulls tee, sits across from three generations: a grandfather in a windbreaker, a father with tired eyes, a ten-year-old son. Between them: shoeboxes — the grandfather's hoard. Zach moves with surgical reverence. He points to the highlights: the Bill Ripken \"Fuck Face\" error card, the Randy Johnson Marlboro ad. The father leans in, hopeful. Zach's voice is gentle but honest: \"They're 5.5s. Maybe 6 on a good day. Total value for the lot? Four, five hundred dollars.\" The hope leaves the father's face as he looks at his son.\n\n1.2 THE RESTORED KING — \"Wait,\" Zach says. He reaches under the counter and pulls out a slabbed card: the 1989 Upper Deck Ken Griffey Jr. Rookie. Crisp, centered, glowing. \"Your dad brought this to me six months ago. He asked me to see what I could do.\" Zach explains: he cleaned the surface, pressed the fibers. \"In this slab, it's a 9. But—\" he turns the slab over to show the holographic \"Restored\" log on the back. \"I logged it in the database. I won't pass off restoration as factory-original. It won't fetch the $10,000 a Natural 10 would. But it's yours. And it's perfect.\" The father's eyes mist as he pulls the grandfather into a silent hug. The ten-year-old watches, wide-eyed — he's never seen his gruff dad cry over cardboard before. He understands for the first time that this isn't about money. It's about time captured.\n\n1.3 THE SANCTUARY IN THE GRAVEYARD — Zach walks the family to the door. \"Take care of that Griffey.\" As they exit, the camera pulls back: ZZ Heritage House — warm, amber-lit — is an island in an empty strip mall. Left: a RadioShack sign hanging by a single wire over a gutted storefront. Right: a Spirit Halloween banner peeling off a defunct department store. The parking lot is cracked asphalt and weeds. Zach stands in the doorway, a solitary monk guarding a temple of relics while the rest of the world has already moved into the digital clouds.",
+    "opposition": "The rent notice on the counter. The graveyard outside.",
+    "stakes": "We know who Zach is. We're rooting for him. The world is already moving on without him.",
+    "zen": [
+      {"r": "Hero", "v": "Toward Connection — his code costs him (the Griffey logged as Restored, not factory-original); he doesn't hesitate"},
+      {"r": "Antagonist", "v": "Absent — but the strip mall is his exhaust"},
+      {"r": "Sub-Protagonist", "v": "Absent"}
+    ],
+    "entertainment": ["Novelty", "Meaning"],
+    "story_spine": {
+      "beginning": "Three generations, the shoeboxes, the hope",
+      "middle": "The honest appraisal — hope deflated; then the Griffey reveal",
+      "end": "The family leaves moved. Zach alone in the doorway. The graveyard behind him."
+    },
+    "fountain_file": null
+  },
+  {
+    "id": "the-commission",
+    "sequence": "SEQUENCE 1 — First Fall",
+    "act": "Act One",
+    "connector": "THEREFORE",
+    "connector_type": "t",
+    "title": "THE COMMISSION",
+    "position": 3,
+    "loc": "INT. ZZ HERITAGE HOUSE — DAY",
+    "chars": "Zach, Kevin",
+    "plot_goal": "Establish the legitimate transaction that sets everything in motion",
+    "char_goal": "Kevin wants a 'perfect restoration as a gift for his brother' (cover story); Zach wants to do the greatest work of his life",
+    "act_desc": "The family gone, Kevin steps to the counter. Sets the box down. Zach picks it up — and transforms. He describes what's definitely inside: the Jordan rookie, the Ewing, the Bird-Magic, the Patrick Ewing XRC. His voice goes reverent. He's already somewhere else. He offers to sell them for Kevin if that's what he's after — he's seen the industry message board posts, he knows what this is worth. Kevin says no. He wants restoration. Perfect. Like new. It's for his brother. Zach says he'd normally do this for free — this is like being asked to touch up the Mona Lisa — but there are materials, sourcing, time. Kevin asks if $10k covers it. Zach's eyes practically fall out of his head. He says yes, but that's too much. Kevin: \"$5k now, $5k when you finish. But it's gotta be so perfect it makes me cry like grandpa, okay?\" Zach looks at him for a moment. Extends his hand.",
+    "opposition": "Zach's instinct to underprice himself — a lifetime habit he almost can't override",
+    "stakes": "The commission is live. The box is in Zach's care. Kevin is running a counterfeit collectibles operation — the Fleer box is his next play. Zach doesn't know any of this. We might.",
+    "zen": [
+      {"r": "Hero", "v": "Toward Connection — the craft, the object, the man in front of him; he shakes the hand"},
+      {"r": "Sub-Protagonist (Kevin)", "v": "Toward Connection on the surface — the gift story is warm and convincing; underneath, full Ego (the counterfeit scheme)"},
+      {"r": "Antagonist", "v": "Absent"}
+    ],
+    "entertainment": ["Novelty", "Meaning"],
+    "story_spine": {
+      "beginning": "Kevin steps to the counter; the box between them",
+      "middle": "Zach's excitement — the descriptions, the offer to sell, Kevin's refusal",
+      "end": "The handshake. $5k changes hands. The Mona Lisa is in Zach's care."
+    },
+    "fountain_file": null
+  },
+  {
+    "id": "the-miracle",
+    "sequence": "SEQUENCE 1 — First Fall",
+    "act": "Act One",
+    "connector": "THEREFORE",
+    "connector_type": "t",
+    "title": "THE MIRACLE",
+    "position": 4,
+    "loc": "INT. ZACH'S SHOP — DAY",
+    "chars": "Zach, JH's gang member (phone call to JH)",
+    "plot_goal": "Give Zach an apparent solution to his problems — and raise the first red flag",
+    "char_goal": "Zach wants the money. He also wants to not be complicit in anything illegal.",
+    "act_desc": "Zach confronts the gang member — asks about the connection to Kevin's trial. The gang member steps outside, calls JH. Returns: leave the box, keep the money. All of it. Zach can't believe it.",
+    "opposition": "Too good to be true. Zach knows it. Takes the money anyway.",
+    "stakes": "Zach has the money. He has the box. He doesn't have answers.",
+    "zen": [
+      {"r": "Hero", "v": "Toward Ego — takes the miracle without interrogating it"},
+      {"r": "Antagonist", "v": "JH (offscreen) — calculating, clean"},
+      {"r": "Sub-Protagonist", "v": "Absent"}
+    ],
+    "entertainment": ["Suspense", "Novelty"],
+    "story_spine": {
+      "beginning": "Zach asks the question",
+      "middle": "The call, the offer",
+      "end": "He takes the money. Problems apparently solved."
+    },
+    "fountain_file": null
+  },
+  {
+    "id": "not-asking",
+    "sequence": "SEQUENCE 1 — First Fall",
+    "act": "Act One",
+    "connector": "BUT",
+    "connector_type": "b",
+    "title": "NOT ASKING",
+    "position": 5,
+    "loc": "EXT. ZACH'S SHOP — NIGHT",
+    "chars": "Zach, JH's gang member",
+    "plot_goal": "Remove Zach's illusion that he has a choice",
+    "char_goal": "Zach wants to keep the money and the box and pretend nothing happened",
+    "act_desc": "Zach is closing up. The gang member's car is parked outside. Window down. Bring the box. He's telling, not asking.",
+    "opposition": "Zach's entire value system — and the fact that he has no leverage",
+    "stakes": "Zach is no longer a bystander. He's being moved.",
+    "zen": [
+      {"r": "Hero", "v": "Regression — compliance, fear"},
+      {"r": "Antagonist", "v": "JH (by proxy) — the first display of real power"},
+      {"r": "Sub-Protagonist", "v": "Absent"}
+    ],
+    "entertainment": ["Suspense"],
+    "story_spine": {
+      "beginning": "Zach locking up, relieved",
+      "middle": "The car. The instruction.",
+      "end": "He brings the box."
+    },
+    "fountain_file": null
+  },
+  {
+    "id": "the-rooftop",
+    "sequence": "SEQUENCE 2 — Distrust of New Connection",
+    "act": "Act One",
+    "connector": "THEREFORE",
+    "connector_type": "t",
+    "title": "THE ROOFTOP",
+    "position": 6,
+    "loc": "EXT. DEJA'S ROOFTOP POOL — NIGHT",
+    "chars": "Zach, JH, Deja (background)",
+    "plot_goal": "Establish JH as a fully realized character; set the terms of the relationship",
+    "char_goal": "Zach wants to protect himself from criminal liability; JH wants to read Zach",
+    "act_desc": "JH meets Zach at Deja's rooftop apartment complex pool. Relaxed, warm, sovereign. He asks why Zach said what he said to his guy. Zach is careful — won't enable counterfeiting, won't be implicated. JH asks if Zach can beat Elizabeth's AI. Zach: \"Maybe? I don't know. You're asking me to beat a superintelligence. What would you do with it?\" JH: \"Do you want to know?\" Zach: \"Absolutely and absolutely not.\"",
+    "opposition": "Zach's conscience vs. the pull of the offer",
+    "stakes": "JH knows everything he needs to know about Zach. Zach knows almost nothing about JH — and is intrigued against his will.",
+    "zen": [
+      {"r": "Hero", "v": "Ambivalent — drawn in but not yet committed"},
+      {"r": "Antagonist", "v": "JH — generous, magnetic, reading Zach completely"},
+      {"r": "Sub-Protagonist", "v": "Deja (present, watching, silent)"}
+    ],
+    "entertainment": ["Novelty", "Suspense", "Meaning"],
+    "story_spine": {
+      "beginning": "Zach arrives — out of his depth",
+      "middle": "The negotiation; the GOAT conversation; JH asks about Togg and Elizabeth",
+      "end": "Car takes Zach home drunk on soju. Nothing committed. Everything in motion."
+    },
+    "fountain_file": null
+  },
+  {
+    "id": "the-morning-after",
+    "sequence": "SEQUENCE 2 — Distrust of New Connection",
+    "act": "Act One",
+    "connector": "THEREFORE",
+    "connector_type": "t",
+    "title": "THE MORNING AFTER",
+    "position": 7,
+    "loc": "INT. ZACH'S SHOP — MORNING",
+    "chars": "Zach, Elizabeth",
+    "plot_goal": "Lock Zach into needing more money — remove the easy exit",
+    "char_goal": "Elizabeth wants what she's owed; Zach wants her out of his life",
+    "act_desc": "Elizabeth arrives. She's heard Zach paid a full year's rent in advance. She's still part owner until the paperwork clears — half that money is hers. She's not cruel. She's just surviving. Zach sees it. It doesn't make it less devastating.",
+    "opposition": "The law, the paperwork, Elizabeth's pragmatism",
+    "stakes": "PLOT POINT 1. Zach needs more money. He knows exactly one way to get it.",
+    "zen": [
+      {"r": "Hero", "v": "Regression — humiliation, powerlessness"},
+      {"r": "Sub-Protagonist (Elizabeth)", "v": "Toward Ego — she takes what's legally hers; she's stopped being his teammate"},
+      {"r": "Antagonist", "v": "Absent"}
+    ],
+    "entertainment": ["Meaning", "Suspense"],
+    "story_spine": {
+      "beginning": "Zach's brief moment of relief — rent paid, problems solved",
+      "middle": "Elizabeth arrives with a claim",
+      "end": "She takes half. Zach picks up his phone to call JH."
+    },
+    "fountain_file": null
+  },
+  {
+    "id": "the-commission-formal",
+    "sequence": "SEQUENCE 2 — Distrust of New Connection",
+    "act": "Act One",
+    "connector": "THEREFORE",
+    "connector_type": "t",
+    "title": "THE COMMISSION (FORMAL)",
+    "position": 8,
+    "loc": "INT./EXT. VARIOUS — DAY",
+    "chars": "Zach, JH",
+    "plot_goal": "Formalize the arrangement; establish what Zach is actually being asked to do",
+    "char_goal": "Zach wants the money and wants to keep his hands clean; JH wants the world's best forgery",
+    "act_desc": "Zach reaches JH. Lays out his number — what it will cost to attempt to beat Elizabeth's AI. He's explicit: he doesn't want to know what's happening, he's just a craftsman making the greatest restoration of his life. JH agrees. $100k. No questions.",
+    "opposition": "Zach's conscience — the line he's drawing may already be crossed",
+    "stakes": "The commission is live. Zach is in.",
+    "zen": [
+      {"r": "Hero", "v": "Toward Ego — rationalizes his way in"},
+      {"r": "Antagonist", "v": "JH — holds all cards, gives Zach exactly the fig leaf he needs"},
+      {"r": "Sub-Protagonist", "v": "Absent"}
+    ],
+    "entertainment": ["Suspense"],
+    "story_spine": {
+      "beginning": "Zach makes the call",
+      "middle": "The negotiation — terms, price, the fig leaf of 'just a craftsman'",
+      "end": "Deal made. No going back."
+    },
+    "fountain_file": null
+  },
+  {
+    "id": "the-long-con-begins",
+    "sequence": "SEQUENCE 2 — Distrust of New Connection",
+    "act": "Act One",
+    "connector": "THEREFORE",
+    "connector_type": "t",
+    "title": "THE LONG CON BEGINS",
+    "position": 9,
+    "loc": "INT. TOGG STUDIOS / EXT. KOREATOWN — DAY",
+    "chars": "Hye-Jin, Togg's manager, Togg (background)",
+    "plot_goal": "Establish the parallel operation — the doumis planting the seed",
+    "char_goal": "Hye-Jin wants to execute the job cleanly; her empathy is already engaged",
+    "act_desc": "Hye-Jin works the long con — nudging Togg's manager toward 'discovering' the 1986 Fleer Holy Grail. She's warm, effortless, invisible. The manager takes the bait. The hunt begins.",
+    "opposition": "Hye-Jin's empathy — she can already see the insecurity driving Togg. She wants to fix it. Deja clocks her.",
+    "stakes": "Togg is now hunting the Grail. The trap is set.",
+    "zen": [
+      {"r": "Hero", "v": "Absent"},
+      {"r": "Sub-Protagonist (Hye-Jin)", "v": "Ambivalent — executing the job, but starting to feel for the mark"},
+      {"r": "Antagonist (Togg)", "v": "Calcification — takes the bait completely, his ego already expanding"}
+    ],
+    "entertainment": ["Novelty", "Suspense"],
+    "story_spine": {
+      "beginning": "Hye-Jin in Togg's world — invisible, watching",
+      "middle": "The nudge; the manager bites",
+      "end": "Togg is now pursuing the box. The long con is live."
+    },
+    "fountain_file": null
+  },
+  {
+    "id": "plot-point-one",
+    "sequence": "SEQUENCE 2 — Distrust of New Connection",
+    "act": "Act One",
+    "connector": "THEREFORE",
+    "connector_type": "t",
+    "title": "PLOT POINT ONE",
+    "position": 10,
+    "loc": "Coming soon",
+    "chars": "Coming soon",
+    "plot_goal": "Coming soon",
+    "char_goal": "Coming soon",
+    "act_desc": "Coming soon",
+    "opposition": "Coming soon",
+    "stakes": "Coming soon",
+    "zen": [
+      {"r": "Hero", "v": "Coming soon"},
+      {"r": "Antagonist", "v": "Coming soon"},
+      {"r": "Modifier", "v": "Coming soon"}
+    ],
+    "entertainment": ["Suspense"],
+    "story_spine": {
+      "beginning": "Coming soon",
+      "middle": "Coming soon",
+      "end": "Coming soon"
+    },
+    "fountain_file": null,
+    "comingsoon": true
+  },
+  {
+    "id": "the-procurement",
+    "sequence": "SEQUENCE 3 — Conflict with New Connection",
+    "act": "Act Two",
+    "connector": "THEREFORE",
+    "connector_type": "t",
+    "title": "THE PROCUREMENT",
+    "position": 11,
+    "loc": "INT. ZACH'S SHOP / EXT. VARIOUS MARKETS — DAY",
+    "chars": "Zach",
+    "plot_goal": "Show Zach beginning the transformation from restorer to forger",
+    "char_goal": "Do the job with the same obsessive precision he brings to everything",
+    "act_desc": "Zach begins sourcing. Period-correct cardboard. Ink formulas. Vintage wax. He moves through markets and suppliers with the focus of a surgeon. This is what he was built for — applied to something he was never meant to do.",
+    "opposition": "The sheer difficulty of the task. Elizabeth's AI isn't just a scanner — it's a forensic intelligence.",
+    "stakes": "The scope of the task becomes real. To beat Elizabeth's AI, Zach will have to get close to Elizabeth.",
+    "zen": [
+      {"r": "Hero", "v": "Toward Connection — loses himself in the craft, briefly free of his circumstances"},
+      {"r": "Antagonist", "v": "Elizabeth (by proxy — her AI looms as the final judge)"},
+      {"r": "Sub-Protagonist", "v": "Absent"}
+    ],
+    "entertainment": ["Novelty", "Meaning"],
+    "story_spine": {
+      "beginning": "Zach with his list — materials, suppliers",
+      "middle": "The sourcing process — the obsessive detail of the craft",
+      "end": "He has what he needs. Now he needs to understand what he's up against."
+    },
+    "fountain_file": null
+  },
+  {
+    "id": "reconnaissance",
+    "sequence": "SEQUENCE 3 — Conflict with New Connection",
+    "act": "Act Two",
+    "connector": "THEREFORE",
+    "connector_type": "t",
+    "title": "RECONNAISSANCE",
+    "position": 12,
+    "loc": "INT. TOGG EVENT SPACE / EXT. LOS ANGELES — DAY/NIGHT",
+    "chars": "Zach, Elizabeth",
+    "plot_goal": "Zach gains access to Elizabeth's AI system — and falls for her again",
+    "char_goal": "Zach wants intelligence; Elizabeth wants to feel seen by someone who actually understands her work",
+    "act_desc": "Zach engineers proximity to Elizabeth — attends an event, makes contact, leverages their history. She's drawn to his new confidence (JH's influence showing). He admires her work honestly. They get close.",
+    "opposition": "His conscience. Her relationship with Togg. The fact that every moment with her is both reconnaissance and something he can't name.",
+    "stakes": "Zach now understands the AI. He also understands he still loves her.",
+    "zen": [
+      {"r": "Hero", "v": "Toward Connection — genuinely falls for her again"},
+      {"r": "Sub-Protagonist (Elizabeth)", "v": "Toward Connection — briefly, she's with someone who sees her real work"},
+      {"r": "Antagonist (Togg)", "v": "Absent — but his shadow is everywhere"}
+    ],
+    "entertainment": ["Meaning", "Suspense"],
+    "story_spine": {
+      "beginning": "Zach executing the reconnaissance",
+      "middle": "The chemistry — real, unexpected, dangerous",
+      "end": "He has what he needs. It costs him something to walk away."
+    },
+    "fountain_file": null
+  },
+  {
+    "id": "the-saudis",
+    "sequence": "SEQUENCE 3 — Conflict with New Connection",
+    "act": "Act Two",
+    "connector": "THEREFORE",
+    "connector_type": "t",
+    "title": "THE SAUDIS",
+    "position": 13,
+    "loc": "INT. PRIVATE DINING ROOM — NIGHT",
+    "chars": "Zach, JH, the fence, Saudi representatives",
+    "plot_goal": "Raise the stakes — this is now international",
+    "char_goal": "Zach wants to get through the meeting without saying anything incriminating",
+    "act_desc": "JH takes Zach to meet the Saudis. The fence is there. The buyer: a gift for a sheikh's 14-year-old son. Zach is completely out of his depth. He holds it together through sheer focus — talks about the card the way he talks about everything he loves. They're impressed.",
+    "opposition": "Everything about this room — the money, the power, the implications",
+    "stakes": "The deal is real. The buyer is real. There is now no version of this that stays small.",
+    "zen": [
+      {"r": "Hero", "v": "Toward Connection — his genuine expertise carries him; his authenticity is his passport"},
+      {"r": "Antagonist", "v": "JH — pleased, watching Zach exceed expectations"},
+      {"r": "Sub-Protagonist", "v": "Absent"}
+    ],
+    "entertainment": ["Novelty", "Suspense"],
+    "story_spine": {
+      "beginning": "Zach walks into the room",
+      "middle": "The meeting — Zach's knowledge does the work",
+      "end": "The deal is confirmed. Zach steps outside and takes a breath."
+    },
+    "fountain_file": null
+  },
+  {
+    "id": "enemy-sends-volley",
+    "sequence": "SEQUENCE 3 — Conflict with New Connection",
+    "act": "Act Two",
+    "connector": "THEREFORE",
+    "connector_type": "t",
+    "title": "ENEMY SENDS VOLLEY",
+    "position": 14,
+    "loc": "Coming soon",
+    "chars": "Coming soon",
+    "plot_goal": "Coming soon",
+    "char_goal": "Coming soon",
+    "act_desc": "Coming soon",
+    "opposition": "Coming soon",
+    "stakes": "Coming soon",
+    "zen": [
+      {"r": "Hero", "v": "Coming soon"},
+      {"r": "Antagonist", "v": "Coming soon"},
+      {"r": "Modifier", "v": "Coming soon"}
+    ],
+    "entertainment": ["Suspense"],
+    "story_spine": {
+      "beginning": "Coming soon",
+      "middle": "Coming soon",
+      "end": "Coming soon"
+    },
+    "fountain_file": null,
+    "comingsoon": true
+  },
+  {
+    "id": "goat-launches",
+    "sequence": "SEQUENCE 3 — Conflict with New Connection",
+    "act": "Act Two",
+    "connector": "THEREFORE",
+    "connector_type": "t",
+    "title": "$GOAT LAUNCHES — THE HERO'S BIRTH",
+    "position": 15,
+    "loc": "INT. TOGG STUDIOS — DAY (LIVESTREAM)",
+    "chars": "Togg, Hye-Jin (background), Deja (background)",
+    "plot_goal": "Establish Togg's crypto play — the financial dimension of the heist; mark the moment Zach's work becomes inevitable",
+    "char_goal": "Togg wants maximum clout and maximum money from the acquisition",
+    "act_desc": "Togg launches $GOAT memecoin and announces the prediction market event — a live stream where he opens the 1986 Fleer box. Prediction markets go live. The internet goes wild.",
+    "opposition": "The collector world is skeptical. The authenticity question is already circling.",
+    "stakes": "The livestream is now a financial event. The stakes have multiplied. Zach's forgery is no longer optional.",
+    "zen": [
+      {"r": "Antagonist (Togg)", "v": "Full Calcification — weaponizing the acquisition for financial gain, the collection as content"},
+      {"r": "Sub-Protagonist (Hye-Jin/Deja)", "v": "Watching, calculating"},
+      {"r": "Hero", "v": "Absent — but the machine he's building is now running"}
+    ],
+    "entertainment": ["Novelty", "Suspense"],
+    "story_spine": {
+      "beginning": "Togg announces",
+      "middle": "The internet reacts — hype, skepticism, prediction markets open",
+      "end": "$GOAT is live. The clock is running."
+    },
+    "fountain_file": null
+  },
+  {
+    "id": "enemy-prepares-new-assault",
+    "sequence": "SEQUENCE 4 — New Connection Grows",
+    "act": "Act Two",
+    "connector": "THEREFORE",
+    "connector_type": "t",
+    "title": "ENEMY PREPARES NEW ASSAULT",
+    "position": 16,
+    "loc": "Coming soon",
+    "chars": "Coming soon",
+    "plot_goal": "Coming soon",
+    "char_goal": "Coming soon",
+    "act_desc": "Coming soon",
+    "opposition": "Coming soon",
+    "stakes": "Coming soon",
+    "zen": [
+      {"r": "Hero", "v": "Coming soon"},
+      {"r": "Antagonist", "v": "Coming soon"},
+      {"r": "Modifier", "v": "Coming soon"}
+    ],
+    "entertainment": ["Suspense"],
+    "story_spine": {
+      "beginning": "Coming soon",
+      "middle": "Coming soon",
+      "end": "Coming soon"
+    },
+    "fountain_file": null,
+    "comingsoon": true
+  },
+  {
+    "id": "the-short",
+    "sequence": "SEQUENCE 4 — New Connection Grows",
+    "act": "Act Two",
+    "connector": "THEREFORE",
+    "connector_type": "t",
+    "title": "THE SHORT",
+    "position": 17,
+    "loc": "INT. DEJA'S APARTMENT — NIGHT",
+    "chars": "Hye-Jin, Deja, JH",
+    "plot_goal": "The heist doubles as a financial operation — the crew positions in the markets",
+    "char_goal": "Hye-Jin wants to protect everyone; Deja sees the whole board",
+    "act_desc": "Hye-Jin comes up with the idea — short $GOAT and the prediction markets right before the livestream. Deja sees it immediately: one operation, two paydays. JH approves.",
+    "opposition": "The timing has to be perfect. Short too early and the market moves. Too late and they miss the crash.",
+    "stakes": "MIDPOINT. The operation has a new dimension. This isn't just a heist — it's a play.",
+    "zen": [
+      {"r": "Sub-Protagonist (Hye-Jin)", "v": "Toward Connection — her idea protects the crew"},
+      {"r": "Sub-Protagonist (Deja)", "v": "Toward Connection — she and Hye-Jin at their best together"},
+      {"r": "Antagonist", "v": "Absent"}
+    ],
+    "entertainment": ["Novelty", "Suspense"],
+    "story_spine": {
+      "beginning": "The crew processing Togg's $GOAT launch",
+      "middle": "Hye-Jin's idea",
+      "end": "The positions are set. The plan is complete."
+    },
+    "fountain_file": null
+  },
+  {
+    "id": "modifier-faces-new-threat",
+    "sequence": "SEQUENCE 4 — New Connection Grows",
+    "act": "Act Two",
+    "connector": "THEREFORE",
+    "connector_type": "t",
+    "title": "MODIFIER FACES NEW THREAT",
+    "position": 18,
+    "loc": "Coming soon",
+    "chars": "Coming soon",
+    "plot_goal": "Coming soon",
+    "char_goal": "Coming soon",
+    "act_desc": "Coming soon",
+    "opposition": "Coming soon",
+    "stakes": "Coming soon",
+    "zen": [
+      {"r": "Hero", "v": "Coming soon"},
+      {"r": "Antagonist", "v": "Coming soon"},
+      {"r": "Modifier", "v": "Coming soon"}
+    ],
+    "entertainment": ["Suspense"],
+    "story_spine": {
+      "beginning": "Coming soon",
+      "middle": "Coming soon",
+      "end": "Coming soon"
+    },
+    "fountain_file": null,
+    "comingsoon": true
+  },
+  {
+    "id": "heros-plan-works",
+    "sequence": "SEQUENCE 4 — New Connection Grows",
+    "act": "Act Two",
+    "connector": "THEREFORE",
+    "connector_type": "t",
+    "title": "HERO'S PLAN WORKS",
+    "position": 19,
+    "loc": "Coming soon",
+    "chars": "Coming soon",
+    "plot_goal": "Coming soon",
+    "char_goal": "Coming soon",
+    "act_desc": "Coming soon",
+    "opposition": "Coming soon",
+    "stakes": "Coming soon",
+    "zen": [
+      {"r": "Hero", "v": "Coming soon"},
+      {"r": "Antagonist", "v": "Coming soon"},
+      {"r": "Modifier", "v": "Coming soon"}
+    ],
+    "entertainment": ["Novelty"],
+    "story_spine": {
+      "beginning": "Coming soon",
+      "middle": "Coming soon",
+      "end": "Coming soon"
+    },
+    "fountain_file": null,
+    "comingsoon": true
+  },
+  {
+    "id": "the-work",
+    "sequence": "SEQUENCE 4 — New Connection Grows",
+    "act": "Act Two",
+    "connector": "THEREFORE",
+    "connector_type": "t",
+    "title": "THE WORK — POINT OF NO RETURN",
+    "position": 20,
+    "loc": "INT. ZACH'S SHOP — NIGHT (SERIES OF SHOTS)",
+    "chars": "Zach",
+    "plot_goal": "Show Zach completing the forgery — the transformation is real; the midpoint of no return",
+    "char_goal": "Make the greatest restoration of his life",
+    "act_desc": "A montage of obsessive craft. Zach at work — the cardboard, the wax, the ink, the cards. He is fully in flow. The loupe around his neck. The shop dark outside. This is who he is at his absolute best.",
+    "opposition": "Elizabeth's AI. The undotted i on the back of the Jordan — he places it deliberately. Only she would know.",
+    "stakes": "The forgery is complete. It is, objectively, the greatest restoration of his life. There is no going back.",
+    "zen": [
+      {"r": "Hero", "v": "Toward Connection — the craft as love letter; the undotted i as the thing only they share"},
+      {"r": "Antagonist", "v": "Absent"},
+      {"r": "Sub-Protagonist", "v": "Absent"}
+    ],
+    "entertainment": ["Meaning", "Novelty"],
+    "story_spine": {
+      "beginning": "Zach begins the final work",
+      "middle": "The process — total immersion",
+      "end": "The box is done. The i is undotted. He looks at it for a long time."
+    },
+    "fountain_file": null
+  },
+  {
+    "id": "the-line",
+    "sequence": "SEQUENCE 5 — New Connection Fails",
+    "act": "Act Two",
+    "connector": "BUT",
+    "connector_type": "b",
+    "title": "THE LINE",
+    "position": 21,
+    "loc": "INT./EXT. KOREATOWN — NIGHT",
+    "chars": "Zach, JH",
+    "plot_goal": "Zach pulls the plug — his conscience wins",
+    "char_goal": "Zach will not be responsible for destroying Elizabeth",
+    "act_desc": "Zach discovers JH's real intention — to expose Elizabeth publicly on the livestream at the moment her career peaks. He pulls the plug. He won't be part of it. He can survive losing the money. He can't survive that.",
+    "opposition": "JH's personal vendetta; the $100k; everything already in motion",
+    "stakes": "The heist is off. Zach is out. The box sits in his shop.",
+    "zen": [
+      {"r": "Hero", "v": "Toward Connection — chooses Elizabeth over money"},
+      {"r": "Antagonist", "v": "JH — the personal liability showing; the business and the revenge are now in conflict"},
+      {"r": "Sub-Protagonist", "v": "Absent"}
+    ],
+    "entertainment": ["Meaning", "Suspense"],
+    "story_spine": {
+      "beginning": "Zach learns the full plan",
+      "middle": "The confrontation with JH",
+      "end": "Zach walks. For now."
+    },
+    "fountain_file": null
+  },
+  {
+    "id": "internet-official",
+    "sequence": "SEQUENCE 5 — New Connection Fails",
+    "act": "Act Two",
+    "connector": "BUT",
+    "connector_type": "b",
+    "title": "INTERNET OFFICIAL",
+    "position": 22,
+    "loc": "INT. TOGG STUDIOS (LIVESTREAM) / INT. ZACH'S SHOP",
+    "chars": "Togg, Elizabeth, Zach (watching alone)",
+    "plot_goal": "Remove Zach's reason for protecting Elizabeth",
+    "char_goal": "Zach wants to believe she's being used; he has to watch her choose it",
+    "act_desc": "Togg and Elizabeth go internet official — a PR move timed perfectly to deflect the growing authenticity questions around his collection. On camera. Designed. She's smiling. Zach watches from his shop. He has been replaced by the one person he hates most in the world.",
+    "opposition": "The truth of what he's watching — she didn't fall for the lifestyle, she chose it",
+    "stakes": "EVERYTHING BLOWS UP. Zach picks up his phone. He calls JH. He's back in.",
+    "zen": [
+      {"r": "Hero", "v": "Full regression — heartbreak, humiliation, rage"},
+      {"r": "Antagonist (Togg)", "v": "Calcification — using Elizabeth as an authenticity shield"},
+      {"r": "Sub-Protagonist (Elizabeth)", "v": "Regression — the costume has become the person"}
+    ],
+    "entertainment": ["Meaning", "Suspense"],
+    "story_spine": {
+      "beginning": "Zach watching the stream",
+      "middle": "The announcement",
+      "end": "He calls JH."
+    },
+    "fountain_file": null
+  },
+  {
+    "id": "the-tail",
+    "sequence": "SEQUENCE 5 — New Connection Fails",
+    "act": "Act Two",
+    "connector": "THEREFORE",
+    "connector_type": "t",
+    "title": "THE TAIL",
+    "position": 23,
+    "loc": "EXT. LOS ANGELES — DAY",
+    "chars": "Zach, police (unseen)",
+    "plot_goal": "Introduce the police threat — the noose tightening",
+    "char_goal": "Zach has no idea he's being followed",
+    "act_desc": "Zach goes about his business — suppliers, the shop, a meeting with JH. He doesn't notice the car. The audience does.",
+    "opposition": "The investigation closing in; Zach's obliviousness",
+    "stakes": "Zach is now being watched. He doesn't know it.",
+    "zen": [
+      {"r": "Hero", "v": "Regression — he's all in, blind to the danger"},
+      {"r": "Antagonist", "v": "The system (police) — closing the net"},
+      {"r": "Sub-Protagonist", "v": "Absent"}
+    ],
+    "entertainment": ["Suspense"],
+    "story_spine": {
+      "beginning": "Zach's routine",
+      "middle": "The tail — visible to us, invisible to him",
+      "end": "He goes home. The car idles outside."
+    },
+    "fountain_file": null
+  },
+  {
+    "id": "enemy-gloats",
+    "sequence": "SEQUENCE 5 — New Connection Fails",
+    "act": "Act Two",
+    "connector": "BUT",
+    "connector_type": "b",
+    "title": "ENEMY GLOATS",
+    "position": 24,
+    "loc": "Coming soon",
+    "chars": "Coming soon",
+    "plot_goal": "Coming soon",
+    "char_goal": "Coming soon",
+    "act_desc": "Coming soon",
+    "opposition": "Coming soon",
+    "stakes": "Coming soon",
+    "zen": [
+      {"r": "Hero", "v": "Coming soon"},
+      {"r": "Antagonist", "v": "Coming soon"},
+      {"r": "Modifier", "v": "Coming soon"}
+    ],
+    "entertainment": ["Suspense"],
+    "story_spine": {
+      "beginning": "Coming soon",
+      "middle": "Coming soon",
+      "end": "Coming soon"
+    },
+    "fountain_file": null,
+    "comingsoon": true
+  },
+  {
+    "id": "modifiers-final-transition",
+    "sequence": "SEQUENCE 5 — New Connection Fails",
+    "act": "Act Two",
+    "connector": "THEREFORE",
+    "connector_type": "t",
+    "title": "MODIFIER'S FINAL TRANSITION",
+    "position": 25,
+    "loc": "Coming soon",
+    "chars": "Coming soon",
+    "plot_goal": "Coming soon",
+    "char_goal": "Coming soon",
+    "act_desc": "Coming soon",
+    "opposition": "Coming soon",
+    "stakes": "Coming soon",
+    "zen": [
+      {"r": "Hero", "v": "Coming soon"},
+      {"r": "Antagonist", "v": "Coming soon"},
+      {"r": "Modifier", "v": "Coming soon"}
+    ],
+    "entertainment": ["Meaning"],
+    "story_spine": {
+      "beginning": "Coming soon",
+      "middle": "Coming soon",
+      "end": "Coming soon"
+    },
+    "fountain_file": null,
+    "comingsoon": true
+  },
+  {
+    "id": "the-liquidation",
+    "sequence": "SEQUENCE 6 — Sacrifice for True Change",
+    "act": "Act Two",
+    "connector": "THEREFORE",
+    "connector_type": "t",
+    "title": "THE LIQUIDATION — HERO PROCEEDS UNCERTAINLY",
+    "position": 26,
+    "loc": "INT. ZACH'S SHOP — DAY",
+    "chars": "Zach, [financial trigger TBD]",
+    "plot_goal": "Take everything from Zach — strip him to nothing; he moves forward anyway",
+    "char_goal": "Zach wants to hold on; there is nothing left to hold",
+    "act_desc": "Financial trigger forces Zach to close his father's shop. The family heirloom collectibles — everything his father built — go to liquidation. He boxes them himself. The loupe around his neck. The shop dark for the last time.",
+    "opposition": "The math. The world. The fact that he always knew this was coming.",
+    "stakes": "Zach has nothing left. He's all in — not because he chose it but because there's nowhere else to go.",
+    "zen": [
+      {"r": "Hero", "v": "Ego death — the last attachment severed; moves forward into the dark"},
+      {"r": "Antagonist", "v": "The system that produced Togg, hollowed out the strip mall, made Zach's devotion economically nonviable"},
+      {"r": "Sub-Protagonist", "v": "Absent"}
+    ],
+    "entertainment": ["Meaning"],
+    "story_spine": {
+      "beginning": "The trigger arrives",
+      "middle": "The liquidation — Zach packing his father's life into boxes",
+      "end": "The shop is dark. He walks out with the Fleer box under his arm."
+    },
+    "fountain_file": null
+  },
+  {
+    "id": "enemy-prepares-coup-de-grace",
+    "sequence": "SEQUENCE 6 — Sacrifice for True Change",
+    "act": "Act Two",
+    "connector": "THEREFORE",
+    "connector_type": "t",
+    "title": "ENEMY PREPARES COUP DE GRACE",
+    "position": 27,
+    "loc": "Coming soon",
+    "chars": "Coming soon",
+    "plot_goal": "Coming soon",
+    "char_goal": "Coming soon",
+    "act_desc": "Coming soon",
+    "opposition": "Coming soon",
+    "stakes": "Coming soon",
+    "zen": [
+      {"r": "Hero", "v": "Coming soon"},
+      {"r": "Antagonist", "v": "Coming soon"},
+      {"r": "Modifier", "v": "Coming soon"}
+    ],
+    "entertainment": ["Suspense"],
+    "story_spine": {
+      "beginning": "Coming soon",
+      "middle": "Coming soon",
+      "end": "Coming soon"
+    },
+    "fountain_file": null,
+    "comingsoon": true
+  },
+  {
+    "id": "modifier-has-no-answers",
+    "sequence": "SEQUENCE 6 — Sacrifice for True Change",
+    "act": "Act Two",
+    "connector": "BUT",
+    "connector_type": "b",
+    "title": "MODIFIER HAS NO ANSWERS",
+    "position": 28,
+    "loc": "Coming soon",
+    "chars": "Coming soon",
+    "plot_goal": "Coming soon",
+    "char_goal": "Coming soon",
+    "act_desc": "Coming soon",
+    "opposition": "Coming soon",
+    "stakes": "Coming soon",
+    "zen": [
+      {"r": "Hero", "v": "Coming soon"},
+      {"r": "Antagonist", "v": "Coming soon"},
+      {"r": "Modifier", "v": "Coming soon"}
+    ],
+    "entertainment": ["Meaning"],
+    "story_spine": {
+      "beginning": "Coming soon",
+      "middle": "Coming soon",
+      "end": "Coming soon"
+    },
+    "fountain_file": null,
+    "comingsoon": true
+  },
+  {
+    "id": "hero-goes-it-alone-again",
+    "sequence": "SEQUENCE 6 — Sacrifice for True Change",
+    "act": "Act Two",
+    "connector": "THEREFORE",
+    "connector_type": "t",
+    "title": "HERO GOES IT ALONE AGAIN",
+    "position": 29,
+    "loc": "Coming soon",
+    "chars": "Coming soon",
+    "plot_goal": "Coming soon",
+    "char_goal": "Coming soon",
+    "act_desc": "Coming soon",
+    "opposition": "Coming soon",
+    "stakes": "Coming soon",
+    "zen": [
+      {"r": "Hero", "v": "Coming soon"},
+      {"r": "Antagonist", "v": "Coming soon"},
+      {"r": "Modifier", "v": "Coming soon"}
+    ],
+    "entertainment": ["Suspense"],
+    "story_spine": {
+      "beginning": "Coming soon",
+      "middle": "Coming soon",
+      "end": "Coming soon"
+    },
+    "fountain_file": null,
+    "comingsoon": true
+  },
+  {
+    "id": "the-positions",
+    "sequence": "SEQUENCE 6 — Sacrifice for True Change",
+    "act": "Act Two",
+    "connector": "THEREFORE",
+    "connector_type": "t",
+    "title": "THE POSITIONS — PLOT POINT II",
+    "position": 30,
+    "loc": "INT. DEJA'S APARTMENT — NIGHT",
+    "chars": "JH, Deja, Hye-Jin, Zach",
+    "plot_goal": "Final preparations — everyone in position; the true Plot Point II that locks the act",
+    "char_goal": "Each crew member wants the job done; each carries something personal into it",
+    "act_desc": "The crew assembles. Market positions confirmed — $GOAT shorted, prediction market plays set. Zach delivers the box. He looks at it one last time.",
+    "opposition": "The timing. The police. JH's personal liability (the revenge vs. the discipline).",
+    "stakes": "Everything is set. The livestream is tomorrow.",
+    "zen": [
+      {"r": "Hero", "v": "Toward Connection — fully part of the crew now, for better or worse"},
+      {"r": "Antagonist", "v": "JH — holding the tension between the business and the vendetta"},
+      {"r": "Sub-Protagonist (Deja)", "v": "Watching JH; she knows the liability"}
+    ],
+    "entertainment": ["Suspense", "Meaning"],
+    "story_spine": {
+      "beginning": "The crew, the final meeting",
+      "middle": "Positions confirmed; the box delivered",
+      "end": "They separate. Tomorrow is the day."
+    },
+    "fountain_file": null
+  },
+  {
+    "id": "the-livestream",
+    "sequence": "SEQUENCE 7 — Triumph via Connection",
+    "act": "Act Three",
+    "connector": "THEREFORE",
+    "connector_type": "t",
+    "title": "THE LIVESTREAM — ENEMY GETS EGO DRUNK",
+    "position": 31,
+    "loc": "INT. TOGG EVENT SPACE — NIGHT (LIVESTREAM)",
+    "chars": "Togg, Elizabeth, Hye-Jin, Deja, Zach (offscreen), JH (offscreen)",
+    "plot_goal": "The heist executes; the enemy, drunk on ego, gives the hero the space he needs",
+    "char_goal": "Every character wants something different from this moment",
+    "act_desc": "The livestream. Togg in his Panopticon. Hye-Jin and Deja in position — invisible, watching. Elizabeth at the authentication station. The box arrives.",
+    "opposition": "Everything that can go wrong",
+    "stakes": "The authentication begins. Togg is exposed, but doesn't know it yet.",
+    "zen": [
+      {"r": "Hero", "v": "Offscreen — the work is already done"},
+      {"r": "Antagonist (Togg)", "v": "Peak Calcification — performing authenticity he cannot feel; ego too drunk to see the trap"},
+      {"r": "Sub-Protagonist (Elizabeth)", "v": "The moment her career was supposed to peak"}
+    ],
+    "entertainment": ["Suspense"],
+    "story_spine": {
+      "beginning": "The event — Togg performing, the world watching",
+      "middle": "The box arrives at Elizabeth's station",
+      "end": "Authentication begins."
+    },
+    "fountain_file": null
+  },
+  {
+    "id": "the-authentication",
+    "sequence": "SEQUENCE 7 — Triumph via Connection",
+    "act": "Act Three",
+    "connector": "THEREFORE",
+    "connector_type": "t",
+    "title": "THE AUTHENTICATION — HERO CONFRONTS ENEMY FACE TO FACE",
+    "position": 32,
+    "loc": "INT. TOGG EVENT SPACE — NIGHT (LIVESTREAM)",
+    "chars": "Elizabeth, Togg, crowd",
+    "plot_goal": "Elizabeth's AI passes the forgery; the hero's work confronts the enemy directly",
+    "char_goal": "Elizabeth wants to do her job perfectly; Togg wants the spectacle",
+    "act_desc": "Elizabeth runs the box through her AI. The system processes. The crowd watches. The verdict: authentic.",
+    "opposition": "Elizabeth's instincts — something feels off",
+    "stakes": "The box is authenticated. $GOAT surges. Prediction market locks in.",
+    "zen": [
+      {"r": "Sub-Protagonist (Elizabeth)", "v": "Toward Connection — she trusts her work; the doubt is quiet"},
+      {"r": "Antagonist (Togg)", "v": "Ego crests — authenticated, live, in front of millions"},
+      {"r": "Hero", "v": "Absent (offscreen); the work speaks"}
+    ],
+    "entertainment": ["Suspense"],
+    "story_spine": {
+      "beginning": "The AI running",
+      "middle": "The wait",
+      "end": "Authentic. The crowd erupts."
+    },
+    "fountain_file": null
+  },
+  {
+    "id": "the-jordan-drops",
+    "sequence": "SEQUENCE 7 — Triumph via Connection",
+    "act": "Act Three",
+    "connector": "THEREFORE",
+    "connector_type": "t",
+    "title": "THE JORDAN DROPS — ECHO OF THE MODIFIER",
+    "position": 33,
+    "loc": "INT. TOGG EVENT SPACE — NIGHT (LIVESTREAM)",
+    "chars": "Togg, Elizabeth, crowd, Hye-Jin, Deja",
+    "plot_goal": "Togg opens the box — the Jordan surfaces; the echo of Zach's craft resonates",
+    "char_goal": "Togg wants the moment; the crew wants the market to peak",
+    "act_desc": "Togg opens the pack. Live. The Jordan rookie card surfaces. The crowd loses its mind. $GOAT goes stratospheric. The prediction market resolves. The crew's positions are printing.",
+    "opposition": "None — this is the false peak; the modifier's signal is hidden inside it",
+    "stakes": "The crew has won — financially. Now Elizabeth.",
+    "zen": [
+      {"r": "Antagonist (Togg)", "v": "Absolute Calcification — he has everything"},
+      {"r": "Sub-Protagonist (Hye-Jin/Deja)", "v": "The short is triggered"},
+      {"r": "Hero", "v": "Absent — but the undotted i is about to speak for him"}
+    ],
+    "entertainment": ["Novelty", "Suspense"],
+    "story_spine": {
+      "beginning": "The pack opens",
+      "middle": "The Jordan surfaces",
+      "end": "Peak. Everything about to reverse."
+    },
+    "fountain_file": null
+  },
+  {
+    "id": "the-undotted-i",
+    "sequence": "SEQUENCE 7 — Triumph via Connection",
+    "act": "Act Three",
+    "connector": "BUT",
+    "connector_type": "b",
+    "title": "THE UNDOTTED I — THE STILLED WORLD COMES TO HIS AID",
+    "position": 34,
+    "loc": "INT. TOGG EVENT SPACE — NIGHT (LIVESTREAM)",
+    "chars": "Elizabeth, Togg, crowd",
+    "plot_goal": "Elizabeth sees the signal — the world confirms the hero has learned the only lesson",
+    "char_goal": "Elizabeth wants to be wrong; she knows she's not",
+    "act_desc": "Elizabeth examines the Jordan. Her AI passed it. But she sees something — the undotted i on the back of the card. The private signal. The thing only she and Zach would know. Her face doesn't change. She says nothing.",
+    "opposition": "The livestream. The crowd. Togg's arm around her. Millions watching.",
+    "stakes": "Elizabeth knows. She can't prove it. The question of what she does with that knowledge is the film's final movement.",
+    "zen": [
+      {"r": "Sub-Protagonist (Elizabeth)", "v": "Toward Connection — she remembers who Zach is; the loupe in her pocket"},
+      {"r": "Antagonist (Togg)", "v": "Unaware — still performing"},
+      {"r": "Hero", "v": "Absent — but present in the undotted i; the world has confirmed his connection"}
+    ],
+    "entertainment": ["Meaning", "Suspense"],
+    "story_spine": {
+      "beginning": "Elizabeth examines the card",
+      "middle": "She sees the i",
+      "end": "She says nothing. The crowd cheers. The crash begins."
+    },
+    "fountain_file": null
+  },
+  {
+    "id": "the-crash",
+    "sequence": "SEQUENCE 7 — Triumph via Connection",
+    "act": "Act Three",
+    "connector": "THEREFORE",
+    "connector_type": "t",
+    "title": "THE CRASH — THE CLIMAX",
+    "position": 35,
+    "loc": "INT. TOGG EVENT SPACE / EXT. INTERNET — NIGHT",
+    "chars": "Togg, Elizabeth, crowd, Hye-Jin, Deja",
+    "plot_goal": "The fraud leaks — the financial collapse executes; the enemy dies at his moment of greatest ego",
+    "char_goal": "The crew wants clean exit; Togg wants to stop the bleeding",
+    "act_desc": "Word spreads — the collection is under question. $GOAT craters. The prediction market flips 1 to 99 in real time. Togg's empire collapses on livestream, in front of everyone who was watching him win.",
+    "opposition": "Togg's PR machine — scrambling, too late",
+    "stakes": "The crew has won. The question is what comes after.",
+    "zen": [
+      {"r": "Antagonist (Togg)", "v": "Ego death (unwilling) — he loses everything he valued in the way he valued it"},
+      {"r": "Sub-Protagonist (Elizabeth)", "v": "At the crossroads — the loupe in her pocket"},
+      {"r": "Hero", "v": "Offscreen — watching from somewhere quiet"}
+    ],
+    "entertainment": ["Novelty", "Suspense", "Meaning"],
+    "story_spine": {
+      "beginning": "The question raised",
+      "middle": "The cascade — social media, markets, the crowd turning",
+      "end": "Togg's livestream ends. The screen goes dark."
+    },
+    "fountain_file": null
+  },
+  {
+    "id": "gone-legit",
+    "sequence": "SEQUENCE 8 — Denouement",
+    "act": "Act Three",
+    "connector": "THEREFORE",
+    "connector_type": "t",
+    "title": "GONE LEGIT — THE REWARD",
+    "position": 36,
+    "loc": "INT. NEW OFFICE / EXT. LOS ANGELES — DAY",
+    "chars": "Zach, JH, Deja, Hye-Jin",
+    "plot_goal": "Close the loop — the crew has become brokers for elite collectibles; hero gets the hard-earned reward",
+    "char_goal": "Each character has what they wanted; the world is different now",
+    "act_desc": "The crew — gone legit. Brokers for the world's most elite collectibles. Zach's expertise is finally valued at its real price. Deja runs the operation. Hye-Jin reads the clients. JH is the network.\n\nZach buys back his father's collection at auction — every piece, with his own money. He brings them to the new space. Same loupe around his neck. Same reverence. Everything different.",
+    "opposition": "None — this is the reward",
+    "stakes": "Trading Places ending. The good criminals beat the bad establishment. The loop is closed.",
+    "zen": [
+      {"r": "Hero", "v": "Full Connection — his skills are his currency; the world finally needs exactly what he has"},
+      {"r": "Sub-Protagonist (Deja/Hye-Jin)", "v": "The legitimate exit they were working toward"},
+      {"r": "Antagonist", "v": "Gone"}
+    ],
+    "entertainment": ["Meaning"],
+    "story_spine": {
+      "beginning": "The new operation; the auction",
+      "middle": "A glimpse of each character in their new role; each lot, each piece recovered",
+      "end": "The world they built"
+    },
+    "fountain_file": null
+  },
+  {
+    "id": "the-loupe",
+    "sequence": "SEQUENCE 8 — Denouement",
+    "act": "Act Three",
+    "connector": "THEREFORE",
+    "connector_type": "t",
+    "title": "THE LOUPE",
+    "position": 37,
+    "loc": "TBD — day or night",
+    "chars": "Zach, Elizabeth",
+    "plot_goal": "The final question between them — open, not resolved; the modifier's final move",
+    "char_goal": "Both want to be known; neither knows how to say it",
+    "act_desc": "Elizabeth and Zach. She has the loupe in her hand — out of the pocket. She doesn't accuse him. She doesn't have to. He doesn't confirm it. He doesn't have to. The question hangs.",
+    "opposition": "Everything they are to each other",
+    "stakes": "Open question. Not resolved. The audience carries it out of the theater.",
+    "zen": [
+      {"r": "Hero", "v": "Full Connection — he is seen; he sees her"},
+      {"r": "Sub-Protagonist (Elizabeth)", "v": "Full Connection — the loupe out of the costume, in her hand"}
+    ],
+    "entertainment": ["Meaning"],
+    "story_spine": {
+      "beginning": "They find each other",
+      "middle": "The loupe. The silence.",
+      "end": "Cut to black. Or not."
+    },
+    "fountain_file": null
+  }
+]

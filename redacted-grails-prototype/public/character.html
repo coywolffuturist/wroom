@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>GRAILS — Characters</title>
+<style>
+:root{
+  --bg:#0d1117;--bg-p:#13191f;--bg-s:#1a2230;
+  --b:#1e2d3d;--b2:#2a3f55;
+  --c:#00c6cc;--c2:#00a0a5;--cd:#004f52;
+  --tx:#d0dde8;--tx2:#7a93a8;--tx3:#4a6070;
+  --red:#cc2244;--red2:#ff4466;
+  --r:6px;--r2:3px;
+  --f:'Inter',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;background:var(--bg);color:var(--tx);font-family:var(--f);font-size:14px;overflow:hidden}
+
+/* TOP NAV */
+.bnav{display:flex;align-items:center;gap:10px;padding:10px 20px;border-bottom:1px solid var(--b);background:var(--bg-p);flex-shrink:0}
+.ctitle{font-size:13px;font-weight:700;letter-spacing:.08em;color:var(--c);text-transform:uppercase}
+.csub{font-size:12px;color:var(--tx2);margin-left:4px}
+.csel{background:var(--bg-s);border:1px solid var(--b2);color:var(--tx);padding:5px 10px;border-radius:var(--r2);font-size:13px;cursor:pointer;outline:none}
+.csel:focus{border-color:var(--c)}
+.dvdr{flex:1}
+.btn{padding:5px 14px;border-radius:var(--r2);font-size:12px;font-weight:600;cursor:pointer;border:none;letter-spacing:.04em;transition:background .15s}
+.btn-clr{background:transparent;border:1px solid var(--b2);color:var(--tx2)}
+.btn-clr:hover{border-color:var(--red);color:var(--red2)}
+.btn-p{background:var(--c);color:#000}
+.btn-p:hover{background:var(--c2)}
+.btn-p:disabled{opacity:.4;cursor:not-allowed}
+
+/* MAIN SPLIT */
+.ws{display:flex;height:calc(100vh - 49px);overflow:hidden}
+
+/* LEFT NOTES PANEL */
+.pl{width:320px;min-width:220px;max-width:480px;flex-shrink:0;display:flex;flex-direction:column;border-right:1px solid var(--b);background:var(--bg-p)}
+.ph{display:flex;align-items:center;justify-content:space-between;padding:12px 16px 8px;border-bottom:1px solid var(--b);flex-shrink:0}
+.plbl{font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--tx2)}
+.cct{font-size:11px;color:var(--tx3)}
+.iw{flex:1;overflow:hidden;display:flex}
+.note{width:100%;flex:1;background:transparent;border:none;color:var(--tx);font-family:var(--f);font-size:13px;line-height:1.6;padding:14px 16px;resize:none;outline:none}
+.note::placeholder{color:var(--tx3);font-style:italic}
+.sa{padding:10px 12px;border-top:1px solid var(--b);flex-shrink:0}
+.sbtn{width:100%;padding:9px 16px;background:var(--cd);border:1px solid var(--c);color:var(--c);border-radius:var(--r2);font-size:13px;font-weight:700;letter-spacing:.06em;cursor:pointer;display:flex;justify-content:space-between;align-items:center;transition:background .15s}
+.sbtn:hover{background:var(--c);color:#000}
+.sbtn:disabled{opacity:.4;cursor:not-allowed}
+
+/* RESIZE HANDLE */
+.rh-v{width:5px;cursor:col-resize;background:transparent;flex-shrink:0;transition:background .15s}
+.rh-v:hover,.rh-v.dragging{background:var(--c)}
+
+/* RIGHT DOC PANEL */
+.pr{flex:1;overflow-y:auto;display:flex;flex-direction:column}
+.doc-wrap{padding:32px 40px;max-width:820px;margin:0 auto;width:100%}
+
+/* CHARACTER HEADER */
+.char-header{margin-bottom:32px;padding-bottom:20px;border-bottom:1px solid var(--b2)}
+.char-name{font-size:24px;font-weight:800;letter-spacing:.04em;color:var(--tx);line-height:1.2}
+.char-tag{font-size:14px;color:var(--c);font-weight:600;margin-top:4px;letter-spacing:.06em}
+
+/* SECTIONS */
+.csect{margin-bottom:28px}
+.csect-label{font-size:10px;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--tx3);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.csect-label::after{content:'';flex:1;height:1px;background:var(--b)}
+.csect-body{font-size:13px;line-height:1.75;color:var(--tx)}
+
+/* EDITABLE FIELDS */
+[contenteditable]{outline:none;border-radius:var(--r2);transition:background .15s,box-shadow .15s}
+[contenteditable]:hover{background:rgba(0,198,204,.04)}
+[contenteditable]:focus{background:rgba(0,198,204,.08);box-shadow:0 0 0 1px var(--cd)}
+.editable-prose{display:block;min-height:2em;padding:6px 8px;margin:-6px -8px}
+.char-name[contenteditable]:focus{background:rgba(0,198,204,.08);box-shadow:0 0 0 1px var(--cd)}
+.char-tag[contenteditable]:focus{background:rgba(0,198,204,.08);box-shadow:0 0 0 1px var(--cd)}
+
+/* PRIEPIOTS TABLE — rendered as elegant rows */
+.pt-row{display:grid;grid-template-columns:140px 1fr;gap:12px;margin-bottom:14px;align-items:start}
+.pt-label{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--c);padding-top:6px}
+.pt-val{font-size:13px;line-height:1.65;color:var(--tx)}
+
+/* AI RESPONSE AREA */
+.resp-area{padding:12px 14px;background:var(--bg-s);border:1px solid var(--b2);border-radius:var(--r);margin:10px 12px;display:none;font-size:13px;line-height:1.6;color:var(--tx)}
+.resp-area.visible{display:block}
+.resp-hdr{font-size:10px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--c);margin-bottom:8px}
+
+/* LOADING DOTS */
+@keyframes blink{0%,80%,100%{opacity:.2}40%{opacity:1}}
+.ldot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--c);animation:blink 1.4s infinite ease-in-out;margin:0 2px}
+.ldot:nth-child(2){animation-delay:.2s}
+.ldot:nth-child(3){animation-delay:.4s}
+
+/* TOAST */
+.toast{position:fixed;bottom:20px;right:20px;background:var(--bg-s);border:1px solid var(--c);color:var(--c);padding:10px 16px;border-radius:var(--r);font-size:12px;font-weight:600;letter-spacing:.04em;opacity:0;transform:translateY(8px);transition:all .2s;pointer-events:none;z-index:999}
+.toast.show{opacity:1;transform:translateY(0)}
+.toast.err{border-color:var(--red);color:var(--red2)}
+</style>
+</head>
+<body>
+
+<!-- TOP NAV -->
+<div class="bnav">
+  <span class="ctitle">Characters</span>
+  <span class="csub">GRAILS</span>
+  <select class="csel" id="charsel" onchange="loadCharacter(this.value)">
+    <option value="zach">Zach — The Earnest Sports Monk</option>
+    <option value="togg">Togg — The Midas of Hype</option>
+    <option value="jae-wook">JW — Koreatown Lieutenant</option>
+    <option value="elizabeth">Elizabeth — VP of Authenticity</option>
+    <option value="hye-jin">Hye-Jin — The Obvious Suspect</option>
+    <option value="deja">Deja — The One Who Was Right</option>
+  </select>
+  <div class="dvdr"></div>
+  <button class="btn btn-clr" onclick="clearNotes()">Clear Notes</button>
+  <button class="btn btn-clr" id="history-btn" onclick="showHistory()" style="display:none">↺ History</button>
+  <button class="btn btn-p" id="commit-btn" onclick="commitDoc()" disabled>↑ Commit</button>
+</div>
+
+<!-- MAIN WORKSPACE -->
+<div class="ws">
+
+  <!-- LEFT: NOTES PANEL -->
+  <div class="pl" id="pl">
+    <div class="ph">
+      <span class="plbl">B: Your Notes</span>
+      <span class="cct" id="cct">0 chars</span>
+    </div>
+    <div class="iw">
+      <textarea class="note" id="ni" oninput="updateCct()"
+        placeholder="Notes, ideas, questions about this character...&#10;&#10;What's missing? What needs sharpening? What's the contradiction at their core?&#10;&#10;Coywolf will update the doc →"></textarea>
+    </div>
+    <div class="resp-area" id="resp-area" style="position:relative">
+      <button onclick="clearNotes()" style="position:absolute;top:6px;right:8px;background:none;border:none;color:var(--tx2);cursor:pointer;font-size:12px;padding:2px 4px;line-height:1" title="Dismiss">✕</button>
+      <div class="resp-hdr">🐺 Coywolf</div>
+      <div id="resp-body"></div>
+    </div>
+    <div class="sa">
+      <button class="sbtn" id="send-btn" onclick="sendNote()">
+        <span>Send to Coywolf</span><span>→</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- RESIZE HANDLE -->
+  <div class="rh-v" id="rh-v"></div>
+
+  <!-- RIGHT: CHARACTER DOC -->
+  <div class="pr" id="pr">
+    <div class="doc-wrap" id="doc-wrap">
+      <!-- populated by loadCharacter() -->
+    </div>
+  </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<div id="history-modal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,.7);backdrop-filter:blur(4px)" onclick="if(event.target===this)document.getElementById('history-modal').style.display='none'">
+  <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:min(540px,90vw);max-height:75vh;background:#111118;border:1px solid #2a2a3e;display:flex;flex-direction:column;overflow:hidden">
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:12px 16px;border-bottom:1px solid #1e1e2e;background:#16161f;flex-shrink:0">
+      <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:#00d4ff">↺ COMMIT HISTORY</span>
+      <button onclick="document.getElementById('history-modal').style.display='none'" style="background:none;border:none;color:#6e6e8a;cursor:pointer;font-size:11px">✕</button>
+    </div>
+    <div id="history-modal-body" style="overflow-y:auto;padding:16px;flex:1;font-size:11px;line-height:1.6"></div>
+  </div>
+</div>
+
+<script>
+/* COYWOLF UI PATTERN:
+   - Notes field: user-owned, never auto-populated by Coywolf
+   - Coywolf response: shown inline after Send, dismissible via ✕
+   - History: accessible via ↺ History button after first commit
+   - This pattern must be preserved in all new doc types
+*/
+
+// ── Character Data ─────────────────────────────────────────────────────────
+
+const CHARS = {
+  zach: {
+    name: 'ZACH',
+    tag: 'The Earnest Sports Monk Turned Forger',
+    github: 'GRAILS/characters/zach.md',
+    sections: [
+      { key: 'vibe', label: 'The Vibe', prose: `Genial, earnest, deeply kind — the man who still believes the truth is a shield. The Jimmy Stewart of the piece. The Good Shepherd of the hobby.` },
+      { key: 'visual', label: 'Visual Fingerprint', prose: `Wears vintage, sun-faded sports tees — soft, paper-thin cotton from the 80s and 90s. Not hype vintage — shirts of defunct minor league teams or local high school championships. Carries a high-precision jeweler's loupe on a leather cord, used with the gentle reverence of a surgeon.` },
+      { key: 'world', label: 'World', prose: `His shop is a sensory time capsule. It smells of acid-free plastic, aged cardboard, and the faint, sweet ghost of 40-year-old bubblegum dust. He doesn't just "own" the shop; he curates a temple where the neighborhood feels safe from the clout-chasing world outside. The last store standing in a dying strip mall.` },
+      { key: 'flaw', label: 'The Flaw', prose: `His "Intellectual Arrogance" is actually an unshakable faith in the truth. He believes so deeply in the sanctity of history that he thinks the Truth is a shield. He is genial and patient, but he cannot comprehend that a man like Togg can simply "rewrite" reality if enough people are watching.\n\nThe Key Line: He thinks being Right is a superpower. He doesn't realize it's a target.` },
+      { key: 'backstory', label: 'Backstory', prose: `` },
+      { key: 'show_journey', label: 'Show Journey', prose: `` },
+      { key: 'identity', label: 'Identity Struggle', prose: `` },
+      { key: 'hustle', label: 'Hustle Style', prose: `` },
+      { key: 'question', label: 'The Question', prose: `` },
+    ],
+    priepiots: {
+      P: `Zach, humble sports memorabilia restorer and shop owner.`,
+      R: `Everyman — shifted obsolete. A man built for a world that no longer exists. The avatar for millennial malaise: skills the world admires but doesn't value. In a previous generation he'd have a wife, kids, and a life he likes — a model American community-oriented man. Today he has the stores next to him closing up shop and an ex-fiancée working for the antithesis of everything he holds dear.`,
+      I: `He fears that sentiment itself has no value — that the thing he's built his entire identity around is a losing bet in the modern world. The cruel joke: the objects he's sentimental about are worth a fortune. Only the feeling is worthless.`,
+      E: `Quiet, gnawing rage. He feels set apart by his ability to see beauty and value that others walk past. The hurt of being right and dismissed curdles into a slow burn he never lets show.`,
+      P2: `He's the last store standing in a dying strip mall, two months of rent left from his father's inheritance, no plan and no future — just a man and his temple, waiting for the inevitable.`,
+      I2: `Sell off his father's collection piece by piece — $5k here, $10k there — enough to make rent, but not enough to build anything. Each sale buys time and costs him a piece of his father.`,
+      O: `The math is broken at both ends — rent climbs year over year while his customers have less disposable income. He can't sell fast enough or at high enough margins to outrun it. The strip mall economy is collapsing around him and there's no hustle that fixes that.`,
+      T: `He takes restoration and refurbishment commissions as he always has — it's his craft, his livelihood. When Jae-Wook arrives with a replica job paying $30k above market rate, Zach doesn't ask why. A man with two months of rent left doesn't interrogate a miracle.`,
+      S: `TBD — will emerge from the beat sheet.`,
+    }
+  },
+  togg: {
+    name: 'GREGG TOGG',
+    tag: 'The Midas of Hype / The Predator of Value',
+    github: 'GRAILS/characters/togg.md',
+    sections: [
+      { key: 'vibe', label: 'The Vibe', prose: `High-frequency, high-ego, hyper-saturated. He doesn't walk into a room; he "renders" into it. He believes "Authenticity" is just a marketing term and that enough "W" spam in a chat room can rewrite reality.` },
+      { key: 'visual', label: 'Visual Fingerprint', prose: `Over-Rendered. Bespoke Tech-Athleisure — matte black, high-contrast fabrics with his gold "GT" sigil. Skin has a professional-grade, unnaturally smooth glow. Movements choreographed for the 8K God-Ray lighting that follows him. A walking YouTube thumbnail.` },
+      { key: 'world', label: 'World', prose: `Treats every space as his private Watch-to-Earn theater. Doesn't look at people; looks at the Sentiment Graph on his smart-lens. If the graph isn't going up, he changes the narrative by any means necessary.` },
+      { key: 'philosophy', label: 'The Prestige Asset Philosophy', prose: `To Togg, everything — and everyone — is a collectible. He doesn't cherish artifacts; he cherishes the clout they project. He views Elizabeth as an Exotic Conquest — a high-IQ, high-beauty asset that validates him as a "Serious Person." A "Mint 10" card: a prestige item to be envied, not a partner to be heard.` },
+      { key: 'backstory', label: 'Backstory', prose: `` },
+      { key: 'show_journey', label: 'Show Journey', prose: `` },
+      { key: 'identity', label: 'Identity Struggle / The Hero of Their Own Story', prose: `He's right because it's working. He's rich, fit, and gets what he wants. If the world is fucked, he's going to be the one who fucks it.` },
+      { key: 'hustle', label: 'The Exploit', prose: `Togg never meets Zach — he doesn't need to. His existence is the exploit. Every Togg win is proof of Zach's deepest fear: that the world no longer has a place for a man like him. Togg has the collection, the clout, and Elizabeth. He didn't target Zach's insecurity. He simply became its living proof.` },
+      { key: 'question', label: 'The Question', prose: `` },
+    ],
+    priepiots: {
+      P: `Gregg Togg, sports influencer and collector, the GOAT Collector.`,
+      R: `Logan Paul avatar. The audience has watched this man their entire internet lives — hated him, been entertained by him, secretly admired the audacity. Completely legible from frame one.`,
+      I: `The Imposter's Hunger. If the spotlight moves, he disappears — because there's no there there. He doesn't know who he is to others because he doesn't know who he is to himself. An avatar for a generation whose identity is governed by the algorithm.`,
+      E: `Snide contempt. A bully with the upper hand in the clout game — punches down on anyone who steals his spotlight for even a second. The contempt is reflexive, not strategic. It's fear wearing a smirk.`,
+      P2: `He's losing viewers to younger flavors of the month — the Dirk Diggler dilemma. Cultural preferences are shifting and he can feel the algorithm cooling on him. He needs a new grift narrative to stay relevant. The cruel irony: he chose sports memorabilia — the one world where authenticity is a religion — and he's constitutionally incapable of it.`,
+      I2: `Rebrand as the GOAT Collector — a man who collects GOATs. The algorithm understands GOAT, the internet understands flex, and the collection gives him a new character to perform. He couldn't tell you who Jordan played in the Finals of his last championship season. He doesn't need to. He just needs the card.`,
+      O: `He's a poseur in the temple. He bought the relics without learning the scripture. He can attract attention with sizzle but there's no steak — and the collector world is the one subculture that can smell a fraud from across the room. The very audience he's trying to impress is the one most equipped to expose him.`,
+      T: `He hired Elizabeth — weaponizing her AI/tech-driven authentication expertise, her credibility in the collector world, and her attractiveness as a distraction. She gives him the bona fides he can't earn himself. She's his human authentication certificate, displayed alongside the collection.`,
+      S: `TBD — will emerge from the beat sheet.`,
+    }
+  },
+  'jae-wook': {
+    name: 'JAE-WOOK (JW)',
+    tag: 'The Hook / The Heist Mastermind',
+    github: 'GRAILS/characters/jae-wook.md',
+    sections: [
+      { key: 'vibe', label: 'The Vibe', prose: `Lieutenant in a Koreatown Korean gang. The mastermind of the heist. Noble in his own code — he only steals from collectors who don't actually care about the objects they own. He never hurts people who don't deserve it. He associates with genuinely bad people. He is one of them. He knows this.\n\nThe name says it all: Jae (talented) + Wook (hook/snare). There is a trap in the name itself. He's charming enough that you forget to look for it.` },
+      { key: 'name_identity', label: 'Name as Identity', prose: `Jae-Wook goes by his Korean name. After his mother died — worn down by a system that couldn't be bothered to protect her — he rejected his American name as an act of grief and defiance. The system failed her. He won't wear its clothes.\n\nHis step-brother goes by Kevin. Fully assimilated. Invisible in America. Which is exactly what the system wanted from him — and exactly what it still couldn't protect him from.` },
+      { key: 'backstory', label: 'Backstory', prose: `His mother was a nurse. She worked through COVID — the whole thing, from the first wave when nobody had PPE, through the long slog when the hospitals were overwhelmed and the ICUs never emptied. She believed in it. In the work. In showing up. In the system holding.\n\nThe system did not hold.\n\nShe died. Not heroically. Just — worn down, exposed, discarded. A woman who gave everything to institutions that couldn't be bothered to give her a mask.\n\nJae-Wook watched that happen and made a decision: if goodness doesn't protect you, if the rules don't apply to the people writing them, then the only honest move is to stop pretending otherwise. He didn't become cruel. He became accurate.\n\nHe didn't stop wanting to be good. He stopped believing it was survivable.` },
+      { key: 'world', label: 'The Operation', prose: `Two doumis on the inside — Hye-Jin and Deja — planted in Togg's retinue after a Koreatown karaoke party. Togg assumes they're decorative. They are clocking his every move. This is the Exploit in reverse: Togg's prestige philosophy — his conviction that beautiful women are props, not actors — is the exact blindspot that gets him.\n\nJae-Wook designed it that way.` },
+      { key: 'identity', label: 'Leadership Style', prose: `Deeply meritocratic — you show you're worthwhile and he treats you to the level of your worth. He recognizes that Hye-Jin and Deja see things he doesn't, and he relies on it rather than resenting it. Like Bodhi in Point Break, he's integrated his divine feminine to a degree that makes him magnetic and secure in his power. His authority doesn't need to dominate. It draws.` },
+      { key: 'show_journey', label: 'Relationship to Zach', prose: `Zach is the thing Jae-Wook doesn't have a file for. A man who stayed honest — not strategically, not because he hasn't been tested, but because he actually believes in the objects and what they mean. Jae-Wook steals the same things Zach restores. They care about authenticity for the same reasons. They arrived at completely different conclusions about what to do with that knowledge.\n\nThis is the film's central tension underneath the heist: two men who understand value in a world that doesn't, trying to figure out if they're enemies.` },
+      { key: 'visual', label: 'Visual Fingerprint', prose: `` },
+      { key: 'hustle', label: 'Hustle Style', prose: `` },
+      { key: 'question', label: 'The Question', prose: `` },
+    ],
+    priepiots: {
+      P: `Jae-Wook, Koreatown gang lieutenant and architect of the heist against Togg's collection.`,
+      R: `The Fallen Idealist — but with a specific texture. He's not evil; he's trying to be a bad guy with a clean conscience. Only steals from people who don't deserve what they have. Never hurts anyone who doesn't have it coming. The audience recognizes him because they've all made their own version of this compromise — the moral workaround you build when you've stopped believing in the rules.`,
+      I: `He needs to grieve his mother. The Asian machismo won't let him. So he turned the grief into a philosophy. The cynicism isn't intellectual — it's a grief management strategy. If the world was always corrupt, her death wasn't a senseless loss. It was just the world being the world. Easier to carry than the alternative.`,
+      E: `Calm, natural alpha. Warm with everyone around him — servers, bouncers, the kid's name he actually remembered. He protects people the way he protects his wound: quietly, completely, without making it about himself. The community is where his ungrieved love goes.`,
+      P2: `His step-brother Kevin just got convicted — partly on Elizabeth's expert testimony in a counterfeit football case. (Kevin shares Jae-Wook's father but not his mother; Hye-Jin is Jae-Wook's cousin on his mother's side — she was Kevin's girlfriend.) Elizabeth is now Togg's VP of Authenticity. Jae-Wook was already circling Togg. Now he has a personal reason that won't let him be patient.`,
+      I2: `Steal the 1986 Fleer box and sell it to the Saudis. And make Elizabeth feel what Kevin felt — watched, exposed, taken from. The business intention is clean. The personal one is a liability he can't put down.`,
+      O: `The heist demands discipline and invisibility. The revenge demands that Elizabeth knows. He can't have both — and he's not ready to choose.`,
+      T: `Execute the heist during the livestream — and use the chaos to expose Elizabeth publicly, at the exact moment her career was supposed to peak. One move. Two targets. Maximum damage.`,
+      S: `The heist mastermind becomes Zach's unlikely mentor. The younger man who gave up on goodness helps the older one accept that people change — and that letting go isn't betrayal. He can see Zach's grief with perfect clarity. His own, not at all.`
+    }
+  },
+  elizabeth: {
+    name: 'ELIZABETH (ZAB)',
+    tag: 'The Pragmatic Professional / VP of Authenticity',
+    github: 'GRAILS/characters/elizabeth.md',
+    sections: [
+      { key: 'vibe', label: 'The Vibe', prose: `Elizabeth is the "Adult in the Room" who has been turned into a "Prestige Asset." She is sophisticated and precise, but she carries the weariness of someone who traded her soul for a stability that turned out to be a gilded cage.` },
+      { key: 'visual', label: 'Visual Arc — The Erasure of the Expert', prose: `The Attic (with Zach): Practical, durable curator-wear. Oversized denim shirts and heavy knits.\n\nThe Transition: Sharp, architectural designer suits. She finally feels like a "real" executive.\n\nThe Event (with Togg): "Costumed" in a WWE-style "Hot Businesswoman" uniform. Not a catsuit, but hyper-performative: a sharp, white structural blazer with exaggerated, almost comic-book shoulders, tailored to an extreme, integrated with glowing tech-accents that catch the 8K God-Ray light. A costume designed to make her look like a Character playing an Authenticator, rather than a woman doing her job.` },
+      { key: 'world', label: 'The ZZ Stagnation', prose: `Like so many of their generation, she and Zach were paralyzed by a low-grade, constant anxiety about the future. There was no specific dollar amount on the wall — they just never felt "safe" enough to cross the threshold into marriage and family. They waited for a green light from the universe that never stayed lit long enough for them to take the plunge.` },
+      { key: 'flaw', label: 'The Prestige Asset Realization', prose: `Togg dazzles her with the Good Life — Puerto Rican villas, private jets, Italian leather. He flirts with her in a way that feels like a partnership, until the moment she realizes she's just an Exotic Conquest. He doesn't want her advice; he wants the status of owning a woman who is both beautiful and brilliant — a collectible that isn't an influencer. She swallows her pride to save her career, until the heist forces her hand.` },
+      { key: 'tell', label: 'The Tell', prose: `She keeps her original ZZ Heritage House loupe tucked into the pocket of her performative WWE blazer. The only thing on her person that carries sentimental value rather than market value.\n\nShe and Zach share the same sacred object — his on a leather cord around his neck, hers hidden inside a costume. This is the visual motif for the film.` },
+      { key: 'backstory', label: 'Backstory', prose: `` },
+      { key: 'show_journey', label: 'Show Journey', prose: `` },
+      { key: 'identity', label: 'Identity Struggle', prose: `` },
+      { key: 'hustle', label: 'Hustle Style', prose: `` },
+      { key: 'question', label: 'The Question', prose: `` },
+    ],
+    priepiots: {
+      P: `The Preservation Paradox. She entered Togg's world to save the hobby from extinction, only to realize she has helped turn it into a sterile asset class.`,
+      R: `The Stalled Dream. She left Zach because she was tired of the "stagnant anxiety" of the attic. She chose the Now over a Maybe that never arrived.`,
+      I: `The Objectification Wound. The growing realization that she is a Prestige Asset. She fears her actual brilliance is just "packaging" for Togg's brand.`,
+      E: `Silent Rage (Masked as Professionalism). She is a boiling pot under the WWE costume. Enduring the objectification because she believes the mission is bigger than her dignity.`,
+      P2: `The Alpha Override. When Togg ignores the AI's Red Flag to play to the crowd, it proves her Exotic Conquest theory. He views her as a prop to be managed, not a partner to be heard.`,
+      I2: `The Perfect Audit. To use the Spectral Guard to prove that history has a physical, unassailable truth that even Hype cannot rewrite.`,
+      O: `The Prop Identity. She has to shed the Character Togg built for her. She has to break the WWE Businesswoman script to validate the Monk's truth.`,
+      T: `Professional Validation. She uses the very authority her costume provides to command the Jumbotron. She confirms the Heart Dot and forces the second Poison Pill rip, using Togg's own theater to expose him.`,
+      S: `The Professional Fall. She accepts the Hero edit for catching Zach, but she knows it effectively blacklists her from the high-finance world. She chooses to be a Villain to Togg's empire so she can be a Partner to the truth.`,
+    }
+  },
+  'hye-jin': {
+    name: 'HYE-JIN',
+    tag: 'The Obvious Suspect',
+    github: 'GRAILS/characters/hye-jin.md',
+    sections: [
+      { key: 'backstory', label: 'Backstory', prose: `Jae-Wook's cousin on his mother's side — they share the same maternal family. She was dating Jae-Wook's step-brother Kevin (who shares a father with Jae-Wook but a different mother, no overlap with Hye-Jin's family line). Kevin just received a guilty verdict in a counterfeiting case where Elizabeth was the expert witness. Hye-Jin just lost her rock. Even if he was a shaky one.\n\nThe "stupid one" in a family of overachievers — doctors, lawyers, scientists. The audience knows immediately what her family doesn't: she's not stupid. She has ADHD. When she focuses on something, she's brilliant. The world just built a measuring stick that doesn't count what she's good at.` },
+      { key: 'vibe', label: 'The Vibe', prose: `Smart and overlooked because she's beautiful. An "Asian Baby Girl" — rave scene, electronic music, OnlyFans — hiding in the most visible possible place. Togg's world is saturated with exactly this archetype. He'll never look twice. She is always in the background of a livestream, always forgettable, always clocking everything.\n\nThe obvious suspect. Which means she's not the one pulling the strings.` },
+      { key: 'visual', label: 'Visual Fingerprint', prose: `` },
+      { key: 'world', label: 'World', prose: `No anchor, mounting debt, no clear path. Her family's routes (medicine, law, academia) were never really open to her. The conventional routes Deja's friends took (nursing, lash extensions, cosmetology) feel like surrender. She is, practically speaking, adrift. Life Goal: security — her own apartment, her debt paid off, a dog she can adopt. Some semblance of the settled life that feels permanently out of reach.` },
+      { key: 'show_journey', label: 'Show Journey', prose: `Theme Goal: To be told that the way she sees people is a form of genius, not a deficit.\n\nThe heist requires her to get close to Togg — and she starts feeling for him. She sees the insecurities driving him and wants to fix them, the way she tries to fix everybody. Her greatest strength (reading people) becomes a liability when the person she's reading is the mark.\n\nHye-Jin and Zach are the softies. They see the humanity in everyone — including people who don't deserve it. The clear-eyed cynics (Jae-Wook, Deja) need them in their lives to make the world feel meaningful rather than a cold, heartless vacuum.` },
+      { key: 'identity', label: 'Identity Struggle', prose: `She thinks she's the stupid one. The family's achievement culture — all traditional professional success — makes her feel like the deficit in a high-performing gene pool. She's never been told that her way of seeing people is a form of genius. She empathy-bombs — not consciously, it's a default survival mechanism. When she feels inadequate, she latches onto someone and pours herself into understanding them. It's how she proves her worth.` },
+      { key: 'hustle', label: 'Hustle Style', prose: `The ABG persona is the camouflage. Electronic music, raves, OnlyFans — she's just another forgettable pretty face on line or in the background of a livestream. Like Kanye said: there's thousands of you. She operates in that invisibility with total precision.\n\nDeja looks out for her like a big sister. Together they're complete: emotional intelligence plus strategic intelligence. Each other's blind spot coverage. Deja's line when she gets too close: "Some people you have to let life fix."` },
+      { key: 'question', label: 'The Question', prose: `Logline: "The family sees deficit. The audience sees superpower."\n\nSurprise: TBD — will emerge from the beat sheet.` },
+    ],
+    priepiots: {
+      P: `Hye-Jin, Jae-Wook's cousin, doumi planted inside Togg's retinue, former girlfriend of Jae-Wook's convicted step-brother`,
+      R: `The "Stupid One" in a family of overachievers — doctors, lawyers, scientists. The audience knows immediately what her family doesn't: she's not stupid. She has ADHD. When she focuses on something, she's brilliant. The world just built a measuring stick that doesn't count what she's good at.`,
+      I: `She thinks she's the stupid one. The family's achievement culture — all traditional professional success — makes her feel like the deficit in a high-performing gene pool. She's never been told that her way of seeing people is a form of genius.`,
+      E: `She empathy-bombs. Not consciously — it's a default survival mechanism. When she feels inadequate, she latches onto someone and pours herself into understanding them. It's how she proves her worth. Deja has saved her from herself with this more than once.`,
+      P2: `She just lost Kevin — her boyfriend — to the prison system and her stability with him. No anchor, mounting debt, no clear path. Her family's routes (medicine, law, academia) were never really open to her. The conventional routes Deja's friends took (nursing, lash extensions, cosmetology) feel like surrender. She is, practically speaking, adrift.`,
+      I2: `Security. Simple, specific, achingly human: her own apartment, her debt paid off, a dog she can adopt. Some semblance of the settled life her "superior" family members built through more traditional means.`,
+      O: `The heist requires her to get close to Togg — and she starts feeling for him. She sees the insecurities driving him and wants to fix them, the way she tries to fix everybody. Her greatest strength (reading people) becomes a liability when the person she's reading is the mark.`,
+      T: `The ABG persona is the camouflage. Electronic music, raves, OnlyFans — she's just another forgettable pretty face on line or in the background of a livestream. Like Kanye said: there's thousands of you. She operates in that invisibility with total precision.`,
+      S: `TBD — will emerge from the beat sheet.`
+    }
+  },
+  deja: {
+    name: 'DEJA',
+    tag: 'The One Who Was Right',
+    github: 'GRAILS/characters/deja.md',
+    sections: [
+      { key: 'backstory', label: 'Backstory', prose: `A Black woman from Inglewood. Her friends were becoming nurses, lash extension technicians, installing weaves — the realistic horizon for women from her neighborhood. She was trying to put herself through USC on a business degree. She outworked everyone. She had the mind for it.\n\nThen AI started closing those doors before she could walk through them. The ladder got pulled up while she was still climbing. The cruelest version of the American meritocracy myth: she did everything right, and the finish line moved.\n\nThe heist isn't a moral failure. It's the only rational play left on the board.` },
+      { key: 'vibe', label: 'The Vibe', prose: `Smart and overlooked because she's beautiful. The strategic mastermind of the doumi operation. She reads situations — not just people — with crystalline clarity. While Hye-Jin locks onto individuals and feels them completely, Deja sees the whole board. Together they are the most dangerous pair in the room. Nobody in that room knows it.\n\nShe is Jae-Wook's partner. In work and in life.` },
+      { key: 'visual', label: 'Visual Fingerprint', prose: `` },
+      { key: 'world', label: 'World', prose: `Life Goal: Get out. Enough money from the heist to build something that doesn't depend on other people deciding she's worth investing in.\n\nShe bet on education as the legitimate route out — USC business degree, corporate trajectory — and AI is foreclosing that path before she can complete it. The traditional exit from Inglewood that she earned is being automated away. The heist is not Plan B. It's what's left.` },
+      { key: 'show_journey', label: 'Show Journey', prose: `Theme Goal: To be seen for her mind, not her beauty. To be in a room where her intelligence is the first thing anyone clocks — not the last.\n\nJae-Wook's personal vendetta against Elizabeth threatens the discipline of the operation. His grief is a liability he can't put down. She sees this clearly. Saying it to him is another matter.\n\nDeja and Jae-Wook are the clear-eyed cynics. They need the softies — Hye-Jin and Zach — to make that accuracy feel worth carrying rather than a cold, heartless vacuum.\n\nThe line she gives Hye-Jin when she gets too close to the mark: "Some people you have to let life fix." It's also what she cannot yet say to Jae-Wook about his grief.` },
+      { key: 'identity', label: 'Identity Struggle', prose: `She is treated as second class within a group that is already treated as second class. A Black woman in a Korean criminal enterprise, in a world where her intelligence is perpetually underestimated. The insecurity isn't self-doubt — it's structural. She knows exactly what she's worth. The wound is that knowing it doesn't change how she's treated.` },
+      { key: 'hustle', label: 'Hustle Style', prose: `She smiles, swallows it, then undercuts. The smile is the tell — if you know to look for it. Nobody ever does. The rage never explodes. It redirects. She and Hye-Jin work like sirens of yore: leading men to crash their rocks against the shore, one strategic punch and one empathic hook at a time. As a doumi, it was getting targets drunk or high, spending money if they got handsy. In the criminal operation: clean, precise, invisible.\n\nShe designs the play; Hye-Jin runs it. Together they are the operational core of the heist that nobody is watching because everyone is watching Togg.` },
+      { key: 'question', label: 'The Question', prose: `Logline: "She can run circles around fools. The fools never notice."\n\nSurprise: TBD — will emerge from the beat sheet.` },
+    ],
+    priepiots: {
+      P: `Deja, strategic architect of the doumi operation inside Togg's retinue, Jae-Wook's partner`,
+      R: `The woman who did everything right and watched the system change the rules anyway. The audience recognizes the specific rage of being told you can earn your way in — and then watching the door close on the people who believed it. She is the sharpest person in most rooms she enters. Nobody in those rooms knows it.`,
+      I: `She is treated as second class within a group that is already treated as second class. A Black woman in a Korean criminal enterprise, in a world where her intelligence is perpetually underestimated. The insecurity isn't self-doubt — it's structural. She knows exactly what she's worth. The wound is that knowing it doesn't change how she's treated.`,
+      E: `She smiles, swallows it, then undercuts. The smile is the tell — if you know to look for it. Nobody ever does. The rage never explodes. It redirects. She and Hye-Jin work like sirens of yore: leading men to crash their rocks against the shore, one strategic punch and one empathic hook at a time.`,
+      P2: `She bet on education as the legitimate route out — USC business degree, corporate trajectory — and AI is foreclosing that path before she can complete it. The traditional exit from Inglewood that she earned is being automated away. The heist is not Plan B. It's what's left.`,
+      I2: `Get out. Not just from the heist — from the whole structure. Enough money to build something that doesn't depend on other people deciding she's worth investing in.`,
+      O: `Jae-Wook's personal vendetta against Elizabeth threatens the discipline of the operation. His grief is a liability he can't put down. She sees this clearly. Saying it to him is another matter.`,
+      T: `She and Hye-Jin operate as a tag team — Hye-Jin's emotional lock-on plus Deja's situational clarity. Deja designs the play; Hye-Jin runs it. Together they are the operational core of the heist that nobody is watching because everyone is watching Togg.`,
+      S: `TBD — will emerge from the beat sheet.`
+    }
+  }
+};
+
+const PRIEPIOTS_LABELS = {
+  P: 'P — Protagonist', R: 'R — Relatability', I: 'I — Insecurity',
+  E: 'E — Emotion', P2: 'P — Problem', I2: 'I — Intention',
+  O: 'O — Obstacle', T: 'T — Tactics', S: 'S — Surprise'
+};
+
+// ── State ──────────────────────────────────────────────────────────────────
+let currentChar = 'zach';
+let localEdits = {}; // { charKey: { sectionKey: text, priepiots: { P: text, ... } } }
+let dirty = false;
+let fileSha = null;
+
+// ── Init ───────────────────────────────────────────────────────────────────
+window.addEventListener('DOMContentLoaded', () => {
+  loadLocalEdits();
+  const params = new URLSearchParams(location.search);
+  const ch = params.get('char') || 'zach';
+  document.getElementById('charsel').value = ch;
+  loadCharacter(ch);
+  initResize();
+});
+
+function loadLocalEdits() {
+  try { localEdits = JSON.parse(localStorage.getItem('char-edits') || '{}'); } catch { localEdits = {}; }
+}
+function saveLocalEdits() {
+  localStorage.setItem('char-edits', JSON.stringify(localEdits));
+}
+
+// ── Load / Render Character ────────────────────────────────────────────────
+function loadCharacter(key) {
+  currentChar = key;
+  dirty = false;
+  fileSha = null;
+  document.getElementById('commit-btn').disabled = true;
+  renderCharacter(key);
+  document.getElementById('ni').value = '';
+  updateCct();
+  document.getElementById('resp-area').classList.remove('visible');
+  // Try to fetch sha from GitHub (non-blocking)
+  fetchFileSha(key);
+}
+
+function getEdit(charKey, sectionKey) {
+  return (localEdits[charKey] || {})[sectionKey] ?? null;
+}
+function setEdit(charKey, sectionKey, val) {
+  if (!localEdits[charKey]) localEdits[charKey] = {};
+  localEdits[charKey][sectionKey] = val;
+  saveLocalEdits();
+  dirty = true;
+  document.getElementById('commit-btn').disabled = false;
+}
+
+function renderCharacter(key) {
+  const c = CHARS[key];
+  const wrap = document.getElementById('doc-wrap');
+
+  let html = `
+    <div class="char-header">
+      <div class="char-name" contenteditable="true" data-field="name" onblur="onFieldBlur(this)" spellcheck="false">${getEdit(key,'name') ?? c.name}</div>
+      <div class="char-tag" contenteditable="true" data-field="tag" onblur="onFieldBlur(this)" spellcheck="false">${getEdit(key,'tag') ?? c.tag}</div>
+    </div>
+  `;
+
+  // Prose sections
+  for (const s of c.sections) {
+    const val = getEdit(key, s.key) ?? s.prose;
+    const display = val || '<span style="color:var(--tx3);font-style:italic">Click to write...</span>';
+    html += `
+      <div class="csect">
+        <div class="csect-label">${s.label}</div>
+        <div class="csect-body editable-prose" contenteditable="true" data-field="${s.key}" onblur="onFieldBlur(this)" spellcheck="true">${display.replace(/\n/g,'<br>')}</div>
+      </div>
+    `;
+  }
+
+  // PRIEPIOTS
+  html += `<div class="csect"><div class="csect-label">PRIEPIOTS</div>`;
+  for (const [k, label] of Object.entries(PRIEPIOTS_LABELS)) {
+    const val = getEdit(key, 'prio_' + k) ?? (c.priepiots[k] || '');
+    const display = val || '<span style="color:var(--tx3);font-style:italic">Click to write...</span>';
+    html += `
+      <div class="pt-row">
+        <div class="pt-label">${label}</div>
+        <div class="pt-val editable-prose" contenteditable="true" data-field="prio_${k}" onblur="onFieldBlur(this)" spellcheck="true">${display.replace(/\n/g,'<br>')}</div>
+      </div>
+    `;
+  }
+  html += `</div>`;
+
+  wrap.innerHTML = html;
+}
+
+function onFieldBlur(el) {
+  const key = el.dataset.field;
+  // Strip placeholder spans
+  let val = el.innerHTML
+    .replace(/<span[^>]*>Click to write\.\.\.<\/span>/gi, '')
+    .replace(/<br\s*\/?>/gi, '\n')
+    .replace(/<[^>]+>/g, '')
+    .trim();
+  if (val !== (getEdit(currentChar, key) ?? '')) {
+    setEdit(currentChar, key, val);
+  }
+}
+
+// ── Send to Coywolf ────────────────────────────────────────────────────────
+async function sendNote() {
+  const note = document.getElementById('ni').value.trim();
+  if (!note) return;
+  const c = CHARS[currentChar];
+
+  // Build doc snapshot
+  const docSnapshot = buildDocSnapshot();
+
+  const btn = document.getElementById('send-btn');
+  btn.disabled = true;
+
+  const ra = document.getElementById('resp-area');
+  const rb = document.getElementById('resp-body');
+  ra.classList.add('visible');
+  rb.innerHTML = '<span class="ldot"></span><span class="ldot"></span><span class="ldot"></span>';
+
+  try {
+    const res = await fetch('/api/character-edit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        character: c.name,
+        tag: c.tag,
+        note,
+        doc: docSnapshot,
+        charKey: currentChar
+      })
+    });
+
+    if (!res.ok) throw new Error('API error');
+    const data = await res.json();
+
+    rb.innerHTML = '';
+    // Apply updates
+    if (data.updates && typeof data.updates === 'object') {
+      for (const [field, newVal] of Object.entries(data.updates)) {
+        setEdit(currentChar, field, newVal);
+      }
+      renderCharacter(currentChar);
+      rb.innerHTML = `<em style="color:var(--tx2)">${data.reply || 'Doc updated.'}</em>`;
+    } else {
+      rb.innerHTML = data.reply || 'Done.';
+    }
+    document.getElementById('ni').value = '';
+    updateCct();
+  } catch(e) {
+    rb.innerHTML = `<span style="color:var(--red2)">Error: ${e.message}</span>`;
+  }
+  btn.disabled = false;
+}
+
+function buildDocSnapshot() {
+  const c = CHARS[currentChar];
+  let out = `Character: ${getEdit(currentChar,'name') ?? c.name} — ${getEdit(currentChar,'tag') ?? c.tag}\n\n`;
+  for (const s of c.sections) {
+    const val = getEdit(currentChar, s.key) ?? s.prose;
+    if (val) out += `## ${s.label}\n${val}\n\n`;
+  }
+  out += `## PRIEPIOTS\n`;
+  for (const [k, label] of Object.entries(PRIEPIOTS_LABELS)) {
+    const val = getEdit(currentChar, 'prio_' + k) ?? (c.priepiots[k] || '');
+    if (val) out += `${label}: ${val}\n`;
+  }
+  return out;
+}
+
+// ── Commit to GitHub ───────────────────────────────────────────────────────
+async function fetchFileSha(key) {
+  const c = CHARS[key];
+  try {
+    const res = await fetch(`/api/github/file?owner=coywolffuturist&repo=scripts&path=${c.github}&branch=main`);
+    if (res.ok) {
+      const data = await res.json();
+      fileSha = data.sha || null;
+    }
+  } catch {}
+}
+
+async function commitDoc() {
+  const c = CHARS[currentChar];
+  const doc = buildMarkdown();
+  const btn = document.getElementById('commit-btn');
+  btn.disabled = true;
+  btn.textContent = 'Committing...';
+
+  try {
+    const res = await fetch('/api/github/commit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        owner: 'coywolffuturist',
+        repo: 'scripts',
+        path: c.github,
+        content: doc,
+        message: `character: update ${c.name} — ${new Date().toISOString().slice(0,10)}`,
+        sha: fileSha,
+        branch: 'main'
+      })
+    });
+    const data = await res.json();
+    if (data.committed) {
+      fileSha = data.sha;
+      toast('Committed ✓');
+      dirty = false;
+      document.getElementById('history-btn').style.display = 'inline-flex';
+    } else {
+      toast('Commit failed', true);
+    }
+  } catch(e) {
+    toast('Error: ' + e.message, true);
+  }
+  btn.disabled = false;
+  btn.textContent = '↑ Commit';
+}
+
+function buildMarkdown() {
+  const c = CHARS[currentChar];
+  const name = getEdit(currentChar,'name') ?? c.name;
+  const tag = getEdit(currentChar,'tag') ?? c.tag;
+  let md = `# ${name} — ${tag}\n\n`;
+
+  for (const s of c.sections) {
+    const val = getEdit(currentChar, s.key) ?? s.prose;
+    md += `## ${s.label}\n${val || ''}\n\n`;
+  }
+
+  md += `## PRIEPIOTS\n\n`;
+  md += `| Component | Description |\n|-----------|-------------|\n`;
+  for (const [k, label] of Object.entries(PRIEPIOTS_LABELS)) {
+    const val = getEdit(currentChar, 'prio_' + k) ?? (c.priepiots[k] || '');
+    md += `| ${label} | ${(val||'').replace(/\|/g,'\\|').replace(/\n/g,' ')} |\n`;
+  }
+  return md;
+}
+
+// ── Helpers ────────────────────────────────────────────────────────────────
+function clearNotes() {
+  document.getElementById('ni').value = '';
+  updateCct();
+  document.getElementById('resp-area').classList.remove('visible');
+}
+
+async function showHistory() {
+  const c = CHARS[currentChar];
+  const modal = document.getElementById('history-modal');
+  const body = document.getElementById('history-modal-body');
+  modal.style.display = 'block';
+  body.innerHTML = '<span style="color:#6e6e8a;font-size:10px">Loading...</span>';
+  try {
+    const res = await fetch(`/api/github/commits?owner=coywolffuturist&repo=scripts&path=${encodeURIComponent(c.github)}&branch=main`);
+    const commits = await res.json();
+    if (!commits.length) { body.innerHTML = '<span style="color:#6e6e8a;font-size:10px">No history yet.</span>'; return; }
+    body.innerHTML = commits.map(cm => `
+      <div style="padding:8px 0;border-bottom:1px solid #1e1e2e">
+        <div style="font-family:'IBM Plex Mono',monospace;font-size:9px;color:#00d4ff">${cm.date}</div>
+        <div style="font-size:11px;color:#b0b0d0;margin-top:2px">${cm.message}</div>
+        <a href="${cm.url}" target="_blank" style="font-family:'IBM Plex Mono',monospace;font-size:8px;color:#6e6e8a">${cm.sha}</a>
+      </div>
+    `).join('');
+  } catch(e) { body.innerHTML = `<span style="color:#ff3b5c;font-size:10px">Error: ${e.message}</span>`; }
+}
+
+function updateCct() {
+  document.getElementById('cct').textContent = document.getElementById('ni').value.length + ' chars';
+}
+
+function toast(msg, err) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = 'toast' + (err ? ' err' : '') + ' show';
+  setTimeout(() => { t.className = 'toast' + (err ? ' err' : ''); }, 2800);
+}
+
+// ── Coywolf Populate via postMessage ──────────────────────────────────────
+window.addEventListener('message', (event) => {
+  if (!event.data || event.data.type !== 'coywolf-populate') return;
+  const { fields } = event.data;
+  if (!fields || typeof fields !== 'object') return;
+
+  // Map field keys: visual_fingerprint → visual
+  const FIELD_KEY_MAP = { visual_fingerprint: 'visual' };
+  let count = 0;
+
+  for (let [key, value] of Object.entries(fields)) {
+    if (!value || typeof value !== 'string' || !value.trim()) continue;
+    // Remap key if needed
+    const mappedKey = FIELD_KEY_MAP[key] || key;
+    setEdit(currentChar, mappedKey, value.trim());
+    count++;
+  }
+
+  if (count > 0) {
+    renderCharacter(currentChar);
+    saveEdits();
+    toast(`Coywolf populated ${count} field${count !== 1 ? 's' : ''} ✓`);
+  }
+});
+
+// Expose saveEdits for programmatic use
+function saveEdits() {
+  saveLocalEdits();
+}
+
+// ── Resize Handle ──────────────────────────────────────────────────────────
+function initResize() {
+  const handle = document.getElementById('rh-v');
+  const pl = document.getElementById('pl');
+  let dragging = false, startX = 0, startW = 0;
+
+  const stored = localStorage.getItem('char-pl-width');
+  if (stored) pl.style.width = stored + 'px';
+
+  handle.addEventListener('mousedown', e => {
+    dragging = true;
+    startX = e.clientX;
+    startW = pl.offsetWidth;
+    handle.classList.add('dragging');
+    document.body.style.userSelect = 'none';
+  });
+  window.addEventListener('mousemove', e => {
+    if (!dragging) return;
+    const nw = Math.max(200, Math.min(600, startW + e.clientX - startX));
+    pl.style.width = nw + 'px';
+  });
+  window.addEventListener('mouseup', () => {
+    if (!dragging) return;
+    dragging = false;
+    handle.classList.remove('dragging');
+    document.body.style.userSelect = '';
+    localStorage.setItem('char-pl-width', pl.offsetWidth);
+  });
+}
+</script>
+</body>
+</html>
